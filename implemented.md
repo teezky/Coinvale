@@ -1,0 +1,174 @@
+# Coinvale Implemented
+
+Projekt:
+- Single-file browser game failis `index.html`
+- Mangu nimi: `Coinvale`
+
+Mis on juba tehtud:
+- Projektile lisati GitHubi-valmis baasdokid:
+  - `README.md`
+  - `.gitignore`
+  - `github-upload.md`
+- Uus mangu algseis:
+  - mang algab nuud `4` elanikuga
+  - alguse economy on aktiivsem ja kiirem lugeda
+- Random eventid tehti veel umbes `20%` harvemaks.
+- Ressursikastides kuvatakse nuud eraldi:
+  - `Income`
+  - `Upkeep`
+  - `Net`
+- Varase toidutootmise balanssi tosteti:
+  - `Forager` output +10%
+  - `Farm` base output +10%
+- `Knowledge` saab nuud vaikese baassissetuleku ka elanike arvust:
+  - iga villager annab `+0.01/s`
+- `Tech Tree` naitab nuud koiki branchi node'e, mitte ainult juba lahedal olevaid unlocke.
+- `Tech Tree` muudeti veel kompaktsemaks, et rohkem node'e korraga ara mahuks.
+- Offline catchup ei triggerda enam massiliselt random evente ega traderit.
+- `visibilitychange` handling lisatud, et taustast naasmine tootaks paremini.
+- Random eventid on harvemad kui alguses.
+- Uue mangu start on balanseeritud sujuvamaks.
+- Ressursikastid tehti kompaktsemaks ja nimed normaliseeriti (`Food`, `Wood`, `Stone`, `Gold`).
+- Mangu on lisatud rohkem random evente ning expedition completion popupid.
+- Traderi bug parandati:
+  - trade ei tohi labi minna, kui mangijal pole nouutud ressursse
+- Save susteemi lisati versioon ja migratsiooni tugi:
+  - olemas `saveVersion`
+  - olemas migration/normalization loogika
+- Hoonete upgrade susteem muudeti individuaalsete levelite peale:
+  - `Upgrade Lowest`
+  - mitte enam kogu tuubi uhine level
+- Upkeep tosteti suuremaks.
+- Build-limitid lisati tieri jargi.
+- Hoonekaartidel kuvatakse enne esimest ehitamist ka baasefektid numbriliselt.
+- Top-area tehti kompaktsemaks.
+- Random eventid ja traderi vaartused skaleeruvad rohkem stocki/capiga.
+- Expeditionid kasutavad provisions-costi.
+
+UI taiendused:
+- Building kaartide UI puhastati:
+  - tugevam visuaalne staatus (`Available`, `Established`, `Locked`, `At Limit`)
+  - eraldi `Current Effect` ja `Next Step` blokid
+  - build/upgrade costid on paremini eristatud
+  - actionite juures kuvatakse luhike pohjus, miks tegevus on saadaval voi blocked
+- CTA nupud tehti selgemaks:
+  - aktiivsed tegevused on tugevamalt esile tostetud
+  - mittesaadaval tegevused on rahulikumad ja loetavamad
+- Eraldi `Production Breakdown` kaart eemaldati:
+  - tootmise gross/upkeep/net info on nuud otse ressursikastides
+  - top ala kannab rohkem majanduse infot ja sidebar jai puhtamaks
+- Top summary ala lihtsustati uuesti:
+  - `Settlement Focus` eemaldati
+  - eraldi `Net Production` plokk eemaldati
+  - top `Village Snapshot` eemaldati
+  - ressursikastid tehti veel madalamaks ja kompaktsemaks
+- Sidebari `Village Summary` eemaldati tervikuna.
+- `Chronicle` tehti kompaktsemaks.
+- Ulemine HUD tehti sisukamaks:
+  - `Territories` arv on nuud top stat-reas
+  - `Next Villager` progress on nuud top stat-reas
+  - nime / autosave / season plokk tehti kompaktsemaks
+- `Tech Tree` sai suurema laienduse ja uue struktuuri:
+  - vana `Knowledge` / `Expansion` listi asemel on nuud branchide kaupa node'id
+  - research kasutab prerequisite'e ja avab uusi node'e ahelana
+  - lisati umbes 20 uut techi, et tree ei saaks liiga vara otsa
+  - tech-node kuvatab nuud:
+    - staatuse
+    - prerequisite'id pillidena
+    - costi
+    - milleni see edasi viib (`Leads to`)
+- `Tech Tree` sai nuud kompaktsema node-vaate:
+  - node sees on ainult kompaktne staatus / orb
+  - nime tekst on node all
+  - detailne info liigub tooltipi hoverisse
+- Build / upgrade / expedition costid kuvavad puuduva ressursi nuud punaselt.
+
+Gameplay taiendused:
+- Uued techid annavad nuud lisaboonuseid nendele valdkondadele:
+  - Food output ja growth
+  - Wood output, workshop synergy ja build-cost discount
+  - Stone output, stone-cost discount ja expedition provision discount
+  - Expedition success, duration ja failure-loss mitigation
+  - Trader frequency, trade payout ja Gold economy
+- `Gold Mining` toodi varasemaks, et `Knowledge` economy ei jaaks liiga hilja kinni.
+- Traderi eventtekst tehti selgemaks:
+  - kuvatakse eraldi `You Pay` ja `You Get` loogikaga barter
+- Research sai nuud eraldi economy:
+  - uus ressurss `Knowledge`
+  - uus hoone `Scribe Hall`
+  - uus worker `Scholar`
+  - `Scholar` toodab `Knowledge`, aga kulutab upkeepiks `Gold`
+  - techid kasutavad nuud researchiks peamiselt `Knowledge` ning osa node'e lisaks `Gold`
+- `Gold Mine` toodi varasemaks, et knowledge-economy saaks midgame'is kaima minna.
+- `Scribe Hall` toodi varasemasse progressioni:
+  - avaneb juba `Food Preservation` juures
+  - build cost on madalam, et aeglane `Knowledge` kogumine algaks varem
+- Korgemate hoonetasemete upgrade'ides ja upkeep'is tuleb nuud sisse ka `Gold`.
+- `Workshop` ei anna enam umbmaarast `all village output` buffi:
+  - tema boonus rakendub nuud buildingute baastoodangule
+- Ressursitootmist toodi veidi alla, sest tech tree ei poleta enam samal kujul `Food / Wood / Stone`.
+- `Scribe Hall` sai oma visuaali ning worker-list sai koikidele role'idele vaiksed ikoonid.
+- Building kaartidel tehti cost-ploki ja action-nuppude vahe suuremaks.
+- Ressursikastide tooltipid naitavad nuud upkeep breakdowni.
+- Workerite reas kuvatakse nuud ka upkeep otse.
+- Hoonete kaartidel on nuud eraldi upkeep-plokk.
+- `Shift + click` lisati workerite jagamisele:
+  - tavaklikk = 1
+  - `Shift + click` = 5
+- Kylapildis kuvatakse upgrade'itud hoonetel leveli/tahistuse badge.
+- Random eventid ei kuhju enam queue'sse, kui eelmine popup on veel lahti.
+- Utility-hooned on nuud unikaalsed:
+  - `Granary`
+  - `Workshop`
+  - `Scribe Hall`
+  - `Barracks`
+  - `Warehouse`
+  - max 1, progression kaib upgrade'ide kaudu
+- Ressursihoonete build-limit seoti rangemalt `Town Hall` leveliga:
+  - `Farm`, `Lumber Mill`, `Quarry` cap = `Town Hall level + 1`
+  - `Gold Mine` cap avaneb rangemalt ja hiljem
+- Expeditioneid laiendati:
+  - lisati uued retked `Ruined Shrine`, `River Convoy`, `Old Mine Claim`
+  - rewards / riskid on nuud expedition-kaartidel otse nahtavad
+  - provisions-cost kasutab sama punase puudujagi UX-i
+- Kylakaitse sai uue rolli:
+  - uus worker `Guard`
+  - ebaonnestunud expedition voib nuud trigerdada `counter-raid`i
+  - `Guard` aitab raid'i ara hoida voi kahju vahendada
+  - kui kaitse murdub, kaotab mangija osa ressurssidest
+
+Town Hall muudatused:
+- `Town Hall` asendab taielikult vana `House` susteemi.
+- Algne population cap on `30`.
+- `Town Hall` algab olemasolevana levelil 1.
+- `Town Hall` on scene vaates keskel.
+- Dekoratiivsed vaikesed majad (`cottages`) tekivad Town Halli umber.
+- `Town Hall` upgrade on gated prerequisite'idega.
+
+Praegused Town Hall prerequisite'id:
+- `Town Hall Lv2` nouab:
+  - `Farm Lv2`
+  - `Lumber Mill Lv2`
+  - `Quarry Lv1`
+- `Town Hall Lv3` nouab:
+  - `Farm Lv3`
+  - `Lumber Mill Lv3`
+  - `Quarry Lv2`
+  - `Granary Lv2`
+- `Town Hall Lv4` nouab:
+  - `Farm Lv4`
+  - `Lumber Mill Lv4`
+  - `Quarry Lv3`
+  - `Workshop Lv2`
+  - `Barracks Lv1`
+- `Town Hall Lv5+` nouab:
+  - `Farm Lv5`
+  - `Lumber Mill Lv5`
+  - `Quarry Lv4`
+  - `Workshop Lv3`
+  - `Barracks Lv2`
+  - `Warehouse Lv2`
+
+Praegune hinnaloogika:
+- Build ja upgrade kasutavad nuud `base cost * multiplier` lahnemist.
+- `Town Hall` on kallim ja tugevam milestone-hoone kui tavalised tootmishooned.
