@@ -1,0 +1,24 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local editor folders
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Logs
+*.log
+
+# Local archives / exports
+*.zip
+
+# Node ecosystem, if tooling is added later
+node_modules/
+dist/
+coverage/
