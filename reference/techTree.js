@@ -4,17 +4,22 @@ window.CoinvaleReference.techBranches = [
   {
     id: "growth",
     title: "Food & Growth",
-    hint: "Fields, preservation, and village health.",
+    hint: "Fields, upkeep, and steady early growth.",
   },
   {
     id: "craft",
-    title: "Wood & Craft",
-    hint: "Wood flow, workshops, and storage discipline.",
+    title: "Craft & Timber",
+    hint: "Wood flow, workshops, and craft discipline.",
   },
   {
     id: "stone",
-    title: "Stone & Infrastructure",
-    hint: "Quarries, masonry, and hard logistics.",
+    title: "Stone & Storage",
+    hint: "Quarries, masonry, and storage logistics.",
+  },
+  {
+    id: "civic",
+    title: "Knowledge & Civic",
+    hint: "Records first, then wine, then happiness.",
   },
   {
     id: "military",
@@ -23,8 +28,8 @@ window.CoinvaleReference.techBranches = [
   },
   {
     id: "trade",
-    title: "Trade & Gold",
-    hint: "Coin, traders, and the late economy.",
+    title: "Trade & Metals",
+    hint: "Coin, ore, metal, and the later economy.",
   },
 ];
 
@@ -35,23 +40,59 @@ window.CoinvaleReference.techTreeUi = {
 };
 
 window.CoinvaleReference.techTree = {
-  foodPreservation: {
-    name: "Food Preservation",
+  fieldRotation: {
+    name: "Field Rotation",
     branch: "growth",
-    unlocks: ["Granary", "Scribe Hall"],
+    unlocks: ["Early farm output bonus"],
     requires: [],
   },
   betterAgriculture: {
     name: "Better Agriculture",
     branch: "growth",
     unlocks: ["Food output bonus"],
-    requires: ["foodPreservation"],
+    requires: ["fieldRotation"],
   },
-  animalHusbandry: {
-    name: "Animal Husbandry",
+  seedSelection: {
+    name: "Seed Selection",
     branch: "growth",
-    unlocks: ["Chicken Coop"],
-    requires: ["foodPreservation"],
+    unlocks: ["Food output bonus"],
+    requires: ["betterAgriculture"],
+  },
+  irrigation: {
+    name: "Irrigation",
+    branch: "growth",
+    unlocks: ["Food output bonus"],
+    requires: ["seedSelection"],
+  },
+  villageRations: {
+    name: "Village Rations",
+    branch: "growth",
+    unlocks: ["Lower food upkeep"],
+    requires: ["betterAgriculture"],
+  },
+  communalKitchens: {
+    name: "Communal Kitchens",
+    branch: "growth",
+    unlocks: ["Growth stability"],
+    requires: ["villageRations"],
+  },
+  herbalRemedies: {
+    name: "Herbal Remedies",
+    branch: "growth",
+    unlocks: ["Better health and growth"],
+    requires: ["communalKitchens"],
+  },
+  cropRotation: {
+    name: "Crop Rotation",
+    branch: "growth",
+    unlocks: ["Stronger farm scaling"],
+    requires: ["irrigation", "herbalRemedies"],
+  },
+  reinforcedAxes: {
+    name: "Reinforced Axes",
+    branch: "craft",
+    unlocks: ["Wood output bonus"],
+    requires: [],
   },
   craftsmanship: {
     name: "Craftsmanship",
@@ -59,17 +100,108 @@ window.CoinvaleReference.techTree = {
     unlocks: ["Workshop"],
     requires: ["reinforcedAxes"],
   },
+  sawPits: {
+    name: "Saw Pits",
+    branch: "craft",
+    unlocks: ["Wood output bonus"],
+    requires: ["craftsmanship"],
+  },
+  timberSeasoning: {
+    name: "Timber Seasoning",
+    branch: "craft",
+    unlocks: ["Wood output bonus"],
+    requires: ["sawPits"],
+  },
   storehousePlanning: {
     name: "Storehouse Planning",
-    branch: "craft",
+    branch: "stone",
     unlocks: ["Warehouse"],
-    requires: ["foodPreservation", "stonecutting"],
+    requires: ["fieldRotation", "stonecutting"],
   },
   stonecutting: {
     name: "Stonecutting",
     branch: "stone",
     unlocks: ["Stone output bonus"],
-    requires: ["foodPreservation"],
+    requires: ["fieldRotation"],
+  },
+  quarrySupports: {
+    name: "Quarry Supports",
+    branch: "stone",
+    unlocks: ["Stone output bonus"],
+    requires: ["stonecutting"],
+  },
+  masonry: {
+    name: "Masonry",
+    branch: "stone",
+    unlocks: ["Lower wood upkeep on buildings"],
+    requires: ["quarrySupports"],
+  },
+  improvedWarehousing: {
+    name: "Improved Warehousing",
+    branch: "stone",
+    unlocks: ["Storage bonus"],
+    requires: ["storehousePlanning", "masonry"],
+  },
+  measuredMasonry: {
+    name: "Measured Masonry",
+    branch: "stone",
+    unlocks: ["Building Stone cost -2%"],
+    requires: ["masonry"],
+  },
+  pavedYards: {
+    name: "Paved Yards",
+    branch: "stone",
+    unlocks: ["Lower expedition provisions"],
+    requires: ["improvedWarehousing"],
+  },
+  recordKeeping: {
+    name: "Record Keeping",
+    branch: "civic",
+    unlocks: ["Knowledge bonus"],
+    requires: [],
+  },
+  scriptoriums: {
+    name: "Scriptoriums",
+    branch: "civic",
+    unlocks: ["Scholar bonus"],
+    requires: ["recordKeeping"],
+  },
+  planningOffice: {
+    name: "Planning Office",
+    branch: "civic",
+    unlocks: ["Building Wood and Stone cost -2%"],
+    requires: ["scriptoriums", "masonry"],
+  },
+  viticulture: {
+    name: "Viticulture",
+    branch: "civic",
+    unlocks: ["Vineyard", "Wine economy"],
+    requires: ["scriptoriums", "improvedWarehousing"],
+    townHallLevel: 10,
+  },
+  villageCustoms: {
+    name: "Village Customs",
+    branch: "civic",
+    unlocks: ["First wine-backed civic happiness layer"],
+    requires: ["viticulture"],
+  },
+  festivals: {
+    name: "Festivals",
+    branch: "civic",
+    unlocks: ["Happiness bonus"],
+    requires: ["villageCustoms"],
+  },
+  vintagePress: {
+    name: "Vintage Press",
+    branch: "civic",
+    unlocks: ["Winery"],
+    requires: ["viticulture"],
+  },
+  tavernCulture: {
+    name: "Tavern Culture",
+    branch: "civic",
+    unlocks: ["Tavern", "Wine-fed happiness"],
+    requires: ["vintagePress", "festivals"],
   },
   militaryDrills: {
     name: "Military Drills",
@@ -83,16 +215,79 @@ window.CoinvaleReference.techTree = {
     unlocks: ["Expedition success", "Guard support"],
     requires: ["militaryDrills"],
   },
+  fieldMedicine: {
+    name: "Field Medicine",
+    branch: "military",
+    unlocks: ["Less expedition attrition"],
+    requires: ["watchfires"],
+  },
+  logistics: {
+    name: "Logistics",
+    branch: "military",
+    unlocks: ["Shorter expeditions"],
+    requires: ["fieldMedicine"],
+  },
+  fortifiedPatrols: {
+    name: "Fortified Patrols",
+    branch: "military",
+    unlocks: ["Lower guard and soldier upkeep"],
+    requires: ["logistics"],
+  },
+  fortifiedStoreyards: {
+    name: "Fortified Storeyards",
+    branch: "military",
+    unlocks: ["Lower raid losses"],
+    requires: ["fortifiedPatrols", "improvedWarehousing"],
+  },
   goldMining: {
     name: "Gold Mining",
     branch: "trade",
     unlocks: ["Gold Mine", "Gold economy"],
     requires: ["stonecutting", "craftsmanship"],
+    townHallLevel: 4,
   },
   coinMinting: {
     name: "Coin Minting",
     branch: "trade",
     unlocks: ["Gold output bonus"],
     requires: ["goldMining"],
+  },
+  tradeCaravans: {
+    name: "Trade Caravans",
+    branch: "trade",
+    unlocks: ["Better trade flow"],
+    requires: ["coinMinting"],
+  },
+  taxLedgers: {
+    name: "Tax Ledgers",
+    branch: "trade",
+    unlocks: ["Town Hall gold trickle"],
+    requires: ["tradeCaravans"],
+  },
+  deepShafts: {
+    name: "Deep Shafts",
+    branch: "trade",
+    unlocks: ["Gold output bonus"],
+    requires: ["goldMining", "masonry"],
+  },
+  oreExtraction: {
+    name: "Ore Extraction",
+    branch: "trade",
+    unlocks: ["Ore Pit"],
+    requires: ["deepShafts"],
+    townHallLevel: 10,
+  },
+  smithing: {
+    name: "Smithing",
+    branch: "trade",
+    unlocks: ["Smelter", "Metal economy"],
+    requires: ["oreExtraction"],
+    townHallLevel: 12,
+  },
+  marketCharters: {
+    name: "Market Charters",
+    branch: "trade",
+    unlocks: ["Later trade scaling"],
+    requires: ["smithing"],
   },
 };

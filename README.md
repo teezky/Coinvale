@@ -1,46 +1,48 @@
 # Coinvale
 
-`Coinvale` on single-file browser game prototüüp, mille põhiloogika elab failis `index.html`.
+`Coinvale` on single-file browser game prototuup, mille pohiline runtime elab failis `index.html`.
 
-Projekt ühendab:
+Projekt uhendab:
 - idle / resource management loopi
-- hooned ja workerid
-- expeditionid ja random eventid
-- branch-põhise `Tech Tree`
+- unikaalsed upgrade'itavad hooned
+- worker-sliderid
+- expeditionid, random eventid ja village defense'i
+- branch-pohise node-vaatega `Tech Tree`
 - inimesele loetava dokumentatsiooni
-- struktureeritud referentsifailid tuleviku tarbeks
+- struktureeritud referentsifailid tuleviku jaoks
 
 ## Projekti seis
 
-Praegu on mängus olemas:
-- ressursid `Food`, `Wood`, `Stone`, `Gold`, `Knowledge`
-- `Town Hall`-põhine population progression
-- hoonete individuaalsed levelid
-- workerid, sh `Scholar`, `Soldier`, `Guard`
-- expeditionid koos riskide ja `counter-raid` loogikaga
+Praegu on mangus olemas:
+- ressursid `Food`, `Wood`, `Stone`, `Gold`, `Knowledge`, `Ore`, `Metal`, `Wine`
+- `Town Hall`-pohine population progression
+- uks hoone igast tuubist, max leveli sihiga `20`
+- workerid, sh `Scholar`, `Guard`, `Soldier`, `Vinekeeper`, `Ore Miner`, `Smelter`, `Vintner`, `Innkeeper`
+- expeditionid koos storage-scaled rewardide ja `counter-raid` loogikaga
 - random eventid ja trader
 - save / migration / offline progress
-- kompaktne node-põhine `Tech Tree`
+- kompaktne taislaiuses node-pohine `Tech Tree`
+- `Happiness`, mis mojub villager growthile
 
-## Käivitamine
+## Kaivitamine
 
-See projekt ei vaja build-süsteemi.
+See projekt ei vaja build-susteemi.
 
 Avamiseks:
 1. ava fail `index.html` brauseris
-2. mäng käivitub otse samast failist
+2. mang kaivitub otse samast failist
 
 ## Failistruktuur
 
-Põhifailid:
-- `index.html` - mängu runtime ja kogu põhiloogika
-- `handoff.md` - lühike hetkeseis ja järgmine teema
-- `implemented.md` - mis on päriselt mängus olemas
-- `roadmap.md` - järgmised teemad ja balansifookus
-- `removed.md` - eemaldatud või mahavõetud lahendused
-- `instructions.md` - projekti tööreeglid
+Pohifailid:
+- `index.html` - mangu runtime ja pohiline loogika
+- `handoff.md` - luhike hetkeseis ja jargmine teema
+- `implemented.md` - mis on pariselt mangus olemas
+- `roadmap.md` - jargmised teemad ja balansifookus
+- `removed.md` - eemaldatud voi mahavoetud lahendused
+- `instructions.md` - projekti tooreeglid
 
-Süsteemidokid:
+Susteemidokid:
 - `buildings.md`
 - `workers.md`
 - `tech-tree.md`
@@ -57,26 +59,26 @@ Projekt kasutab kahte kihti:
 1. inimesele loetav dokumentatsioon `*.md`
 2. struktureeritud referents `reference/*.js`
 
-Oluline põhimõte:
-- kui süsteem muutub, tuleb nii dokumentatsioon kui referents koos ajakohastada
+Oluline pohimote:
+- kui susteem muutub, tuleb nii dokumentatsioon kui referents koos ajakohastada
 
-## Töövoog
+## Toovoog
 
 Selles projektis kehtib kokkulepe:
-- muudatused arutatakse enne läbi
-- koodi muudetakse alles siis, kui on selge kinnitus stiilis `tee ära`
-- pärast muudatusi tuleb seotud markdown- ja reference-failid uuendada
+- muudatused arutatakse enne labi
+- koodi muudetakse alles siis, kui on selge kinnitus stiilis `tee ara`
+- parast muudatusi tuleb seotud markdown- ja reference-failid uuendada
 
-Täpsed reeglid on kirjas failis `instructions.md`.
+Tapsemad reeglid on kirjas failis `instructions.md`.
 
-## Järgmised teemad
+## Jargmised teemad
 
-Hetkel on põhirõhk:
-- expeditionide balanss
-- `Guard` kaitseväärtused
-- varase mängu tempo
-- tulevikus võimalik samm-sammuline liikumine `reference`-põhisema arhitektuuri poole
+Hetkel on pohirohk:
+- economy balance-pass
+- `Food`, `Warehouse` ja upgrade-costide tuning
+- `Wine` ja `Metal` economy tempo
+- voimalik hilisem liikumine `reference`-pohisema arhitektuuri poole
 
 ## GitHubi jaoks
 
-Kui tahad selle projekti GitHubi üles panna, vaata ka faili `github-upload.md`.
+Kui tahad selle projekti GitHubi ules panna, vaata ka faili `github-upload.md`.

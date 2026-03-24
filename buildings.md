@@ -6,58 +6,82 @@ Eesmärk:
 - struktureeritud referents elab failis `reference/buildings.js`
 
 Pohimotted:
-- `Town Hall` on keskne progression-hoone ja population cap tuleb sealt
-- tootmishooned on `Farm`, `Lumber Mill`, `Quarry`, `Gold Mine`
-- utility-hooned on enamasti unikaalsed ja nende progression kaib upgrade'ide kaudu
+- koik hooned on nuud unikaalsed
+- igat hoonet saab korraga olla `1`
+- `Town Hall` liigub kuni `Level 30`
+- muud hooned liiguvad kuni `Level 50`
+- workeritega hoonete worker-cap tuleb hoone levelist
+- workerite jagamine kaib slideritega
 
-Hooned:
+Kategooriad:
 
 `Town Hall`
-- roll: settlementi kese, population cap, growth support, tier progression
-- eripara: algab mangus juba olemasolevana
-- progression: upgrade on gated teiste hoonete levelitega
+- roll: population core, growth telg, kogu village progression
+- eripara: algab mangus olemasolevana
+- progression: gating teiste hoonete levelite kaudu
 
 `Farm`
-- roll: peamine varajane ja keskmine `Food` tootmine
-- annab: base output + `Farmer` slotid
-- marge: baastoodangut tosteti veidi, et start oleks sujuvam
+- roll: peamine `Food` estate
+- annab: base food + `Farmer` capacity
 
 `Lumber Mill`
 - roll: peamine `Wood` tootmine
-- annab: base output + `Woodcutter` slotid
+- annab: base wood + `Woodcutter` capacity
 
 `Quarry`
 - roll: peamine `Stone` tootmine
-- annab: base output + `Miner` slotid
-
-`Granary`
-- roll: `Food` storage ja hard-season safety
-- eripara: unikaalne utility-hoone
-
-`Chicken Coop`
-- roll: passiivne lisatoit
-- kasutus: secondary `Food` support
+- annab: base stone + `Quarry Miner` capacity
 
 `Workshop`
-- roll: buildingute baastoodangu boonus
-- eripara: ei buffi enam kogu kulatootmist umbmaaraselt
+- roll: economy efficiency ja buildingute baastoodangu tugi
+- eripara: workerita utility-hoone
 
 `Scribe Hall`
-- roll: `Knowledge` economy algus
-- annab: base `Knowledge` + `Scholar` slotid
-- eripara: toodud varasemasse progressioni
+- roll: `Knowledge` economy kese
+- annab: base knowledge + `Scholar` capacity
+- unlock: `Gold Mining` + `Town Hall Lv4`, et hoone ei oleks enne kullamajandust poolik
 
 `Barracks`
-- roll: avab `Soldier` ja `Guard` rollid
-- seos: vajalik expeditioni- ja kaitsesusteemide jaoks
+- roll: `Guard` ja `Soldier` rollide kodu
+- kasutus: expeditionid ja village defense
 
 `Warehouse`
-- roll: lai storage boost
-- eripara: unikaalne utility-hoone
+- roll: global storage multiplier
+- eripara: workerita utility-hoone
+- town hall gate: `TH 5`
+- markus: kasutab nuud tugevamat milestone-storage skaalat, mitte vana vaikest lineaarset kasvu
 
 `Gold Mine`
-- roll: `Gold` economy tootmishoone
-- annab: base `Gold` + `Miner` slotid
+- roll: `Gold` economy tootmine
+- annab: base gold + `Gold Miner` capacity
+- town hall gate: `TH 5`
+
+`Vineyard`
+- roll: varajane luksusmajanduse kiht
+- annab: base wine + `Vinekeeper` capacity
+- town hall gate: `TH 10`
+
+`Winery`
+- roll: parem `Wine` throughput ja luxury support
+- annab: `Vintner` capacity
+- town hall gate: `TH 12`
+
+`Ore Pit`
+- roll: `Ore` extraction
+- annab: `Ore Miner` capacity
+- town hall gate: `TH 12`
+
+`Smelter`
+- roll: `Metal` tootmine
+- annab: `Smelter` capacity
+- kasutab upkeep'ina `Ore`
+- town hall gate: `TH 14`
+
+`Tavern`
+- roll: `Happiness` support
+- annab: `Innkeeper` capacity
+- kasutab `Wine`i ja toetab population growthi
+- town hall gate: `TH 15`
 
 Marge:
-- konkreetne unlock / cost / slot / upkeep / info referents elab failis `reference/buildings.js`
+- konkreetne unlock / cost / slots / upkeep / notes referents elab failis `reference/buildings.js`

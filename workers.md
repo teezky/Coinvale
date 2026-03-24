@@ -6,15 +6,16 @@ Eesmärk:
 - struktureeritud referents elab failis `reference/workers.js`
 
 Pohimotted:
-- alguses kannavad mangu starter-jobid
-- hiljem liigub fookus hoonete-slotidesse, kaitsele ja spetsialistidele
+- alguses kannavad mangi starter-jobid
+- hiljem liigub fookus unikaalhoonete worker-cap'i sisse
+- workerite jagamine kaib slideritega
+- osad rollid on `free`, osad on `slot`-pohised
 
-Workerid:
+Starter-rollid:
 
 `Forager`
 - roll: starter `Food`
 - saadaval: algusest
-- marge: outputi tosteti veidi, et early game oleks aktiivsem
 
 `Wood Gatherer`
 - roll: starter `Wood`
@@ -24,36 +25,63 @@ Workerid:
 - roll: starter `Stone`
 - saadaval: algusest
 
+Hoonetega seotud tootmisrollid:
+
 `Farmer`
-- roll: toodab `Food` farmide kaudu
 - nouab: `Farm`
+- tootab `Food`
 
 `Woodcutter`
-- roll: toodab `Wood` lumber milli kaudu
 - nouab: `Lumber Mill`
+- tootab `Wood`
 
-`Miner`
-- roll: toodab `Stone` ja hiljem `Gold`
-- nouab: `Quarry` voi `Gold Mine`
+`Quarry Miner`
+- nouab: `Quarry`
+- tootab `Stone`
+
+`Gold Miner`
+- nouab: `Gold Mine` + `Gold Mining`
+- tootab `Gold`
 
 `Scholar`
-- roll: toodab `Knowledge`
-- nouab: `Scribe Hall`
+- nouab: `Scribe Hall` + toimiv `Gold` economy
+- tootab `Knowledge`
 - upkeep: kasutab `Gold`
 
-`Villagers`
-- roll: annavad lisaks koik koos vaikese passiivse `Knowledge` voo
-- efekt: iga elanik annab alguses umbes `+0.01/s`
+`Vinekeeper`
+- nouab: `Vineyard`
+- toetab `Wine` economy't
+
+`Ore Miner`
+- nouab: `Ore Pit`
+- tootab `Ore`
+
+`Smelter`
+- nouab: `Smelter`
+- tootab `Metal`
+- upkeep: kasutab `Ore`
+
+`Vintner`
+- nouab: `Winery`
+- parandab `Wine` throughput'i
+
+`Innkeeper`
+- nouab: `Tavern`
+- kasutab `Wine`i
+- toetab `Happiness`it ja sealt kaudu growthi
+
+Population ja military:
+
+`Villager`
+- passiivne efekt: iga elanik annab umbes `+0.01/s` `Knowledge`it
 
 `Guard`
-- roll: kulakaitse
 - nouab: `Barracks`
-- kasutus: aitab peatada voi pehmendada `counter-raid`e
+- aitab peatada voi pehmendada `counter-raid`e
 
 `Soldier`
-- roll: expeditionid ja military pressure
 - nouab: `Barracks`
-- kasutus: vajalik retkedele minekuks
+- vajalik expeditionitele
 
 Marge:
-- konkreetne unlock / output / upkeep / sloti-voi-vaba-rolli info elab failis `reference/workers.js`
+- konkreetne unlock / output / upkeep / slotType info elab failis `reference/workers.js`
