@@ -1,0 +1,16 @@
+Tech tree pole täies laiuses - vaja teha täiemõõtmeliseks laiupidi
+Event teavitus ja tech tree kattusid omavahel - Event teavitus peaks olema peal pool
+Ressursside kastides tooltipis võiks olla income ja upkeep täpsustatud - nt palju töötajatelt tuleb ja palju kulub upkeepiks. Muul ajal võiks olla vaid Net production kirjas ning kaua läheb ,et ladu täis saaks.
+Scholari sain alguses värvata, kellel on Gold upkeep, aga gold ei ole mul veel ressursina avatudki.
+Tech Trees horisontaalselt avab järjestikku, kui eelmine on unlockitud aga vertikaalselt unlokivad kõik korraga - võiks samuti olla et enne ei saa järgmist õppida kui eelnev pole õpitud.
+Gold mining tech trees tahab avamiseks kulda ressurssina, mida pole võimalik saada enne gold mining node'i
+Tech trees noded mis vajavad kulda õppimiseks, peaks vajama rohkem kulda. 3 kulda nt on ühe sekundi küsimus teatud hetkel - võiks olla suurem nõudlus.
+Kui hoonet on võimalik ehitada vaid üheainsa, siis võiks pärast hoone ehitamist peita Build costi ning jätta alles vaid Upgrade cost.
+Expeditionite rewardid, mis on seotud ressurssidega võiks olla % kogus olemasoleva lao mahust. Nt kui ladu mahutab 1000 ühikut, siis see täidab mingi % sellest mahust.
+Lao maht võiks olla suurem. Alguses võiks alustada nt, et kõike mahub ca 2000 ühikut. Lao ehitamine annab mahule nt 100% juurde ning iga upgrade lisab sellele mingi kordaja ka.
+Next villager - võiks olla võimalik panna uute elanike juurdetulekule stop peale - nt kui näed, et hetkel ei suuda veel ära toita kõike ja tahad ressursse koguda, siis saad toggle off vajutada vms, et ei toodaks elanikke juurde.
+Lisame ressursid vein, raud ja savi. Luksusressursid, mis tulevad hiljem - rauamaaks, tellised, vein.
+Toidu osas. Kui on juba nt 23 elanikku, siis farm, chicken coop jne ei suuda ära tasakaalustada toidu upkeepi.
+Töötajate määramine võiks olla mitte + ja -'ga vaid skrollbariga või slideriga
+Happiness - see võiks olla mängus. Nt vein ja entertainment mõjutavad seda. Toidu saadavus samamoodi ja Happiness omakorda siis tõstab villageride nn spawn time'i
+
