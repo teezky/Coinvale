@@ -70,7 +70,10 @@ Olulised gating-pohimotted:
 - `Scribe Hall` ei avane enne `Gold Mining`ut, et `Scholar`i kullaupkeep ei jaaks poolikuks susteemiks
 - osa hilisemaid node'e nouab lisaks prerequisite'idele ka kindlat `Town Hall` levelit
 - `Happiness` ei ole sisuliselt mangija juhitav enne `Viticulture -> Vintage Press -> Tavern Culture` ahelat
-- research cost skaleerub nuud branchi sugavuse ja samas harus juba uuritud node'ide arvu jargi
+- research cost on nuud fikseeritud ja ette nahtav
+  - sama node ei muutu kallimaks lihtsalt selleparast, et samas harus uuriti midagi muud enne ara
+  - samas liigub iga sygavam node nyyd tuntavalt kallimaks kui eelmine
+  - `Knowledge` cap growthi timmiti selle jarele, et research ei jaaks puhtalt lae taha kinni
 
 Marge:
 - konkreetne node-by-node struktureeritud referents elab failis `reference/techTree.js`

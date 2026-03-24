@@ -39,6 +39,11 @@ window.CoinvaleReference.techTreeUi = {
   detailMode: "hover_tooltip",
 };
 
+window.CoinvaleReference.techTreeCosts = {
+  predictable: true,
+  rule: "Node cost is fixed by its own place in the tree, not by how many sibling nodes were researched first. Deeper nodes are still intentionally more expensive.",
+};
+
 window.CoinvaleReference.techTree = {
   fieldRotation: {
     name: "Field Rotation",

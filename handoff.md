@@ -16,11 +16,17 @@ Praegune seis:
   - random eventid on umbes `20%` harvemad
   - `Forager` ja `Farm` on tugevamad kui varem
 - Ressursikastid kuvavad tavaolekus `Net` ja ladustumise aja ning tooltipis detailset income/upkeep breakdowni.
+- koik ressursid on nuud reas algusest peale nahtavad:
+  - lukus ressursid on tuhmid
+  - neil on tooltipis unlock-juhis
+  - `Knowledge` on reas viimane
 - `Knowledge` tuleb varakult:
-  - iga elanik annab `+0.01/s`
+  - iga elanik annab vaikese passiivse research-voo
   - `Scribe Hall` on nuud toodud kulla taha, et `Scholar` ei jaaks poolikuks unlockiks
   - `Scholar` on saadaval alles siis, kui `Gold` economy on reaalselt avatud
   - `Knowledge` base cap algab nuud `120` pealt
+  - `Knowledge` cost kasvab nuud puus edasi liikudes tugevamalt
+  - samal ajal kasvab `Knowledge` cap nuud agressiivsemalt `Town Hall`i ja `Scribe Hall`iga kaasa
 - Hoonemudel on nuud unikaalhoonete peale keeratud:
   - igat hoonet saab olla korraga `1`
   - `Town Hall` liigub kuni `Level 30`
@@ -28,7 +34,8 @@ Praegune seis:
   - workeritega hooned annavad tootmist ja worker-cap'i leveli kaudu
 - Workerite jagamine kaib nuud slideritega.
 - scene-paneelis saab mangija nuud oma kulale nime anda ja see jaab save'i alles
-- reseti voi taiesti uue mangu alguses kusitakse kula nimi popupiga kohe ette
+- kula nimi on scene-paneelis nuud keskel Town Halli kohal, mitte vasakus servas
+- reseti voi taiesti uue mangu alguses kusitakse kula nimi mangusisese modaliga kohe ette
 - `Town Hall` on kogu progressioni kese:
   - max leveli siht = `30`
   - population/growth loogika kasutab `Level^1.5` kasvu
@@ -42,7 +49,7 @@ Praegune seis:
   - tulevased node'id on nahtavad
   - nii horisontaalne kui vertikaalne progression nouab prerequisite'e
   - branchid on `Growth`, `Craft`, `Stone`, `Civic`, `Military`, `Trade`
-  - research cost skaleerub branchi sugavuse ja samas harus juba uuritud node'ide arvu jargi
+  - research cost on fikseeritud ja ette nahtav node'i enda sygavuse ja tieri jargi
 - Expeditionid skaleeruvad nuud rohkem lao suurusega ning failed expedition voib vallandada `counter-raid`i.
 - Mangu lisati uued majanduskihid:
   - `Wine`
@@ -51,9 +58,18 @@ Praegune seis:
   - `Happiness` mojub hetkel ainult population growthile ja avaneb sisuliselt alles `Wine` economy järel
 - `Granary` ja `Chicken Coop` on runtime'ist maha voetud
 - `Warehouse` on nuud selgem milestone-hoone tugevama storage-kasvuga
+- viimane balance-pass tommas `Warehouse`i hilisemat kasvu veidi tagasi, et storage ei vabastaks economy't liiga vara
 - `Warehouse` toodi varasemaks (`TH 2`), et storage ei jaaks varase `Town Hall` pushi vastu tootlema
+- `Ore Pit` toodi build-gate'i poolest `TH 10` peale, et `Town Hall 11+` progression ei jaaks deadlocki
 - osa hooneid ja tech node'e nouavad nuud kindlat `Town Hall` levelit
 - varajast food / gold upkeepi on kergelt pehmendatud, et kasv ja esimesed specialist-rollid ei jaaks liiga kergelt kinni
+- viimane economy-pass:
+  - tombas `Farm`, `Lumber Mill`i ja `Quarry` tootmist alla
+  - tegi core building upgrade'id kallimaks
+  - tegi `Town Hall`i veelgi kallimaks milestone-hooneks
+  - tostis villagers / guards / soldiers `Food` survet
+  - tombas expeditionite resource-rewarde tagasi
+  - aeglustas `Knowledge` gaini, et research ei jookseks liiga lihtsalt yle
 - random eventid voivad nuud anda voi votta ka `Gold`i
 - trader pakub nuud laiemat barterit ning voib vahel vahetada ka `Knowledge`it
 
@@ -72,9 +88,8 @@ Peamised failid:
 
 Praegune jargmine teema:
 - teha uus balance-pass:
-  - `Food` scaling
-  - `Warehouse` / storage scaling
-  - `Town Hall` ja teiste hoonete upgrade-costid
+  - kontrollida brauseris, kas uus aeglasem economy tempo tundub nyyd parem
+  - vaadata, kas `Knowledge` cap ja research cost kasv jooksevad kokku ilma ummikuteta
 - kontrollida brauseris, kas uus `Town Hall` / build / tech gating tunneb end UX-i moistes loogiliselt
 - otsustada, millal lisada eraldi building art failid praeguste sprite'ide asemele voi peale
 - hinnata, kas ja millal hakata runtime'i samm-sammult `reference/*.js` andmete peale tooma

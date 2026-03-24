@@ -11,11 +11,15 @@ Praegune disainisuund:
 
 Praegune jargmine teema:
 - teha tugev balance-pass praegusele economy'le enne jargmist suurt sisulaiendust
+- kontrollida peale viimast aeglustuspassi, kas:
+  - core ressursid ei jookse enam liiga vara lakke
+  - `Town Hall` ja core-hoonete levelid ei touse liiga kiiresti
+  - `Knowledge` cost kasv ja cap growth jaavad omavahel kokku
 
 Lahiaja prioriteedid:
 1. `Food` scaling parast `Granary` / `Chicken Coop` eemaldust
 2. kontrollida brauseris, kas uus `Scribe Hall -> Gold Mining` gating tundub hea
-3. hinnata, kas tech-tree research cost scaling vajab veel peenhaalestust branchide kaupa
+3. hinnata, kas uus fikseeritud tech-tree cost mudel vajab veel peenhaalestust branchide kaupa
 4. `Town Hall` ja building upgrade-costide tuning
 5. `Wine`, `Ore`, `Metal` economy kihtide tempotest
 6. expedition rewardide ja `Guard` kaitsevaartuste tuning
@@ -28,6 +32,7 @@ Olulised tasakaaluteemad:
 - `Warehouse` peab tunduma oluline milestone, aga storage ei tohi teha early game'i liiga vabaks
 - `Gold` peab olema midgame'is oluline, aga ei tohi lukustada researchi liiga vara kinni
 - `Happiness` peab hoidma growthi juhitavana, mitte muutuma veel üheks liigseks mikronumbriks
+- koik ressursid peavad reas ette nahtavad olema, aga lukus kihid ei tohi enne unlocki midagi teha
 
 Jargmised toenalolised gameplay-teemad:
 - `Town Hall 1-30` progressioni peenhaalestus

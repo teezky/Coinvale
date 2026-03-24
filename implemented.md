@@ -15,11 +15,16 @@ Ressursid:
 - `Wood`
 - `Stone`
 - `Gold`
-- `Knowledge`
 - `Ore`
 - `Metal`
 - `Wine`
+- `Knowledge`
+- koik ressursid kuvatakse nuud ressursireas algusest peale
+- lukus ressursid on tuhmid, ei tooda ega tarbi midagi enne oma unlocki
+- igal ressursil on nuud vaike ikoon
+- `Knowledge` kuvatakse reas viimasena, et jaada eraldi progression-valuutana tajutavaks
 - `Knowledge` base cap algab nuud `120` pealt, et varane research economy ei jaaks liiga kitsaks
+- `Knowledge` cap kasvab nuud tugevamalt koos `Town Hall`i ja `Scribe Hall`iga, et hilisemate fikseeritud research costide jaoks saaks varu koguda
 
 Economy ja progression:
 - `Knowledge` saab varakult alguse:
@@ -29,10 +34,21 @@ Economy ja progression:
 - `Gold Mining` ise ei noua uurimiseks kulda
 - kullaga seotud hilisemad techid tahavad nuud rohkem `Gold`i kui varem
 - expedition resource-rewardid skaleeruvad lao suuruse jargi
-- `Tech Tree` research cost ei ole enam koigil node'idel sama, vaid kasvab branchi sugavuse ja samas harus juba uuritud node'ide arvu jargi
+- core economy sai uue aeglustuspassi:
+  - `Farm`, `Lumber Mill` ja `Quarry` toodavad nuud veidi vahem
+  - nende upgrade-cost curve on nuud jarsem
+  - `Town Hall` upgrade-cost curve on veelgi pidulikum ja kallim
+  - populationi ja military `Food` upkeep surub nuud economy't rohkem
+  - expeditionite resource-rewardid on nuud tagasihoidlikumad
+- `Tech Tree` research cost on nuud fikseeritud ja ette nahtav
+  - see soltub node'i enda sygavusest ja tierist
+  - see ei muutu jooksvalt selle jargi, mitu node'i samas harus juba uuritud on
+- iga jargmine sygavam node maksab nuud tuntavalt rohkem kui eelmine, aga `Knowledge` cap growthi toodi sellele jarele
 - `Scholar` gold upkeep on nuud veidi pehmem (`0.05/s`)
-- `Guard` ja `Soldier` food upkeep on nuud veidi pehmemad (`0.16/s` ja `0.20/s`)
+- `Guard` ja `Soldier` `Food` upkeep on nuud uuesti tuntavam (`0.18/s` ja `0.24/s`)
 - `Warehouse` tuleb nuud varem (`Town Hall Lv2`), et storage ei blokiks varaseid `Town Hall` upgrade'e
+- `Warehouse` storage-kasv on nuud pehmem kui viimases liiga heldes versioonis, et ladu ei vabastaks economy't liiga kiiresti
+- `Ore Pit` tuleb nuud `Town Hall Lv10` juures, et `Town Hall` progression ei satuks ore-gatinguga ummikusse
 
 Hooned:
 - `Town Hall` on alati olemas ja on kogu village progressioni kese
@@ -97,7 +113,8 @@ UI ja UX:
 - event modal on tech tree kohal, mitte selle all
 - town scene naitab iga ehitatud hoonet eraldi sprite'ina ja level-badge'iga
 - town scene alal saab nuud oma kulale nime anda ning see salvestub save'i sisse
-- reseti voi paris uue mangu alguses tuleb kula nime popup ette kohe esimese sammuna
+- kula nimi on scene-paneelis nuud keskelt joondatud
+- reseti voi paris uue mangu alguses tuleb kula nime popup ette mangusisese modalina kohe esimese sammuna
 - kui `Happiness` ei ole veel aktiivne, naitab UI nuud selgemalt, et see avaneb veini economy kaudu
 
 Tech tree:
