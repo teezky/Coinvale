@@ -40,12 +40,17 @@ Economy ja progression:
   - `Town Hall` upgrade-cost curve on veelgi pidulikum ja kallim
   - populationi ja military `Food` upkeep surub nuud economy't rohkem
   - expeditionite resource-rewardid on nuud tagasihoidlikumad
+- jargmises passis tombasime economy't veel rohkem tagasi:
+  - `Farmer`, `Woodcutter` ja `Quarry Miner` tootlus langes uuesti
+  - hoonete level-multiplier ja `Workshop` village-efficiency langesid
+  - buildingute `Wood` upkeep kasvas jarsemaks ja muutus lopuks päris kuluks
 - `Tech Tree` research cost on nuud fikseeritud ja ette nahtav
   - see soltub node'i enda sygavusest ja tierist
   - see ei muutu jooksvalt selle jargi, mitu node'i samas harus juba uuritud on
 - iga jargmine sygavam node maksab nuud tuntavalt rohkem kui eelmine, aga `Knowledge` cap growthi toodi sellele jarele
 - `Scholar` gold upkeep on nuud veidi pehmem (`0.05/s`)
 - `Guard` ja `Soldier` `Food` upkeep on nuud uuesti tuntavam (`0.18/s` ja `0.24/s`)
+- `Guard` ja `Soldier` `Food` upkeep sai veel kord tugevamaks (`0.20/s` ja `0.26/s`)
 - `Warehouse` tuleb nuud varem (`Town Hall Lv2`), et storage ei blokiks varaseid `Town Hall` upgrade'e
 - `Warehouse` storage-kasv on nuud pehmem kui viimases liiga heldes versioonis, et ladu ei vabastaks economy't liiga kiiresti
 - `Ore Pit` tuleb nuud `Town Hall Lv10` juures, et `Town Hall` progression ei satuks ore-gatinguga ummikusse
@@ -116,6 +121,8 @@ UI ja UX:
 - kula nimi on scene-paneelis nuud keskelt joondatud
 - reseti voi paris uue mangu alguses tuleb kula nime popup ette mangusisese modalina kohe esimese sammuna
 - kui `Happiness` ei ole veel aktiivne, naitab UI nuud selgemalt, et see avaneb veini economy kaudu
+- ressursirea tooltipid ei kao nuud iga tikiga ara, vaid jaavad mouseoveri all nahtavaks
+- ressursikastid on nuud veidi laiemad, et pikemad nimed nagu `Knowledge` mahuksid puhtamalt ara
 
 Tech tree:
 - branchid:

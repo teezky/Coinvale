@@ -70,6 +70,12 @@ Praegune seis:
   - tostis villagers / guards / soldiers `Food` survet
   - tombas expeditionite resource-rewarde tagasi
   - aeglustas `Knowledge` gaini, et research ei jookseks liiga lihtsalt yle
+- sellele jargnenud tuning-pass:
+  - tombas `Farmer`, `Woodcutter`i ja `Quarry Miner`i tootlust veel alla
+  - vahendas `Workshop`i village-efficiency ja kogu building-level multiplierit
+  - tostis buildingute `Wood` upkeepi, et see ei oleks enam naljanumber
+  - parandas tooltipi püsivuse renderite vahel
+  - tegi ressursirea kastid veidi ruumikamaks
 - random eventid voivad nuud anda voi votta ka `Gold`i
 - trader pakub nuud laiemat barterit ning voib vahel vahetada ka `Knowledge`it
 
