@@ -100,6 +100,13 @@ Praegune jargmine teema:
 - otsustada, millal lisada eraldi building art failid praeguste sprite'ide asemele voi peale
 - hinnata, kas ja millal hakata runtime'i samm-sammult `reference/*.js` andmete peale tooma
 
+Viimane suund:
+- season-susteem on praktiliselt eemaldatud
+- `Town Hall` piirab nuud pehmelt teiste hoonete max upgrade tempot
+- core ressursid, `Knowledge` ja advanced chain output on veel aeglasemaks tehtud
+- `Workshop` on nuud vaiksema protsendiga support-hoone
+- resource-output tech node'id on nuud vaiksemad ja rohkem mikroboonuste suunas
+
 Kui alustad uut vestlust, void kasutada seda prompti:
 
 ```text

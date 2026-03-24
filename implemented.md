@@ -165,3 +165,11 @@ Praegused valemisuunad runtime'is:
 - `Town Hall` population cap liigub `30 + 6 * Level^1.5` suunas
 - `Warehouse` kasutab nuud tugevamat `floor(180 + 95 * level^1.2)` storage-kasvu
 - osa hooneid ja tech node'e on seotud kindla `Town Hall` leveli noudega
+
+Viimane balance-pass:
+- season-susteem eemaldati praktilisest gameplayst
+- `Town Hall` piirab nuud pehmelt teiste hoonete upgrade-tempot
+- `Farm`, `Lumber Mill`, `Quarry`, `Gold Mine`, `Knowledge` ja veiniahel toodavad nuud vaiksemalt
+- `Workshop` annab nuud vaiksema village-efficiency iga leveliga
+- resource-output tech node'id annavad nuud vaiksemaid boonuseid
+- building wood upkeep kasvab nuud leveliga tuntavamalt
