@@ -174,3 +174,4 @@ Viimane balance-pass:
 - resource-output tech node'id annavad nuud vaiksemaid boonuseid
 - building wood upkeep kasvab nuud leveliga tuntavamalt
 - building gold upkeep ja gold-cost gating nihutati hilisemaks ning tehti pehmemaks
+- `Warehouse` storage-koverat tosteti, et `Town Hall` upgrade'id ei jaaks lao mahust ette

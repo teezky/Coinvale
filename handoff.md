@@ -107,6 +107,7 @@ Viimane suund:
 - `Workshop` on nuud vaiksema protsendiga support-hoone
 - resource-output tech node'id on nuud vaiksemad ja rohkem mikroboonuste suunas
 - `Gold` upkeep ja gold-gating tuleb nuud hiljem peale ning vaiksemalt
+- `Warehouse` annab nuud suurema storage-boonuse, et hall-upgrade'id ei satuks lao deadlocki
 
 Kui alustad uut vestlust, void kasutada seda prompti:
 
