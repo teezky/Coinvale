@@ -115,9 +115,9 @@ const expeditionProvisionMult=()=> (tOn('pavedYards') ? .88 : 1) * (tOn('logisti
 const traderPayoutMult=()=>tOn('marketCharters')?1.12:1;
 const guardPower=()=>st.jobs.guards*.14+(tOn('fortifiedPatrols')?0.08:0)+(tOn('watchfires')?0.05:0);
 const traderWindow=()=>{let min=180,max=320;if(tOn('tradeCaravans')){min=150;max=260}if(tOn('marketCharters')){min-=20;max-=30}return{min,max}};
-const lvlGoldGate=k=>k==='townHall'?8:['smelter','tavern'].includes(k)?1:['workshop','warehouse','barracks','scribeHall','goldMine','winery'].includes(k)?4:['farm','lumberMill','quarry','vineyard','oreMine'].includes(k)?5:0;
-const goldBuildingUpkeep=(k,l)=>k==='townHall' ? .03*l : ['smelter','tavern'].includes(k) ? .08*l : ['workshop','warehouse','barracks','scribeHall','goldMine','winery'].includes(k) ? .05*l : .03*l;
-const upgradeGoldCost=k=>{const lvl=Math.min(maxLevelFor(k),lowestLevel(k)+1);if(k==='townHall')return lvl>=8?10+(lvl-8)*6:0;if(['smelter','tavern'].includes(k))return 8+lvl*5;if(['workshop','warehouse','barracks','scribeHall','goldMine','winery'].includes(k))return lvl>=4?6+lvl*4:0;if(['farm','lumberMill','quarry','vineyard','oreMine'].includes(k))return lvl>=6?4+(lvl-6)*3:0;return 0};
+const lvlGoldGate=k=>k==='townHall'?10:['smelter','tavern'].includes(k)?4:['workshop','warehouse','barracks','scribeHall','goldMine','winery'].includes(k)?7:['farm','lumberMill','quarry','vineyard','oreMine'].includes(k)?10:0;
+const goldBuildingUpkeep=(k,l)=>k==='townHall' ? .015*l : ['smelter','tavern'].includes(k) ? .045*l : ['workshop','warehouse','barracks','scribeHall','goldMine','winery'].includes(k) ? .025*l : .012*l;
+const upgradeGoldCost=k=>{const lvl=Math.min(maxLevelFor(k),lowestLevel(k)+1);if(k==='townHall')return lvl>=10?8+(lvl-10)*5:0;if(['smelter','tavern'].includes(k))return lvl>=4?6+lvl*4:0;if(['workshop','warehouse','barracks','scribeHall','goldMine','winery'].includes(k))return lvl>=7?4+lvl*3:0;if(['farm','lumberMill','quarry','vineyard','oreMine'].includes(k))return lvl>=10?3+(lvl-10)*2:0;return 0};
 const buildCost=k=>cost(Object.fromEntries(Object.entries(D[k].cost).map(([rk,v])=>[rk,Math.ceil(v*(rk==='wood'?woodCostDiscount():rk==='stone'?stoneCostDiscount():1))])),buildMultiplier(k)),
 upCost=k=>{const out=cost(Object.fromEntries(Object.entries(D[k].cost).map(([rk,v])=>[rk,Math.ceil(v*(rk==='wood'?woodCostDiscount():rk==='stone'?stoneCostDiscount():1))])),upgradeMultiplier(k));const gc=upgradeGoldCost(k);if(gc)out.gold=(out.gold||0)+gc;return out},
 mult=l=>1+(l-1)*.07;

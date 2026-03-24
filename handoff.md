@@ -106,6 +106,7 @@ Viimane suund:
 - core ressursid, `Knowledge` ja advanced chain output on veel aeglasemaks tehtud
 - `Workshop` on nuud vaiksema protsendiga support-hoone
 - resource-output tech node'id on nuud vaiksemad ja rohkem mikroboonuste suunas
+- `Gold` upkeep ja gold-gating tuleb nuud hiljem peale ning vaiksemalt
 
 Kui alustad uut vestlust, void kasutada seda prompti:
 

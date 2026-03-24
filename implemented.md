@@ -173,3 +173,4 @@ Viimane balance-pass:
 - `Workshop` annab nuud vaiksema village-efficiency iga leveliga
 - resource-output tech node'id annavad nuud vaiksemaid boonuseid
 - building wood upkeep kasvab nuud leveliga tuntavamalt
+- building gold upkeep ja gold-cost gating nihutati hilisemaks ning tehti pehmemaks
