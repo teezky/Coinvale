@@ -20,12 +20,15 @@ Praegune seis:
   - iga elanik annab `+0.01/s`
   - `Scribe Hall` on nuud toodud kulla taha, et `Scholar` ei jaaks poolikuks unlockiks
   - `Scholar` on saadaval alles siis, kui `Gold` economy on reaalselt avatud
+  - `Knowledge` base cap algab nuud `120` pealt
 - Hoonemudel on nuud unikaalhoonete peale keeratud:
   - igat hoonet saab olla korraga `1`
   - `Town Hall` liigub kuni `Level 30`
   - muud hooned liiguvad kuni `Level 50`
   - workeritega hooned annavad tootmist ja worker-cap'i leveli kaudu
 - Workerite jagamine kaib nuud slideritega.
+- scene-paneelis saab mangija nuud oma kulale nime anda ja see jaab save'i alles
+- reseti voi taiesti uue mangu alguses kusitakse kula nimi popupiga kohe ette
 - `Town Hall` on kogu progressioni kese:
   - max leveli siht = `30`
   - population/growth loogika kasutab `Level^1.5` kasvu
@@ -48,8 +51,11 @@ Praegune seis:
   - `Happiness` mojub hetkel ainult population growthile ja avaneb sisuliselt alles `Wine` economy järel
 - `Granary` ja `Chicken Coop` on runtime'ist maha voetud
 - `Warehouse` on nuud selgem milestone-hoone tugevama storage-kasvuga
+- `Warehouse` toodi varasemaks (`TH 2`), et storage ei jaaks varase `Town Hall` pushi vastu tootlema
 - osa hooneid ja tech node'e nouavad nuud kindlat `Town Hall` levelit
 - varajast food / gold upkeepi on kergelt pehmendatud, et kasv ja esimesed specialist-rollid ei jaaks liiga kergelt kinni
+- random eventid voivad nuud anda voi votta ka `Gold`i
+- trader pakub nuud laiemat barterit ning voib vahel vahetada ka `Knowledge`it
 
 Peamised failid:
 - [index.html](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/index.html)

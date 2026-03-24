@@ -48,8 +48,9 @@ Kategooriad:
 `Warehouse`
 - roll: global storage multiplier
 - eripara: workerita utility-hoone
-- town hall gate: `TH 5`
+- town hall gate: `TH 2`
 - markus: kasutab nuud tugevamat milestone-storage skaalat, mitte vana vaikest lineaarset kasvu
+- markus: toodud varasemaks, et `Town Hall` upgrade ei jaaks lao mahu taha kinni
 
 `Gold Mine`
 - roll: `Gold` economy tootmine

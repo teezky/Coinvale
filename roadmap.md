@@ -20,6 +20,7 @@ Lahiaja prioriteedid:
 5. `Wine`, `Ore`, `Metal` economy kihtide tempotest
 6. expedition rewardide ja `Guard` kaitsevaartuste tuning
 7. worker-cap growthi ja role-based capacity tuning
+8. hinnata, kas uued traderi barterid ja gold-eventid jaavad piisavalt relevantseks eri mangufaasides
 
 Olulised tasakaaluteemad:
 - `Food` peab jaama oluliseks, aga early game ei tohi olla liiga karistav
@@ -47,6 +48,7 @@ UX teemad:
 - vaadata ule, kas worker sliderite lugemine on piisavalt selge suurema populationi juures
 - hinnata, kas tech tree branch spacing vajab veel uht polish-passi
 - vajadusel teha ressursi tooltipid veel kompaktsemaks, kui uusi ressursse lisandub juurde
+- otsustada, kas kula nime juures on hiljem vaja ka visuaalset crest'i voi bannerit
 
 Arhitektuuri teemad:
 - otsustada, millal ja kuidas tuua runtime samm-sammult `reference/*.js` peale

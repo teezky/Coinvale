@@ -116,7 +116,7 @@ window.CoinvaleReference.techTree = {
     name: "Storehouse Planning",
     branch: "stone",
     unlocks: ["Warehouse"],
-    requires: ["fieldRotation", "stonecutting"],
+    requires: ["stonecutting"],
   },
   stonecutting: {
     name: "Stonecutting",

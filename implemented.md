@@ -19,6 +19,7 @@ Ressursid:
 - `Ore`
 - `Metal`
 - `Wine`
+- `Knowledge` base cap algab nuud `120` pealt, et varane research economy ei jaaks liiga kitsaks
 
 Economy ja progression:
 - `Knowledge` saab varakult alguse:
@@ -31,6 +32,7 @@ Economy ja progression:
 - `Tech Tree` research cost ei ole enam koigil node'idel sama, vaid kasvab branchi sugavuse ja samas harus juba uuritud node'ide arvu jargi
 - `Scholar` gold upkeep on nuud veidi pehmem (`0.05/s`)
 - `Guard` ja `Soldier` food upkeep on nuud veidi pehmemad (`0.16/s` ja `0.20/s`)
+- `Warehouse` tuleb nuud varem (`Town Hall Lv2`), et storage ei blokiks varaseid `Town Hall` upgrade'e
 
 Hooned:
 - `Town Hall` on alati olemas ja on kogu village progressioni kese
@@ -94,6 +96,8 @@ UI ja UX:
 - `Tech Tree` on kompaktne node-vaade kogu branchi ulatuses
 - event modal on tech tree kohal, mitte selle all
 - town scene naitab iga ehitatud hoonet eraldi sprite'ina ja level-badge'iga
+- town scene alal saab nuud oma kulale nime anda ning see salvestub save'i sisse
+- reseti voi paris uue mangu alguses tuleb kula nime popup ette kohe esimese sammuna
 - kui `Happiness` ei ole veel aktiivne, naitab UI nuud selgemalt, et see avaneb veini economy kaudu
 
 Tech tree:
@@ -119,6 +123,12 @@ Expeditionid ja kaitse:
 - expeditionid annavad storage-scaled rewarde
 - failed expedition voib vallandada `counter-raid`i
 - `Guard` aitab raid'i ara hoida voi kahju vahendada
+- random eventid voivad nuud anda voi votta ka `Gold`i
+
+Trader:
+- trader ei paku enam ainult lihtsat kolme vahetust
+- barter voib nuud vahetada eri ressursse laiemalt ristisuunas
+- kui `Knowledge` economy on kaivitatud, voib trader pakkuda ka otseseid `Knowledge` tehinguid
 
 Town Hall:
 - max leveli disainisiht = `30`

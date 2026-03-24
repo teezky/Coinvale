@@ -34,6 +34,7 @@ Olulised node-milestone'id:
   - avab `Workshop`i
 - `Storehouse Planning`
   - avab `Warehouse`i
+  - aitab storage deadlockit varases `Town Hall` progressionis lahendada
 - `Planning Office`
   - vahendab buildingute `Wood` ja `Stone` kulusid
 - `Measured Masonry`
