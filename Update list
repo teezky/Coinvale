@@ -1,16 +1,16 @@
-Tech tree pole täies laiuses - vaja teha täiemõõtmeliseks laiupidi
-Event teavitus ja tech tree kattusid omavahel - Event teavitus peaks olema peal pool
-Ressursside kastides tooltipis võiks olla income ja upkeep täpsustatud - nt palju töötajatelt tuleb ja palju kulub upkeepiks. Muul ajal võiks olla vaid Net production kirjas ning kaua läheb ,et ladu täis saaks.
-Scholari sain alguses värvata, kellel on Gold upkeep, aga gold ei ole mul veel ressursina avatudki.
-Tech Trees horisontaalselt avab järjestikku, kui eelmine on unlockitud aga vertikaalselt unlokivad kõik korraga - võiks samuti olla et enne ei saa järgmist õppida kui eelnev pole õpitud.
-Gold mining tech trees tahab avamiseks kulda ressurssina, mida pole võimalik saada enne gold mining node'i
-Tech trees noded mis vajavad kulda õppimiseks, peaks vajama rohkem kulda. 3 kulda nt on ühe sekundi küsimus teatud hetkel - võiks olla suurem nõudlus.
-Kui hoonet on võimalik ehitada vaid üheainsa, siis võiks pärast hoone ehitamist peita Build costi ning jätta alles vaid Upgrade cost.
-Expeditionite rewardid, mis on seotud ressurssidega võiks olla % kogus olemasoleva lao mahust. Nt kui ladu mahutab 1000 ühikut, siis see täidab mingi % sellest mahust.
-Lao maht võiks olla suurem. Alguses võiks alustada nt, et kõike mahub ca 2000 ühikut. Lao ehitamine annab mahule nt 100% juurde ning iga upgrade lisab sellele mingi kordaja ka.
-Next villager - võiks olla võimalik panna uute elanike juurdetulekule stop peale - nt kui näed, et hetkel ei suuda veel ära toita kõike ja tahad ressursse koguda, siis saad toggle off vajutada vms, et ei toodaks elanikke juurde.
-Lisame ressursid vein, raud ja savi. Luksusressursid, mis tulevad hiljem - rauamaaks, tellised, vein.
-Toidu osas. Kui on juba nt 23 elanikku, siis farm, chicken coop jne ei suuda ära tasakaalustada toidu upkeepi.
-Töötajate määramine võiks olla mitte + ja -'ga vaid skrollbariga või slideriga
-Happiness - see võiks olla mängus. Nt vein ja entertainment mõjutavad seda. Toidu saadavus samamoodi ja Happiness omakorda siis tõstab villageride nn spawn time'i
-
+Tech tree node'del võiks olla samuti sobilikud ikoonid või pildid.
+Oleks aeg äkki teha piltidele mingi eraldi reference fail?
+Tech tree - Äkki võiks olla sedasi, et nendesse outputi mõjutavatesse nodedesse saab panna mitu punkti - nt max 5 punkti, iga punkt maksab rohkem kui eelmine aga annab nt paar % juurde node väärtusele?
+Output noded tech trees võiks olla ühtlasemate protsentidega - nt et kõik sellised output increase noded annavad tõusu 3% võrra - kõik mis vähendavad kulusid, on -3% jne
+Kui veel pole, siis expeditionid peaksid andma rewardina % warehouse'i mahust - nt kui teed Scouting Runi ära, siis see täidab su varusid 5% võrra vms
+Tech tree - võibolla oleks mõistlikum kuvada tech treed mitte horisontaalselt vaid vertikaalselt - sellisel juhul mahuvad kõikide nn osade node'd pildile
+Mõte melvori mängust, äkki saame ka seda loogikat rakendada - RESOURCE CHAING - raw → processed → advanced → combat → upgrades
+Kuidas meie Offline progress prg arvutatud on? Melvoris on nii - 
+   offline_time = current_time - last_saved_time
+   actions_done = offline_time / action_interval
+   reward = actions_done * reward_per_action
+Workerite värbamise kohas on iga töötaja Outputi all kirjas Ukeep: None - kas seal peaks tegelikult mingi väärtus olema või mitte?
+Kuna kõiki hooneid saab olla max 1, siis pärast hoone buildimist, võiks Build nupp peitu minna.
+Lvl 4 Thga sain tech trees õppida gold mine, mis avab kulla resssursina. Gold mine ehitada veel ei saa, sest vajab TH5 küllaga ma saan ehitada schribe halli, mis kasutab upkeepiks kulda - see ei tundu loogiline.
+Mul on TH4 ja warehouse lvl 4. Th 5 vajab upgradeks 831 puitu, 545 kivi ja 259 toitu, kuid warehouse mahutab juba ca 1000+ ressurssi. Lisaks saan warehouse upgrade kuni lvl 6ks ajal mil TH on lvl 4 ehk TH upgrade requirement lvl 5ks moodustab vaid ca 40% warehouse max mahutavusest. See tegelt peaks olema pigem 90% juures igakord.
+Townhalli upgrade requirements peaks olema rohkem suhtes sellega, kui palju warehouse mahutab. Town halli upgrade ressursside näol peaks olema ikka kallim ja kasutama võimalikult palju warehouse'i max mahutavust ära. S
