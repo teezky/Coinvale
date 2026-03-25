@@ -4,13 +4,19 @@ This file defines the working process for the project.
 
 Core rules:
 - Before major changes, collect the intended change list first.
-- Code is edited only after the user gives a clear instruction such as `tee ära`, `update`, `change the code`, or `implement`.
+- Code is edited only after the user gives a clear instruction such as `do it`, `update`, `change the code`, or `implement`.
 - If the discussion is only about ideas, review, or planning, then code is not changed.
 - Documentation and reference files must be kept in sync with the relevant changes.
 
 Markdown file maintenance:
 - `handoff.md` should stay short and easy to scan.
-- `patch-notes.md` should log substantial updates in a patch-note format.
+- `patch-notes.md` should log substantial updates in a chronological patch-note format.
+- every substantial update batch should get a new patch entry.
+- each new patch entry should include:
+  - patch number
+  - date
+  - time
+  - status
 - `patch-notes.md` should also carry removed, dropped, or replaced solutions under a `Removed` category.
 - `implemented.md` should describe what is actually working in the game.
 - `roadmap.md` should describe upcoming topics, balance concerns, and next steps.
@@ -33,7 +39,7 @@ Workflow before changes:
 
 Workflow after changes:
 1. Update `implemented.md` if something truly went into the game.
-2. Update `patch-notes.md` for every substantial update batch.
+2. Update `patch-notes.md` for every substantial update batch using a new dated and timed patch entry.
 3. Update `roadmap.md` if priorities or next topics changed.
 4. Record removed or replaced solutions in `patch-notes.md` under `Removed`.
 5. Update `buildings.md`, `workers.md`, or `tech-tree.md` if system behavior changed.

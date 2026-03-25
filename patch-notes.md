@@ -1,10 +1,15 @@
 # Coinvale Patch Notes
 
-This file tracks meaningful project updates in a patch-note style.
+This file tracks meaningful project updates in chronological order.
 
 Rules:
-- every substantial update should add a new entry
-- each entry should use clear categories when relevant:
+- every substantial update gets its own patch entry
+- each entry starts with:
+  - patch number
+  - date
+  - time
+  - status
+- use clear sections when relevant:
   - `Added`
   - `Changed`
   - `Rebalanced`
@@ -12,13 +17,12 @@ Rules:
   - `Removed`
   - `Docs`
   - `Planned`
-- if a release note describes a planned update, it must be labeled clearly as planned
-- if a category has no relevant items for that entry, it can be omitted
+- if an older update predates this format and the exact timestamp is unknown, mark it clearly as `historical entry`
 
 Template:
 
 ```md
-## Unreleased - Update Name
+## Patch 0.0.0 - 2026-03-25 17:57
 
 Status:
 - implemented | planned | mixed
@@ -39,7 +43,7 @@ Fixed:
 - bugs, deadlocks, regressions, broken gating
 
 Removed:
-- old systems, abandoned approaches, and intentionally dropped features
+- old systems, abandoned approaches, intentionally dropped features
 
 Docs:
 - documentation and reference file updates
@@ -50,22 +54,21 @@ Planned:
 
 ---
 
-## Unreleased - Documentation & Formula Pass
+## Patch 0.0.1 - historical entry
 
 Status:
 - implemented
 
 Summary:
-- added a dedicated formulas document and a structured formulas reference
-- aligned `Town Hall`, storage, and building soft-cap logic
-- cleaned the markdown documentation layer into English
+- established a formal documentation and formulas layer
+- aligned `Town Hall`, storage, and building-cap formulas
 
 Added:
-- added [formulas.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/formulas.md)
-- added [reference/formulas.js](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/reference/formulas.js)
+- `formulas.md`
+- `reference/formulas.js`
 
 Changed:
-- updated the markdown documentation layer to use English consistently
+- markdown documentation was standardized in English
 
 Rebalanced:
 - `Town Hall` cost curve
@@ -102,99 +105,267 @@ Docs:
 
 Notes:
 - runtime source of truth remains `index.html`
-- the formulas layer now exists in both human-readable and structured reference form
+- formulas now exist in both human-readable and structured reference form
 
 ---
 
-## Unreleased - Planned Tech Tree, Progression & UX Update
+## Patch 0.0.2 - historical entry
 
 Status:
-- planned
+- mixed
 
 Summary:
-- restructure the tech tree around clearer branch identity, repeatable nodes, and cleaner unlock logic
-- tighten progression by syncing tech unlocks with `Town Hall`
-- improve UX around readability, visuals, and unique-building interactions
+- defined the next major tech tree, progression, and UX direction
+- kept these items as planned rather than fully implemented in one batch
 
 Planned:
-
-Tech Tree structure:
-- rename branches into clearer, more coherent categories
-- shift node composition toward this target mix:
-  - `40%` unlock
-  - `30%` system change
-  - `30%` bonus
-- add repeatable multi-level nodes for long-term progression
+- rename branches into clearer categories
+- shift node composition toward `40% unlock / 30% system change / 30% bonus`
+- add repeatable multi-level nodes for long-tail progression
 - reduce oversized percentage bonuses and replace them with smaller, more frequent bonuses such as `+1%`
-- consider a vertical tree layout so more nodes can fit on screen at once
-
-Tech Tree visuals:
-- add icons or small visuals to tech nodes to improve readability
-- create a dedicated asset reference file for node visuals instead of hardcoding image paths
-
-Tech Tree unlock logic:
-- if a tech node unlocks a building with a `Town Hall` requirement, the node should carry the same `Town Hall` requirement
-- avoid any unlock state where research says a building is available but the building is still not actually buildable
-
-Repeatable node direction:
-- add long-tail repeatable nodes with scalable cost and high max level, such as:
-  - core output boosters
-  - branch-specific `+1%` production nodes
-  - long-term evergreen progression nodes up to roughly `50-100` levels where appropriate
-
-Resource and progression direction:
-- continue evaluating a clearer chain structure:
+- evaluate a clearer resource chain:
   - `raw -> processed -> advanced -> combat -> upgrades`
-- make `Stone` and `Food` more important in upgrades instead of leaning too heavily on `Wood`
-
-Expeditions:
-- keep expedition rewards tied to storage / warehouse size so expeditions remain relevant over the whole game
-- consider a rule such as a percentage of storage capacity
-- make expeditions take a bit longer to increase strategic weight
-
-Offline progress:
-- evaluate a clearer offline model based on:
-  - elapsed time
-  - action interval
-  - rewards per completed action
-- if used, it must still respect:
-  - storage caps
-  - upkeep
-  - bounded event/trader logic
-
-Buildings and UI:
+- keep expedition rewards tied to storage / warehouse size
+- consider slightly longer expedition durations
+- evaluate a clearer offline progress model that still respects storage caps and upkeep
+- continue refining `Town Hall` / `Warehouse` scaling
+- increase the role of `Stone` and `Food` in `Town Hall` upgrades
+- reduce how long early workers such as `Forager` remain dominant
 - improve visual progression for `Town Hall` and nearby settlement art over time
 
-Town Hall / Warehouse scaling:
-- continue refining the relationship between `Town Hall` cost and storage capacity
-- base `Town Hall` pressure on the warehouse level that the current `Town Hall` can support, not just the currently built warehouse level
-- increase the role of `Stone` and `Food` in `Town Hall` upgrade costs
-
-Worker balance:
-- reduce how long early workers such as `Forager` remain dominant
-- keep the shift toward building-based workers stronger and clearer over time
-
-Visual/icon polish:
-- add tech node icons or glyphs for better tree readability
-
-Priority fixes inside this planned update:
+Priority:
 1. `Town Hall` and `Warehouse` scaling
 2. tech unlock synchronization
 3. worker progression balance
 4. standardized smaller bonus percentages in the tech tree
 5. multi-level node system
 
-## Unreleased - Tech Tree and UI Sync
+---
 
-### Changed
-- renamed tech tree branches to `Sustenance`, `Craftsmanship`, `Masonry`, `Scholarship`, `Warfare`, and `Commerce`
+## Patch 0.0.3 - historical entry
+
+Status:
+- implemented
+
+Summary:
+- synchronized the tech tree with gated building logic
+- improved node readability and removed noisy empty upkeep rows
+
+Added:
+- branch-themed glyph icons inside tech node orbs
+
+Changed:
+- renamed tech tree branches to:
+  - `Sustenance`
+  - `Craftsmanship`
+  - `Masonry`
+  - `Scholarship`
+  - `Warfare`
+  - `Commerce`
 - tech nodes now inherit matching `Town Hall` requirements when they unlock gated buildings
-- the wine resource icon now uses a grape cluster for better readability
+- the wine resource icon now uses a grape cluster
+- the tech tree now uses a vertical branch flow instead of the old horizontal branch layout
 
-### Added
-- branch-themed glyph icons inside tech node orbs for faster scanning
-
-### Fixed
+Fixed:
 - unique building cards now hide the `Build` button after the building already exists
 - building cards no longer show an empty upkeep section when no upkeep is active
 - worker cards no longer show `Upkeep: None`
+
+Docs:
+- `tech-tree.md`
+- `implemented.md`
+- `reference/techTree.js`
+
+---
+
+## Patch 0.0.4 - 2026-03-25 17:57
+
+Status:
+- implemented
+
+Summary:
+- expanded the runtime UI to full-width and tightened spacing for a more compact, development-friendly layout
+- switched patch notes to a chronological numbered format with timestamps
+
+Changed:
+- the main app container now uses the full browser width instead of a centered `1480px` cap
+- major layout blocks use smaller gaps and tighter padding
+- side/main columns are slightly rebalanced to free more room for central content
+- header, stats, resource cards, worker rows, scene, tech panels, and building cards are all slightly more compact
+- large screens now use the available width more aggressively for resource rows and main layout density
+
+Docs:
+- converted `patch-notes.md` into a chronological patch log with:
+  - patch numbers
+  - dates
+  - times
+  - status blocks
+  - consistent categories
+
+Notes:
+- older entries were preserved as historical entries because exact timestamps were not recorded when they were first made
+
+---
+
+## Patch 0.0.5 - 2026-03-25 18:03
+
+Status:
+- implemented
+
+Summary:
+- rebuilt tech tree branch rendering so prerequisite relationships are visually connected with proper lines
+
+Changed:
+- each branch now uses a computed node grid with explicit depth and lane placement
+- prerequisite relationships are drawn as curved `parent -> child` link paths instead of decorative-only branch rails
+- completed prerequisite links are highlighted to make researched progression paths easier to read
+- tech branch cards keep vertical flow while now showing clearer internal graph structure
+
+Docs:
+- `tech-tree.md`
+- `patch-notes.md`
+
+---
+
+## Patch 0.0.6 - 2026-03-25 18:07
+
+Status:
+- implemented
+
+Summary:
+- stabilized tech tree rendering and responsive sizing after visual regressions from the previous graph pass
+
+Changed:
+- tech branches now render in a single full-width stack to keep node graphs readable without cramped branch cards
+- branch tech grids now use adaptive lane sizing (`minmax(0,1fr)`) to prevent horizontal overflow
+- branch cards now hide internal horizontal overflow and keep links inside card bounds
+- node label, status, glyph, and orb sizes were tuned down slightly for tighter visual fit
+- added responsive breakpoints for top layout, stats, resources, workers, and scene sizing across desktop/tablet/mobile
+
+Fixed:
+- removed horizontal scrollbars appearing inside tech branch areas
+- improved prerequisite line routing by ordering nodes using parent-lane targets before final lane placement
+- reduced awkward connection-line crossings caused by purely alphabetical same-depth ordering
+
+Docs:
+- `tech-tree.md`
+- `patch-notes.md`
+
+---
+
+## Patch 0.0.7 - 2026-03-25 18:09
+
+Status:
+- implemented
+
+Summary:
+- refined tech tree composition to remove stretched branch visuals and improve connection readability
+
+Changed:
+- switched tech branch list to a responsive multi-column layout on larger screens, falling back to one column on narrower widths
+- tech node grids now render at compact fixed lane widths and are centered inside each branch card
+- reduced connector line thickness and opacity for cleaner visual hierarchy
+
+Fixed:
+- removed the oversized empty horizontal space that made branch connectors look stretched
+- reduced awkwardly long curve spans by tightening lane geometry inside branch cards
+- changed branch depth calculation to use in-branch prerequisites only, preventing inflated vertical spacing from cross-branch dependencies
+
+Docs:
+- `tech-tree.md`
+- `patch-notes.md`
+
+---
+
+## Patch 0.0.8 - 2026-03-25 18:12
+
+Status:
+- implemented
+
+Summary:
+- adjusted the tech overview to show branches side-by-side on wide screens and moved the game shell back from full-width to a centered wide layout
+
+Changed:
+- game container now uses a centered wide width (`~80vw`) instead of edge-to-edge full-width
+- tech overview now targets six side-by-side branches on large screens, then scales down to 3/2/1 columns for smaller widths
+- tech node lanes now fit inside each branch card using adaptive lane columns
+- node labels and orb sizes were tightened to keep branch content inside card bounds
+
+Fixed:
+- reduced branch overflow pressure caused by fixed lane widths in narrow branch cards
+- improved branch readability by keeping node geometry compact in side-by-side mode
+
+Docs:
+- `README.md`
+- `tech-tree.md`
+- `patch-notes.md`
+
+---
+
+## Patch 0.0.9 - 2026-03-25 18:14
+
+Status:
+- implemented
+
+Summary:
+- tuned tech branch counters for cleaner readability and moved the main game shell from `80vw` to `90vw`
+
+Changed:
+- game container width updated from `80vw` to `90vw` on large screens
+- tech branch progress counters now render as compact single-line `done/total` values
+- added a dedicated `techCountPill` style to prevent counter wrapping
+
+Fixed:
+- branch counter values no longer split into two lines in narrow header conditions
+
+Docs:
+- `README.md`
+- `patch-notes.md`
+
+---
+
+## Patch 0.0.10 - 2026-03-25 18:17
+
+Status:
+- implemented
+
+Summary:
+- switched tech tree connectors from curved paths to straight segmented paths for a clearer WoW-like skill-tree look
+
+Changed:
+- prerequisite links now render as straight connectors
+- multi-lane links use elbow routing (`vertical -> horizontal -> vertical`)
+- same-lane links use direct straight lines
+
+Fixed:
+- reduced the "snake-like" visual feel caused by long curved splines in dense branches
+- improved line readability in side-by-side branch layout
+
+Docs:
+- `tech-tree.md`
+- `patch-notes.md`
+
+---
+
+## Patch 0.0.11 - 2026-03-25 18:23
+
+Status:
+- implemented
+
+Summary:
+- added visible patch versioning in the game header and a readable in-game Patch Notes modal
+
+Added:
+- `Patch Notes` button in the top header
+- dedicated patch notes modal with scrollable content
+
+Changed:
+- game title now shows the current patch badge (`Patch x.x.x`) next to `Coinvale`
+- patch notes modal content now loads from `patch-notes.md` when available
+- fallback patch content is shown automatically if direct file loading is blocked by browser mode
+
+Fixed:
+- prevented gameplay event modal overlap while Patch Notes or village naming modal is open
+
+Docs:
+- `patch-notes.md`

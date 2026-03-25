@@ -21,7 +21,8 @@ The game currently includes:
 - expeditions with storage-scaled rewards and `counter-raid` logic
 - random events and a trader
 - save / migration / offline progress
-- a compact wide `Tech Tree`
+- a compact centered wide layout (about `90vw` on large screens)
+- a vertical branch-view `Tech Tree`
 - `Happiness`, which affects villager growth
 
 ## Running the game
@@ -37,7 +38,7 @@ To run it:
 Main files:
 - `index.html` - runtime and main game logic
 - `formulas.md` - main balance formulas and progression rules
-- `patch-notes.md` - patch-note style history of updates and planned release batches
+- `patch-notes.md` - chronological patch history with numbered dated entries
 - `handoff.md` - short current-state handoff file
 - `implemented.md` - what is actually implemented in the game
 - `roadmap.md` - upcoming topics and balance focus
@@ -64,6 +65,7 @@ The project uses two layers:
 Core rules:
 - when a system changes, both documentation and reference should be updated together
 - substantial updates should also be reflected in `patch-notes.md`
+- each substantial update should be logged there as a new numbered patch entry with date, time, and status
 
 ## Workflow
 
