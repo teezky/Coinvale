@@ -1,88 +1,88 @@
 # Coinvale Buildings
 
-Eesmärk:
-- inimesele loetav ulevaade hoonetest
-- mitte kanoniline dataallikas
-- struktureeritud referents elab failis `reference/buildings.js`
+Purpose:
+- human-readable overview of the buildings
+- not the canonical data source
+- structured reference lives in `reference/buildings.js`
 
-Pohimotted:
-- koik hooned on nuud unikaalsed
-- igat hoonet saab korraga olla `1`
-- `Town Hall` liigub kuni `Level 30`
-- muud hooned liiguvad kuni `Level 50`
-- workeritega hoonete worker-cap tuleb hoone levelist
-- workerite jagamine kaib slideritega
+Core rules:
+- all buildings are unique
+- each building type can only exist once
+- `Town Hall` goes to `Level 30`
+- other buildings go to `Level 50`
+- worker-cap on worker buildings comes from building level
+- worker assignment uses sliders
 
-Kategooriad:
+Categories:
 
 `Town Hall`
-- roll: population core, growth telg, kogu village progression
-- eripara: algab mangus olemasolevana
-- progression: gating teiste hoonete levelite kaudu
+- role: population core, growth spine, overall settlement progression
+- special rule: starts in the game already built
+- progression: gated by the level of other buildings
 
 `Farm`
-- roll: peamine `Food` estate
-- annab: base food + `Farmer` capacity
+- role: main `Food` estate
+- provides: base food + `Farmer` capacity
 
 `Lumber Mill`
-- roll: peamine `Wood` tootmine
-- annab: base wood + `Woodcutter` capacity
+- role: main `Wood` production
+- provides: base wood + `Woodcutter` capacity
 
 `Quarry`
-- roll: peamine `Stone` tootmine
-- annab: base stone + `Quarry Miner` capacity
+- role: main `Stone` extraction
+- provides: base stone + `Quarry Miner` capacity
 
 `Workshop`
-- roll: economy efficiency ja buildingute baastoodangu tugi
-- eripara: workerita utility-hoone
+- role: economy efficiency and baseline building-output support
+- special rule: utility building without worker slots
 
 `Scribe Hall`
-- roll: `Knowledge` economy kese
-- annab: base knowledge + `Scholar` capacity
-- unlock: `Gold Mining` + `Town Hall Lv4`, et hoone ei oleks enne kullamajandust poolik
+- role: center of the `Knowledge` economy
+- provides: base knowledge + `Scholar` capacity
+- unlock: `Gold Mining` + `Town Hall Lv4`, so it is not a half-usable building before gold exists
 
 `Barracks`
-- roll: `Guard` ja `Soldier` rollide kodu
-- kasutus: expeditionid ja village defense
+- role: home of the `Guard` and `Soldier` roles
+- use: expeditions and village defense
 
 `Warehouse`
-- roll: global storage multiplier
-- eripara: workerita utility-hoone
+- role: global storage support
+- special rule: utility building without worker slots
 - town hall gate: `TH 2`
-- markus: kasutab nuud tugevamat milestone-storage skaalat, mitte vana vaikest lineaarset kasvu
-- markus: toodud varasemaks, et `Town Hall` upgrade ei jaaks lao mahu taha kinni
+- note: uses a stronger milestone storage curve instead of the old weaker linear feel
+- note: brought earlier into progression so `Town Hall` upgrades do not get blocked by storage
 
 `Gold Mine`
-- roll: `Gold` economy tootmine
-- annab: base gold + `Gold Miner` capacity
+- role: `Gold` production
+- provides: base gold + `Gold Miner` capacity
 - town hall gate: `TH 5`
 
 `Vineyard`
-- roll: varajane luksusmajanduse kiht
-- annab: base wine + `Vinekeeper` capacity
+- role: early luxury economy layer
+- provides: base wine + `Vinekeeper` capacity
 - town hall gate: `TH 10`
 
 `Winery`
-- roll: parem `Wine` throughput ja luxury support
-- annab: `Vintner` capacity
+- role: improved `Wine` throughput and luxury support
+- provides: `Vintner` capacity
 - town hall gate: `TH 12`
 
 `Ore Pit`
-- roll: `Ore` extraction
-- annab: `Ore Miner` capacity
-- town hall gate: `TH 12`
+- role: `Ore` extraction
+- provides: `Ore Miner` capacity
+- town hall gate: `TH 10`
 
 `Smelter`
-- roll: `Metal` tootmine
-- annab: `Smelter` capacity
-- kasutab upkeep'ina `Ore`
+- role: `Metal` production
+- provides: `Smelter` capacity
+- upkeep: consumes `Ore`
 - town hall gate: `TH 14`
 
 `Tavern`
-- roll: `Happiness` support
-- annab: `Innkeeper` capacity
-- kasutab `Wine`i ja toetab population growthi
+- role: `Happiness` support
+- provides: `Innkeeper` capacity
+- uses `Wine` and supports population growth
 - town hall gate: `TH 15`
 
-Marge:
-- konkreetne unlock / cost / slots / upkeep / notes referents elab failis `reference/buildings.js`
+Note:
+- exact unlocks, costs, slots, upkeep, and notes live in `reference/buildings.js`

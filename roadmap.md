@@ -1,64 +1,64 @@
 # Coinvale Roadmap
 
-Praegune disainisuund:
-- Mangu pohitelg on `Ikariam + Melvor Idle`
-- `Farthest Frontier` annab juurde loogikat ja usutavust, aga mitte karmi survival-karistust
-- Eesmargiks on loetav idle-flow:
-  - kasv
-  - luksusmajandus
-  - tech-progression
+Current design direction:
+- The main gameplay spine is `Ikariam + Melvor Idle`
+- `Farthest Frontier` adds logic and believability, but not harsh survival punishment
+- The target is a readable idle loop built around:
+  - growth
+  - luxury economy
+  - tech progression
   - village identity
 
-Praegune jargmine teema:
-- teha tugev balance-pass praegusele economy'le enne jargmist suurt sisulaiendust
-- kontrollida peale viimast aeglustuspassi, kas:
-  - core ressursid ei jookse enam liiga vara lakke
-  - `Town Hall` ja core-hoonete levelid ei touse liiga kiiresti
-  - `Knowledge` cost kasv ja cap growth jaavad omavahel kokku
+Current next topic:
+- run a strong balance pass on the current economy before the next major content expansion
+- verify after the latest slowdown pass that:
+  - core resources do not cap out too early
+  - `Town Hall` and core building levels do not rise too quickly
+  - `Knowledge` cost growth and cap growth still meet properly
 
-Lahiaja prioriteedid:
-1. `Food` scaling parast `Granary` / `Chicken Coop` eemaldust
-2. kontrollida brauseris, kas uus `Scribe Hall -> Gold Mining` gating tundub hea
-3. hinnata, kas uus fikseeritud tech-tree cost mudel vajab veel peenhaalestust branchide kaupa
-4. `Town Hall` ja building upgrade-costide tuning
-5. `Wine`, `Ore`, `Metal` economy kihtide tempotest
-6. expedition rewardide ja `Guard` kaitsevaartuste tuning
-7. worker-cap growthi ja role-based capacity tuning
-8. hinnata, kas uued traderi barterid ja gold-eventid jaavad piisavalt relevantseks eri mangufaasides
+Near-term priorities:
+1. `Food` scaling after the removal of `Granary` / `Chicken Coop`
+2. browser-side validation of the `Scribe Hall -> Gold Mining` gating
+3. review whether the fixed tech-tree cost model still needs branch-by-branch tuning
+4. `Town Hall` and building upgrade-cost tuning
+5. pace testing for the `Wine`, `Ore`, and `Metal` economy layers
+6. expedition reward tuning and `Guard` defense value tuning
+7. worker-cap growth and role-based capacity tuning
+8. evaluate whether trader barters and gold events stay relevant across different game phases
 
-Olulised tasakaaluteemad:
-- `Food` peab jaama oluliseks, aga early game ei tohi olla liiga karistav
-- starter-workerid ei tohi muutuda liiga vara taitsa mõttetuks
-- `Warehouse` peab tunduma oluline milestone, aga storage ei tohi teha early game'i liiga vabaks
-- `Gold` peab olema midgame'is oluline, aga ei tohi lukustada researchi liiga vara kinni
-- `Happiness` peab hoidma growthi juhitavana, mitte muutuma veel üheks liigseks mikronumbriks
-- koik ressursid peavad reas ette nahtavad olema, aga lukus kihid ei tohi enne unlocki midagi teha
+Important balance topics:
+- `Food` must remain important, but early game must not become too punishing
+- starter workers must not become useless too early
+- `Warehouse` should feel like a milestone, but storage must not make early game too open
+- `Gold` should matter in midgame without locking research too early
+- `Happiness` should help keep growth manageable, not become another noisy micromanagement number
+- all resources should remain visible in the row, but locked layers should do nothing before unlock
 
-Jargmised toenalolised gameplay-teemad:
-- `Town Hall 1-30` progressioni peenhaalestus
-- buildingute `Level 1-50` scalingu ja worker-cap kasvu balanss
-- building art / tugevamad pildilised hoonevariandid praeguste sprite'ide asemele voi peale
-- `Wine` economy parem chain:
+Likely next gameplay topics:
+- `Town Hall 1-30` progression tuning
+- `Level 1-50` building scaling and worker-cap balance
+- stronger building art or separate art assets on top of the current sprites
+- stronger `Wine` economy chain:
   - `Vineyard`
   - `Winery`
   - `Tavern`
-- `Metal` economy parem chain:
+- stronger `Metal` economy chain:
   - `Ore Pit`
   - `Smelter`
-  - hiljem voimalikud `Tools` voi `Weapons`
-- starter-jobide lopliku rolli otsustamine
-- rohkem chain-evente ja stage'itud expedition milestone'e
+  - possible later `Tools` or `Weapons`
+- final role definition for starter jobs
+- more chain events and staged expedition milestones
 
-UX teemad:
-- vaadata ule, kas worker sliderite lugemine on piisavalt selge suurema populationi juures
-- hinnata, kas tech tree branch spacing vajab veel uht polish-passi
-- vajadusel teha ressursi tooltipid veel kompaktsemaks, kui uusi ressursse lisandub juurde
-- otsustada, kas kula nime juures on hiljem vaja ka visuaalset crest'i voi bannerit
+UX topics:
+- review whether worker sliders remain readable at larger populations
+- evaluate whether tech tree branch spacing needs one more polish pass
+- compact resource tooltips further if more resources are added later
+- decide whether the village name should later include a crest or banner
 
-Arhitektuuri teemad:
-- otsustada, millal ja kuidas tuua runtime samm-sammult `reference/*.js` peale
-- hoida dokumentatsioon ja referents alati sama seisuga kui `index.html`
+Architecture topics:
+- decide when and how runtime should gradually move onto `reference/*.js`
+- keep documentation and references aligned with `index.html` at all times
 
-Voimalikud lisalogid tulevikus:
-- `decisions.md` suurte disainiotsuste jaoks
-- `balance-notes.md` economy ja pacingu markmete jaoks
+Possible future logs:
+- `decisions.md` for major design decisions
+- `balance-notes.md` for economy and pacing notes

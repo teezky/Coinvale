@@ -1,69 +1,69 @@
 # GitHub Upload Guide
 
-See projekt on valmis GitHubi jaoks dokumenteeritud kujul.
+This project is ready to be uploaded to GitHub in a documented form.
 
-## Soovitatud repo sisu
+## Recommended repository contents
 
-Hoia repos sees:
+Keep these in the repo:
 - `index.html`
-- koik `*.md` dokumentatsioonifailid
-- kaust `reference/`
+- all `*.md` documentation files
+- the `reference/` folder
 - `.gitignore`
 - `README.md`
 
-## Soovitatud repo nimi
+## Suggested repository names
 
-Naiteks:
+Examples:
 - `coinvale`
 - `coinvale-prototype`
 - `coinvale-idle-game`
 
-## GitHubi üleslaadimine
+## Uploading to GitHub with git
 
-Kui sul on `git` oma arvutis olemas, siis tee projekti kaustas:
+If `git` is installed on your machine, run this in the project folder:
 
 ```powershell
 git init
 git add .
 git commit -m "Initial Coinvale prototype"
 git branch -M main
-git remote add origin https://github.com/SINU_KASUTAJA/REPO_NIMI.git
+git remote add origin https://github.com/YOUR_USERNAME/REPO_NAME.git
 git push -u origin main
 ```
 
-## Kui GitHub repo on vaja alles luua
+## If the GitHub repository still needs to be created
 
-1. Ava GitHub.
-2. Vajuta `New repository`.
-3. Pane repo nimi.
-4. Ara lisa esialgu `README`, `.gitignore` ega `license`, sest need on siin projektis juba olemas.
-5. Loo repo.
-6. Kasuta uleval toodud `git` käske.
+1. Open GitHub.
+2. Click `New repository`.
+3. Enter the repository name.
+4. Do not add an initial `README`, `.gitignore`, or `license`, because this project already includes them.
+5. Create the repository.
+6. Use the `git` commands above.
 
-## Mida enne pushi kontrollida
+## What to verify before pushing
 
-- kas `README.md` kirjeldab praegust seisu
-- kas `handoff.md` on luhike ja ajakohane
-- kas `implemented.md`, `roadmap.md`, `removed.md` on kooskõlas
-- kas `buildings.md`, `workers.md`, `tech-tree.md` on uuendatud
-- kas `reference/*.js` vastab tegelikule systeemiseisule
+- whether `README.md` describes the current state
+- whether `handoff.md` is short and current
+- whether `implemented.md`, `roadmap.md`, and `removed.md` are aligned
+- whether `buildings.md`, `workers.md`, and `tech-tree.md` are updated
+- whether `reference/*.js` matches the actual system state
 
-## Kui tahad lihtsalt veebist uploadida ilma gitita
+## If you want to upload through the web UI without git
 
-Void teha ka nii:
-1. Loo GitHubis uus repo.
-2. Vali `uploading an existing file`.
-3. Lohista kogu projekti sisu repo aknasse.
-4. Tee esimene commit GitHubi veebis.
+You can also do it this way:
+1. Create a new GitHub repository.
+2. Choose `uploading an existing file`.
+3. Drag the whole project into the repo page.
+4. Create the first commit through GitHub’s web UI.
 
-Selle puhul arvesta:
-- hilisemad muudatused on mugavamad, kui `git` on arvutisse paigaldatud
+Keep in mind:
+- future updates are much easier if `git` is installed locally
 
-## Soovitus tulevikuks
+## Recommendation for later
 
-Kui hakkad projekti aktiivsemalt GitHubis hoidma, tasub hiljem lisada:
+If you keep the project on GitHub more actively later, it is worth adding:
 - `LICENSE`
-- screenshots kaust
-- releases voi changelog
+- a screenshots folder
+- releases or a changelog
 
-`LICENSE` tuleks valida teadlikult, sest see on juriidiline otsus.
+`LICENSE` should be chosen deliberately, because it is a legal decision.

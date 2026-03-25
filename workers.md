@@ -1,87 +1,87 @@
 # Coinvale Workers
 
-Eesmärk:
-- inimesele loetav ulevaade workeritest
-- mitte kanoniline dataallikas
-- struktureeritud referents elab failis `reference/workers.js`
+Purpose:
+- human-readable overview of the worker system
+- not the canonical data source
+- structured reference lives in `reference/workers.js`
 
-Pohimotted:
-- alguses kannavad mangi starter-jobid
-- hiljem liigub fookus unikaalhoonete worker-cap'i sisse
-- workerite jagamine kaib slideritega
-- osad rollid on `free`, osad on `slot`-pohised
+Core rules:
+- starter jobs carry the opening game
+- later the focus shifts into the worker capacity of unique buildings
+- worker assignment uses sliders
+- some roles are `free`, others are `slot`-based
 
-Starter-rollid:
+Starter roles:
 
 `Forager`
-- roll: starter `Food`
-- saadaval: algusest
+- role: starter `Food`
+- available: from the start
 
 `Wood Gatherer`
-- roll: starter `Wood`
-- saadaval: algusest
+- role: starter `Wood`
+- available: from the start
 
 `Stone Collector`
-- roll: starter `Stone`
-- saadaval: algusest
+- role: starter `Stone`
+- available: from the start
 
-Hoonetega seotud tootmisrollid:
+Building-linked production roles:
 
 `Farmer`
-- nouab: `Farm`
-- tootab `Food`
+- requires: `Farm`
+- produces `Food`
 
 `Woodcutter`
-- nouab: `Lumber Mill`
-- tootab `Wood`
+- requires: `Lumber Mill`
+- produces `Wood`
 
 `Quarry Miner`
-- nouab: `Quarry`
-- tootab `Stone`
+- requires: `Quarry`
+- produces `Stone`
 
 `Gold Miner`
-- nouab: `Gold Mine` + `Gold Mining`
-- tootab `Gold`
+- requires: `Gold Mine` + `Gold Mining`
+- produces `Gold`
 
 `Scholar`
-- nouab: `Scribe Hall` + toimiv `Gold` economy
-- tootab `Knowledge`
-- upkeep: kasutab `Gold`
+- requires: `Scribe Hall` + a functioning `Gold` economy
+- produces `Knowledge`
+- upkeep: uses `Gold`
 
 `Vinekeeper`
-- nouab: `Vineyard`
-- toetab `Wine` economy't
+- requires: `Vineyard`
+- supports the `Wine` economy
 
 `Ore Miner`
-- nouab: `Ore Pit`
-- tootab `Ore`
+- requires: `Ore Pit`
+- produces `Ore`
 
 `Smelter`
-- nouab: `Smelter`
-- tootab `Metal`
-- upkeep: kasutab `Ore`
+- requires: `Smelter`
+- produces `Metal`
+- upkeep: uses `Ore`
 
 `Vintner`
-- nouab: `Winery`
-- parandab `Wine` throughput'i
+- requires: `Winery`
+- improves `Wine` throughput
 
 `Innkeeper`
-- nouab: `Tavern`
-- kasutab `Wine`i
-- toetab `Happiness`it ja sealt kaudu growthi
+- requires: `Tavern`
+- uses `Wine`
+- supports `Happiness`, and through that supports growth
 
-Population ja military:
+Population and military:
 
 `Villager`
-- passiivne efekt: iga elanik annab umbes `+0.01/s` `Knowledge`it
+- passive effect: each villager adds a small passive `Knowledge` flow
 
 `Guard`
-- nouab: `Barracks`
-- aitab peatada voi pehmendada `counter-raid`e
+- requires: `Barracks`
+- helps stop or soften `counter-raids`
 
 `Soldier`
-- nouab: `Barracks`
-- vajalik expeditionitele
+- requires: `Barracks`
+- required for expeditions
 
-Marge:
-- konkreetne unlock / output / upkeep / slotType info elab failis `reference/workers.js`
+Note:
+- exact unlocks, outputs, upkeep, and slot types live in `reference/workers.js`

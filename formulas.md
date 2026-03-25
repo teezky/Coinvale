@@ -47,7 +47,7 @@ buildingUpgradeScale(building, level) =
 `Town Hall`:
 
 ```js
-townHallUpgradeScale(level) = 1 + 1.45 * level^1.48
+townHallUpgradeScale(level) = 1 + 1.22 * level^1.42
 ```
 
 `upgradeMultiplier(k)` uses:
@@ -235,11 +235,11 @@ Village-wide efficiency:
 workshopBase = 1 + WorkshopLevel * 0.012
 ```
 
-See on meelega vaiksem kui varasemad versioonid.
+This is intentionally smaller than in earlier versions.
 
 ## Production
 
-Praegused baas-outputid enne tech- ja territory-boonuseid:
+Current base outputs before tech and territory bonuses:
 
 `Food`
 
@@ -332,7 +332,7 @@ woodUpkeep(building, level) =
   building.up * (6 + (level - 1) * 0.75) * masonryModifier
 ```
 
-kus:
+where:
 
 ```js
 masonryModifier = masonry ? 0.9 : 1
@@ -340,7 +340,7 @@ masonryModifier = masonry ? 0.9 : 1
 
 ## Gold Gating
 
-Gold building upkeep algab alles hiljem:
+Gold building upkeep starts later:
 
 ```js
 Town Hall                     => from Lv10
@@ -351,7 +351,7 @@ Vineyard/Ore Pit              => from Lv10
 Smelter/Tavern                => from Lv4
 ```
 
-Gold upkeep valem:
+Gold upkeep formula:
 
 ```js
 Town Hall        = 0.015 * level
@@ -360,7 +360,7 @@ Support buildings= 0.025 * level
 Core/field chain = 0.012 * level
 ```
 
-Gold upgrade-cost algab:
+Gold upgrade cost starts at:
 
 ```js
 Town Hall        => Lv10+
@@ -385,11 +385,11 @@ expeditionProvisionMult =
 
 ## Seasons
 
-Praeguses runtime'is:
+In the current runtime:
 
 ```js
 seasonKey() = 'steady'
 season() = { f:1, w:1, g:1, u:1 }
 ```
 
-Ehk hooajad ei anna mangule hetkel enam sisulisi modifikaatoreid.
+In practice, seasons no longer provide meaningful gameplay modifiers.

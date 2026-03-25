@@ -1,86 +1,86 @@
 # Coinvale
 
-`Coinvale` on single-file browser game prototuup, mille pohiline runtime elab failis `index.html`.
+`Coinvale` is a single-file browser game prototype whose main runtime lives in `index.html`.
 
-Projekt uhendab:
-- idle / resource management loopi
-- unikaalsed upgrade'itavad hooned
-- worker-sliderid
-- expeditionid, random eventid ja village defense'i
-- branch-pohise node-vaatega `Tech Tree`
-- inimesele loetava dokumentatsiooni
-- struktureeritud referentsifailid tuleviku jaoks
+The project combines:
+- an idle / resource-management loop
+- unique upgradeable buildings
+- worker sliders
+- expeditions, random events, and village defense
+- a branch-based node-view `Tech Tree`
+- human-readable documentation
+- structured reference files for future architecture work
 
-## Projekti seis
+## Current project state
 
-Praegu on mangus olemas:
-- ressursid `Food`, `Wood`, `Stone`, `Gold`, `Knowledge`, `Ore`, `Metal`, `Wine`
-- `Town Hall`-pohine population progression
-- uks hoone igast tuubist, max leveli sihiga `20`
-- workerid, sh `Scholar`, `Guard`, `Soldier`, `Vinekeeper`, `Ore Miner`, `Smelter`, `Vintner`, `Innkeeper`
-- expeditionid koos storage-scaled rewardide ja `counter-raid` loogikaga
-- random eventid ja trader
+The game currently includes:
+- resources: `Food`, `Wood`, `Stone`, `Gold`, `Knowledge`, `Ore`, `Metal`, `Wine`
+- `Town Hall`-based population progression
+- one building of each type, with `Town Hall` going to `30` and other buildings to `50`
+- workers including `Scholar`, `Guard`, `Soldier`, `Vinekeeper`, `Ore Miner`, `Smelter`, `Vintner`, and `Innkeeper`
+- expeditions with storage-scaled rewards and `counter-raid` logic
+- random events and a trader
 - save / migration / offline progress
-- kompaktne taislaiuses node-pohine `Tech Tree`
-- `Happiness`, mis mojub villager growthile
+- a compact wide `Tech Tree`
+- `Happiness`, which affects villager growth
 
-## Kaivitamine
+## Running the game
 
-See projekt ei vaja build-susteemi.
+This project does not need a build system.
 
-Avamiseks:
-1. ava fail `index.html` brauseris
-2. mang kaivitub otse samast failist
+To run it:
+1. open `index.html` in a browser
+2. the game runs directly from that file
 
-## Failistruktuur
+## File structure
 
-Pohifailid:
-- `index.html` - mangu runtime ja pohiline loogika
-- `formulas.md` - peamised balansivalemid ja progressionireeglid
-- `handoff.md` - luhike hetkeseis ja jargmine teema
-- `implemented.md` - mis on pariselt mangus olemas
-- `roadmap.md` - jargmised teemad ja balansifookus
-- `removed.md` - eemaldatud voi mahavoetud lahendused
-- `instructions.md` - projekti tooreeglid
+Main files:
+- `index.html` - runtime and main game logic
+- `formulas.md` - main balance formulas and progression rules
+- `handoff.md` - short current-state handoff file
+- `implemented.md` - what is actually implemented in the game
+- `roadmap.md` - upcoming topics and balance focus
+- `removed.md` - removed or dropped solutions
+- `instructions.md` - project workflow rules
 
-Susteemidokid:
+System docs:
 - `buildings.md`
 - `workers.md`
 - `tech-tree.md`
 
-Struktureeritud referents:
+Structured reference:
 - `reference/buildings.js`
 - `reference/formulas.js`
 - `reference/workers.js`
 - `reference/techTree.js`
 
-## Dokumentatsiooni loogika
+## Documentation model
 
-Projekt kasutab kahte kihti:
+The project uses two layers:
 
-1. inimesele loetav dokumentatsioon `*.md`
-2. struktureeritud referents `reference/*.js`
+1. human-readable documentation in `*.md`
+2. structured reference in `reference/*.js`
 
-Oluline pohimote:
-- kui susteem muutub, tuleb nii dokumentatsioon kui referents koos ajakohastada
+Core rule:
+- when a system changes, both documentation and reference should be updated together
 
-## Toovoog
+## Workflow
 
-Selles projektis kehtib kokkulepe:
-- muudatused arutatakse enne labi
-- koodi muudetakse alles siis, kui on selge kinnitus stiilis `tee ara`
-- parast muudatusi tuleb seotud markdown- ja reference-failid uuendada
+Working agreement for this project:
+- discuss changes before implementing them
+- edit code only after a clear instruction such as `tee ära`
+- after a change, update the related markdown and reference files
 
-Tapsemad reeglid on kirjas failis `instructions.md`.
+More detailed rules live in `instructions.md`.
 
-## Jargmised teemad
+## Current focus
 
-Hetkel on pohirohk:
-- economy balance-pass
-- `Food`, `Warehouse` ja upgrade-costide tuning
-- `Wine` ja `Metal` economy tempo
-- voimalik hilisem liikumine `reference`-pohisema arhitektuuri poole
+The main focus right now is:
+- economy balance passes
+- `Food`, `Warehouse`, and upgrade-cost tuning
+- pacing for the `Wine` and `Metal` economy
+- possible later movement toward a more reference-driven architecture
 
-## GitHubi jaoks
+## GitHub
 
-Kui tahad selle projekti GitHubi ules panna, vaata ka faili `github-upload.md`.
+If you want to upload this project to GitHub, also check `github-upload.md`.

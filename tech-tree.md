@@ -1,79 +1,79 @@
 # Coinvale Tech Tree
 
-Eesmärk:
-- inimesele loetav ulevaade tech tree loogikast
-- mitte kanoniline dataallikas
-- struktureeritud referents elab failis `reference/techTree.js`
+Purpose:
+- human-readable overview of the tech tree logic
+- not the canonical data source
+- structured reference lives in `reference/techTree.js`
 
-Branchid:
+Branches:
 
 `Food & Growth`
-- toit, village stability, health ja growth support
-- algab nuud `Field Rotation` node'iga
+- food, village stability, health, and growth support
+- now starts with `Field Rotation`
 
 `Craft & Timber`
-- wood flow, craft, `Workshop` ja tootmise tugevdamine
+- wood flow, craft, `Workshop`, and production support
 
 `Stone & Storage`
-- quarry, masonry, storage ja logistics
-- avab `Warehouse`i ning storage-cap boonuslogika
+- quarry, masonry, storage, and logistics
+- unlocks `Warehouse` and the storage-cap support layer
 
 `Knowledge & Civic`
-- `Knowledge` enne, siis `Wine`, alles seejarel `Happiness`
+- `Knowledge` first, then `Wine`, and only after that meaningful `Happiness`
 
 `Military & Expeditions`
-- expedition success, defense, guards, counter-raid mitigation
+- expedition success, defense, guards, and counter-raid mitigation
 
 `Trade & Metals`
-- `Gold`, `Ore`, `Metal`, trade efficiency ja hilisem majanduskiht
+- `Gold`, `Ore`, `Metal`, trade efficiency, and the later economic layer
 
-Olulised node-milestone'id:
+Key node milestones:
 - `Field Rotation`
-  - avab varase farmi tugevnemise
+  - unlocks the first real farm improvement
 - `Craftsmanship`
-  - avab `Workshop`i
+  - unlocks `Workshop`
 - `Storehouse Planning`
-  - avab `Warehouse`i
-  - aitab storage deadlockit varases `Town Hall` progressionis lahendada
+  - unlocks `Warehouse`
+  - helps solve early storage deadlocks in `Town Hall` progression
 - `Planning Office`
-  - vahendab buildingute `Wood` ja `Stone` kulusid
+  - reduces building `Wood` and `Stone` costs
 - `Measured Masonry`
-  - vahendab buildingute `Stone` kulusid
+  - reduces building `Stone` costs
 - `Viticulture`
-  - avab `Vineyard`i
-  - sellest alates muutub `Happiness` sisuliselt aktiivseks kihiks
+  - unlocks `Vineyard`
+  - from this point `Happiness` becomes meaningfully active
 - `Vintage Press`
-  - avab `Winery`
+  - unlocks `Winery`
 - `Tavern Culture`
-  - avab `Tavern`
+  - unlocks `Tavern`
 - `Gold Mining`
-  - avab `Gold Mine`
+  - unlocks `Gold Mine`
 - `Ore Extraction`
-  - avab `Ore Pit`
+  - unlocks `Ore Pit`
 - `Smithing`
-  - avab `Smelter`
+  - unlocks `Smelter`
 
-Praegune UI suund:
-- kompaktne node-vaade
-- node all on nimi
-- detailne info on tooltipis
-- kogu branchi tulevased node'id on nahtavad
-- nii horisontaalne kui vertikaalne progression nouavad prerequisite'e
-- tree kasutab nuud suuremat laiust kui varem
+Current UI direction:
+- compact node view
+- node names shown directly under each node
+- detailed information in tooltips
+- future nodes remain visible across the whole branch
+- both horizontal and vertical progression use prerequisites
+- the tree now uses more width than before
 
-Knowledge loogika:
-- `Knowledge` ei tule ainult `Scribe Hall`ist ja `Scholar`itest
-- alguses annab ka elanike arv vaikese passiivse research-voo
+Knowledge logic:
+- `Knowledge` no longer comes only from `Scribe Hall` and `Scholars`
+- population also gives a small passive research flow in early game
 
-Olulised gating-pohimotted:
-- `Gold Mining` tuleb piisavalt vara, et `Lv5-6` building upgrade'id ei jaaks kulla taha kinni
-- `Scribe Hall` ei avane enne `Gold Mining`ut, et `Scholar`i kullaupkeep ei jaaks poolikuks susteemiks
-- osa hilisemaid node'e nouab lisaks prerequisite'idele ka kindlat `Town Hall` levelit
-- `Happiness` ei ole sisuliselt mangija juhitav enne `Viticulture -> Vintage Press -> Tavern Culture` ahelat
-- research cost on nuud fikseeritud ja ette nahtav
-  - sama node ei muutu kallimaks lihtsalt selleparast, et samas harus uuriti midagi muud enne ara
-  - samas liigub iga sygavam node nyyd tuntavalt kallimaks kui eelmine
-  - `Knowledge` cap growthi timmiti selle jarele, et research ei jaaks puhtalt lae taha kinni
+Important gating rules:
+- `Gold Mining` arrives early enough that `Lv5-6` building upgrades should not deadlock on gold
+- `Scribe Hall` does not unlock before `Gold Mining`, so scholar gold upkeep is not introduced as a half-finished system
+- some later nodes require both prerequisites and a certain `Town Hall` level
+- `Happiness` is not really player-driven before the `Viticulture -> Vintage Press -> Tavern Culture` chain
+- research cost is fixed and predictable
+  - the same node does not become more expensive just because you researched something else first in the same branch
+  - deeper nodes are still meaningfully more expensive than earlier ones
+  - `Knowledge` cap growth was tuned to support that
 
-Marge:
-- konkreetne node-by-node struktureeritud referents elab failis `reference/techTree.js`
+Note:
+- exact node-by-node reference lives in `reference/techTree.js`

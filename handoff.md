@@ -1,85 +1,88 @@
 # Coinvale Handoff
 
-Projekt:
-- Single-file browser game failis `index.html`
-- Mangu nimi: `Coinvale`
+Project:
+- Single-file browser game in `index.html`
+- Game name: `Coinvale`
 
-Olulised kokkulepped:
-- Arutame muudatused enne labi.
-- Koodi muudame alles siis, kui kasutaja utleb selgelt midagi stiilis `tee ara`, `muuda koodis`, `implementeeri`.
-- Koik seotud markdown- ja `reference/*.js` failid tuleb hoida sama passi jooksul ajakohased.
+Working agreements:
+- Discuss changes before implementing them.
+- Only edit code after the user gives a clear go-ahead such as `tee ära`, `implement`, or `update the code`.
+- Keep all related markdown files and `reference/*.js` files in sync during the same pass.
 
-Praegune seis:
-- Mang liigub nuud selgelt `Ikariam + Melvor Idle` suunas, kerge `Farthest Frontier` loogikakihiga.
-- Algus on aktiivsem:
-  - start = `4` elanikku
-  - random eventid on umbes `20%` harvemad
-  - `Forager` ja `Farm` on tugevamad kui varem
-- Ressursikastid kuvavad tavaolekus `Net` ja ladustumise aja ning tooltipis detailset income/upkeep breakdowni.
-- koik ressursid on nuud reas algusest peale nahtavad:
-  - lukus ressursid on tuhmid
-  - neil on tooltipis unlock-juhis
-  - `Knowledge` on reas viimane
-- `Knowledge` tuleb varakult:
-  - iga elanik annab vaikese passiivse research-voo
-  - `Scribe Hall` on nuud toodud kulla taha, et `Scholar` ei jaaks poolikuks unlockiks
-  - `Scholar` on saadaval alles siis, kui `Gold` economy on reaalselt avatud
-  - `Knowledge` base cap algab nuud `120` pealt
-  - `Knowledge` cost kasvab nuud puus edasi liikudes tugevamalt
-  - samal ajal kasvab `Knowledge` cap nuud agressiivsemalt `Town Hall`i ja `Scribe Hall`iga kaasa
-- Hoonemudel on nuud unikaalhoonete peale keeratud:
-  - igat hoonet saab olla korraga `1`
-  - `Town Hall` liigub kuni `Level 30`
-  - muud hooned liiguvad kuni `Level 50`
-  - workeritega hooned annavad tootmist ja worker-cap'i leveli kaudu
-- Workerite jagamine kaib nuud slideritega.
-- scene-paneelis saab mangija nuud oma kulale nime anda ja see jaab save'i alles
-- kula nimi on scene-paneelis nuud keskel Town Halli kohal, mitte vasakus servas
-- reseti voi taiesti uue mangu alguses kusitakse kula nimi mangusisese modaliga kohe ette
-- `Town Hall` on kogu progressioni kese:
-  - max leveli siht = `30`
-  - population/growth loogika kasutab `Level^1.5` kasvu
-  - upgrade'id on gated teiste hoonete levelitega
-- `Growth` pause nupp eemaldati, et population growth ei saaks kogemata kogu loopi segada.
-- Building kaartidel:
-  - `Current Effect` naitab nuud tegelikku current-level seisu
-  - `Next Step` naitab selgemalt jargmise leveli base effecti ja worker-cap'i
-- `Tech Tree` on nuud:
-  - taiema laiuse node-vaade
-  - tulevased node'id on nahtavad
-  - nii horisontaalne kui vertikaalne progression nouab prerequisite'e
-  - branchid on `Growth`, `Craft`, `Stone`, `Civic`, `Military`, `Trade`
-  - research cost on fikseeritud ja ette nahtav node'i enda sygavuse ja tieri jargi
-- Expeditionid skaleeruvad nuud rohkem lao suurusega ning failed expedition voib vallandada `counter-raid`i.
-- Mangu lisati uued majanduskihid:
+Current state:
+- The game is moving toward an `Ikariam + Melvor Idle` direction with a light `Farthest Frontier` logic layer.
+- The opening is more active:
+  - start with `4` villagers
+  - random events are about `20%` less frequent
+- Resource cards show `Net` and fill/empty timing in normal view, and detailed income/upkeep breakdowns in tooltips.
+- All resources are visible from the start:
+  - locked resources are dimmed
+  - locked resources explain their unlock path in tooltips
+  - `Knowledge` is shown last in the row
+- `Knowledge` now comes online earlier:
+  - every villager adds a small passive research flow
+  - `Scribe Hall` is positioned behind gold so `Scholar` is not a half-usable unlock
+  - `Scholar` only becomes available once the `Gold` economy is online
+  - `Knowledge` base cap now starts at `120`
+  - `Knowledge` costs rise more clearly deeper in the tree
+  - `Knowledge` cap also scales more aggressively with `Town Hall` and `Scribe Hall`
+- The building model now uses unique buildings:
+  - each building type can only exist once
+  - `Town Hall` goes to `Level 30`
+  - other buildings go to `Level 50`
+  - worker buildings scale through level-based output and worker capacity
+- Worker assignment now uses sliders.
+- The scene panel supports village naming, and the name stays in the save.
+- The village name is centered above the settlement scene.
+- A new or reset game now asks for the village name through an in-game modal as the first step.
+- `Town Hall` is the core progression spine:
+  - max level target = `30`
+  - population/growth uses a `Level^1.5` style curve
+  - upgrades are gated by other building levels
+- The `Growth` pause button was removed so growth no longer interferes with the main loop.
+- Building cards:
+  - `Current Effect` shows the real current-level state
+  - `Next Step` shows the next level's main base effect and worker capacity
+- `Tech Tree` now uses:
+  - a wider node layout
+  - visible future nodes
+  - both horizontal and vertical prerequisite logic
+  - branches for `Growth`, `Craft`, `Stone`, `Civic`, `Military`, and `Trade`
+  - fixed and predictable node costs based on node depth and tier
+- Expeditions scale with storage size, and failed expeditions can trigger a `counter-raid`.
+- New economy layers were added:
   - `Wine`
   - `Ore`
   - `Metal`
-  - `Happiness` mojub hetkel ainult population growthile ja avaneb sisuliselt alles `Wine` economy järel
-- `Granary` ja `Chicken Coop` on runtime'ist maha voetud
-- `Warehouse` on nuud selgem milestone-hoone tugevama storage-kasvuga
-- viimane balance-pass tommas `Warehouse`i hilisemat kasvu veidi tagasi, et storage ei vabastaks economy't liiga vara
-- `Warehouse` toodi varasemaks (`TH 2`), et storage ei jaaks varase `Town Hall` pushi vastu tootlema
-- `Ore Pit` toodi build-gate'i poolest `TH 10` peale, et `Town Hall 11+` progression ei jaaks deadlocki
-- osa hooneid ja tech node'e nouavad nuud kindlat `Town Hall` levelit
-- varajast food / gold upkeepi on kergelt pehmendatud, et kasv ja esimesed specialist-rollid ei jaaks liiga kergelt kinni
-- viimane economy-pass:
-  - tombas `Farm`, `Lumber Mill`i ja `Quarry` tootmist alla
-  - tegi core building upgrade'id kallimaks
-  - tegi `Town Hall`i veelgi kallimaks milestone-hooneks
-  - tostis villagers / guards / soldiers `Food` survet
-  - tombas expeditionite resource-rewarde tagasi
-  - aeglustas `Knowledge` gaini, et research ei jookseks liiga lihtsalt yle
-- sellele jargnenud tuning-pass:
-  - tombas `Farmer`, `Woodcutter`i ja `Quarry Miner`i tootlust veel alla
-  - vahendas `Workshop`i village-efficiency ja kogu building-level multiplierit
-  - tostis buildingute `Wood` upkeepi, et see ei oleks enam naljanumber
-  - parandas tooltipi püsivuse renderite vahel
-  - tegi ressursirea kastid veidi ruumikamaks
-- random eventid voivad nuud anda voi votta ka `Gold`i
-- trader pakub nuud laiemat barterit ning voib vahel vahetada ka `Knowledge`it
+  - `Happiness` currently affects only population growth and effectively unlocks once the `Wine` economy is online
+- `Granary` and `Chicken Coop` have been removed from runtime logic.
+- `Warehouse` is now a clearer milestone building with a stronger storage curve.
+- `Warehouse` was moved earlier (`TH 2`) so early `Town Hall` upgrades do not hit storage deadlocks.
+- `Ore Pit` was moved to `TH 10` on the build gate side so `Town Hall 11+` progression does not deadlock.
+- Some buildings and tech nodes now require a specific `Town Hall` level.
+- Early food and gold upkeep were softened slightly so growth and the first specialist roles do not stall too easily.
+- Recent economy passes:
+  - reduced `Farm`, `Lumber Mill`, and `Quarry` output
+  - made core building upgrades more expensive
+  - made `Town Hall` feel more like a costly milestone
+  - increased villager / guard / soldier `Food` pressure
+  - reduced expedition resource rewards
+  - slowed `Knowledge` gain so research does not run away
+- Follow-up tuning:
+  - reduced `Farmer`, `Woodcutter`, and `Quarry Miner` output further
+  - reduced `Workshop` village efficiency and the global building-level multiplier
+  - increased building `Wood` upkeep so it is now a real cost
+  - fixed tooltip persistence across renders
+  - made the resource row slightly roomier
+- Random events can now also give or remove `Gold`.
+- Trader now offers broader barter and can sometimes trade `Knowledge`.
+- `Town Hall` cost, storage scaling, and building soft caps were rebalanced together:
+  - the hall cost curve is softer
+  - base storage is stronger
+  - `Warehouse` scales harder
+  - `TH30` can now realistically support `Lv50` buildings
 
-Peamised failid:
+Main files:
 - [index.html](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/index.html)
 - [instructions.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/instructions.md)
 - [implemented.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/implemented.md)
@@ -88,41 +91,31 @@ Peamised failid:
 - [buildings.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/buildings.md)
 - [workers.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/workers.md)
 - [tech-tree.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/tech-tree.md)
+- [formulas.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/formulas.md)
 - [reference/buildings.js](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/reference/buildings.js)
+- [reference/formulas.js](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/reference/formulas.js)
 - [reference/workers.js](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/reference/workers.js)
 - [reference/techTree.js](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/reference/techTree.js)
 
-Praegune jargmine teema:
-- teha uus balance-pass:
-  - kontrollida brauseris, kas uus aeglasem economy tempo tundub nyyd parem
-  - vaadata, kas `Knowledge` cap ja research cost kasv jooksevad kokku ilma ummikuteta
-- kontrollida brauseris, kas uus `Town Hall` / build / tech gating tunneb end UX-i moistes loogiliselt
-- otsustada, millal lisada eraldi building art failid praeguste sprite'ide asemele voi peale
-- hinnata, kas ja millal hakata runtime'i samm-sammult `reference/*.js` andmete peale tooma
+Next focus:
+- run another browser-side balance pass
+- verify the slower economy feels better after the latest storage / hall rebalance
+- verify `Knowledge` cap and research cost scaling still meet cleanly
+- decide when to replace or layer over the current sprites with separate building art
+- evaluate whether and when runtime should start consuming more data from `reference/*.js`
 
-Viimane suund:
-- season-susteem on praktiliselt eemaldatud
-- `Town Hall` piirab nuud pehmelt teiste hoonete max upgrade tempot
-- core ressursid, `Knowledge` ja advanced chain output on veel aeglasemaks tehtud
-- `Workshop` on nuud vaiksema protsendiga support-hoone
-- resource-output tech node'id on nuud vaiksemad ja rohkem mikroboonuste suunas
-- `Gold` upkeep ja gold-gating tuleb nuud hiljem peale ning vaiksemalt
-- `Warehouse` annab nuud suurema storage-boonuse, et hall-upgrade'id ei satuks lao deadlocki
-- storage / `Town Hall` suhe on uuesti timmitud: hall-cost curve on pehmem, baas-cap tugevam ja warehouse kasvab joudsamalt
-- `Town Hall` pehmed building-cap'id lubavad nuud hiljem `max 50` sihi poole reaalselt jouda, mitte ei jaa `TH30` juures liiga madalaks
-
-Kui alustad uut vestlust, void kasutada seda prompti:
+Suggested prompt for a fresh conversation:
 
 ```text
-Projekt on single-file browser game "Coinvale" failis index.html.
+The project is the single-file browser game "Coinvale" in index.html.
 
-Palun loe esmalt handoff.md ja jatkame sealt.
+Please read handoff.md first and continue from there.
 
-Oluline kokkulepe:
-- Arutame muudatused enne labi.
-- Koodi muuda alles siis, kui utlen selgelt "tee ara".
-- Kui midagi muudad, hoia seotud markdownid ja reference-failid sama passiga kursis.
+Important agreement:
+- Discuss changes before implementing them.
+- Do not edit code until I clearly say "tee ära".
+- If you change anything, keep the related markdown and reference files in sync.
 ```
 
-Markus:
-- Selles keskkonnas ei olnud saadaval brauseri runtime kontrolli, seega muudatused vaadati ule loogika- ja sisutasemel, mitte live-testiga.
+Note:
+- In this environment there was no live browser runtime available, so changes were checked through logic and file review rather than full in-browser playtesting.
