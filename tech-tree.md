@@ -7,24 +7,24 @@ Purpose:
 
 Branches:
 
-`Food & Growth`
+`Sustenance`
 - food, village stability, health, and growth support
 - now starts with `Field Rotation`
 
-`Craft & Timber`
+`Craftsmanship`
 - wood flow, craft, `Workshop`, and production support
 
-`Stone & Storage`
+`Masonry`
 - quarry, masonry, storage, and logistics
 - unlocks `Warehouse` and the storage-cap support layer
 
-`Knowledge & Civic`
+`Scholarship`
 - `Knowledge` first, then `Wine`, and only after that meaningful `Happiness`
 
-`Military & Expeditions`
+`Warfare`
 - expedition success, defense, guards, and counter-raid mitigation
 
-`Trade & Metals`
+`Commerce`
 - `Gold`, `Ore`, `Metal`, trade efficiency, and the later economic layer
 
 Key node milestones:
@@ -55,6 +55,7 @@ Key node milestones:
 
 Current UI direction:
 - compact node view
+- branch-appropriate glyph icons directly inside each node orb
 - node names shown directly under each node
 - detailed information in tooltips
 - future nodes remain visible across the whole branch
@@ -69,6 +70,7 @@ Important gating rules:
 - `Gold Mining` arrives early enough that `Lv5-6` building upgrades should not deadlock on gold
 - `Scribe Hall` does not unlock before `Gold Mining`, so scholar gold upkeep is not introduced as a half-finished system
 - some later nodes require both prerequisites and a certain `Town Hall` level
+- if a node unlocks a building with a `Town Hall` requirement, the node now inherits that same minimum `Town Hall` level
 - `Happiness` is not really player-driven before the `Viticulture -> Vintage Press -> Tavern Culture` chain
 - research cost is fixed and predictable
   - the same node does not become more expensive just because you researched something else first in the same branch

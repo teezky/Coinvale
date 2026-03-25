@@ -3,33 +3,33 @@ window.CoinvaleReference = window.CoinvaleReference || {};
 window.CoinvaleReference.techBranches = [
   {
     id: "growth",
-    title: "Food & Growth",
-    hint: "Fields, upkeep, and steady early growth.",
+    title: "Sustenance",
+    hint: "Fields, rations, and resilient village growth.",
   },
   {
     id: "craft",
-    title: "Craft & Timber",
-    hint: "Wood flow, workshops, and craft discipline.",
+    title: "Craftsmanship",
+    hint: "Timber discipline, workshops, and practical output gains.",
   },
   {
     id: "stone",
-    title: "Stone & Storage",
-    hint: "Quarries, masonry, and storage logistics.",
+    title: "Masonry",
+    hint: "Stonework, warehousing, and structural efficiency.",
   },
   {
     id: "civic",
-    title: "Knowledge & Civic",
-    hint: "Records first, then wine, then happiness.",
+    title: "Scholarship",
+    hint: "Records, planning, wine culture, and civic order.",
   },
   {
     id: "military",
-    title: "Military & Expeditions",
-    hint: "Soldiers, scouting, and safer campaigns.",
+    title: "Warfare",
+    hint: "Defense, expeditions, and better campaign control.",
   },
   {
     id: "trade",
-    title: "Trade & Metals",
-    hint: "Coin, ore, metal, and the later economy.",
+    title: "Commerce",
+    hint: "Coin, trade, ore, and later metal industry.",
   },
 ];
 

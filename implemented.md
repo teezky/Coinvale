@@ -125,12 +125,14 @@ UI and UX:
 
 Tech tree:
 - branches:
-  - `Food & Growth`
-  - `Craft & Timber`
-  - `Stone & Storage`
-  - `Knowledge & Civic`
-  - `Military & Expeditions`
-  - `Trade & Metals`
+  - `Sustenance`
+  - `Craftsmanship`
+  - `Masonry`
+  - `Scholarship`
+  - `Warfare`
+  - `Commerce`
+- node orbs now show branch-appropriate glyph icons for quicker scanning
+- research nodes that unlock gated buildings now inherit the matching `Town Hall` requirement
 - both horizontal and vertical progression use prerequisites
 - future nodes are always visible
 - the tree is already structured to support:
@@ -140,6 +142,14 @@ Tech tree:
   - `Happiness`
 - old `Granary` / `Chicken Coop` nodes were removed
 - early nodes like `Field Rotation` and cost-reduction nodes such as `Measured Masonry` and `Planning Office` were added
+
+Building and worker UI:
+- unique building cards hide the `Build` button after construction
+- building cards hide the `Upkeep` section when a building has no active upkeep
+- worker cards hide the upkeep row when a role has no upkeep
+
+Resource visuals:
+- the `Wine` icon now uses a grape cluster for better small-scale readability
 
 Expeditions and defense:
 - expeditions use provisions
