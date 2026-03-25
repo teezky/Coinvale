@@ -369,3 +369,98 @@ Fixed:
 
 Docs:
 - `patch-notes.md`
+
+---
+
+## Patch 0.0.12 - 2026-03-25 18:30
+
+Status:
+- implemented
+
+Summary:
+- converted the main panel tab bar from long vertical strips to a compact horizontal layout and added tab icons
+
+Added:
+- small inline SVG icons for:
+  - `Buildings`
+  - `Workers`
+  - `Expeditions`
+  - `Tech`
+
+Changed:
+- tab navigation now renders as a horizontal 4-column row on desktop
+- tablet layout switches to a 2-column tab grid
+- mobile layout switches to a single-column stack for readability
+- tab buttons now center icon + label and use tighter spacing
+
+Fixed:
+- removed the overly long “strip-like” visual feel in the tab area
+
+Docs:
+- `patch-notes.md`
+
+---
+
+## Patch 0.0.13 - 2026-03-25 18:33
+
+Status:
+- implemented
+
+Summary:
+- polished tech node visuals and improved patch notes history visibility for frequent updates
+
+Changed:
+- removed the white marker dot from inside tech nodes so only the icon/glyph remains visible
+- Patch Notes modal now shows the latest 10 patch entries by default (newest first)
+- Patch Notes meta line now indicates how many recent patches are being shown
+
+Fixed:
+- reduced visual noise inside node orbs where the marker dot competed with the icon
+- improved patch history readability for players in high-frequency patch cycles
+
+Docs:
+- `patch-notes.md`
+
+---
+
+## Patch 0.0.14 - 2026-03-25 18:36
+
+Status:
+- implemented
+
+Summary:
+- tech node visuals were cleaned by removing text status from below each node
+
+Changed:
+- removed status text under tech nodes (`Locked`, `Need resources`, `Available`, `Researched`) from the node card area
+- node state is now communicated visually by color only:
+  - learned: green
+  - learnable: yellow
+  - locked: red
+
+Fixed:
+- reduced clutter in dense tech branches where status text competed with node labels
+
+Docs:
+- `patch-notes.md`
+
+---
+
+## Patch 0.0.15 - 2026-03-25 18:38
+
+Status:
+- implemented
+
+Summary:
+- aligned in-game Patch Notes rendering with patch-notes file content as a true 1:1 slice for the latest history window
+
+Changed:
+- last 10 patch entries are now rendered as one exact contiguous block from `patch-notes.md`
+- preserved the same chronological order as the source file inside that recent-history view
+- removed synthetic re-joining that could alter separators or ordering
+
+Fixed:
+- resolved mismatch where in-game notes could appear less detailed or differently ordered than the markdown source
+
+Docs:
+- `patch-notes.md`

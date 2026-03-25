@@ -51,6 +51,11 @@
 .patchReadBtn{white-space:nowrap}
 .patchBox{width:min(860px,100%)}
 .patchBody{margin-top:8px;max-height:min(68vh,540px);overflow:auto;white-space:pre-wrap;line-height:1.35;padding:10px;border-radius:10px;background:#00000020;border:1px solid #ffffff14}
+.tabs{grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:6px}
+.tab{display:flex;align-items:center;justify-content:center;gap:6px;min-height:30px}
+.tabIcon{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:linear-gradient(180deg,#ffffff20,#00000030);border:1px solid #ffffff2a;flex:0 0 auto}
+.tabIcon svg{width:11px;height:11px;display:block}
+.tabLabel{line-height:1;white-space:nowrap}
 .techWrap,.techTree{gap:8px}
 .techTree{grid-template-columns:repeat(6,minmax(0,1fr));align-items:start}
 .techBranch{padding:10px;overflow:hidden}
@@ -104,6 +109,7 @@ z-index:2
 .techLabel{max-width:64px;font-size:.6rem;line-height:1.04}
 .techStatus{font-size:.56rem}
 .techOrb{width:36px;height:36px}
+.techOrb::after,.techOrb.done::after,.techOrb.locked::after{display:none}
 .techGlyph{font-size:14px}
 .summaryBlock{padding:6px 8px}
 .log{padding:5px 7px}
@@ -120,6 +126,7 @@ z-index:2
 .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
 .res{grid-template-columns:repeat(4,minmax(0,1fr))}
 .worker{grid-template-columns:1fr}
+.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
 .techTree{grid-template-columns:repeat(2,minmax(0,1fr))}
 .techNodes{gap:12px 8px}
 .app{width:94vw}
@@ -134,6 +141,7 @@ z-index:2
 .app{width:100%;padding:4px}
 .card{padding:7px}
 .stats,.res{grid-template-columns:1fr}
+.tabs{grid-template-columns:1fr}
 .scene{min-height:210px}
 .sceneSprite{width:52px;height:42px}
 .hallSprite{width:96px;height:70px}
@@ -152,26 +160,58 @@ z-index:2
 <section class="card"><div class="stats"><div class="stat"><div class="small">Day</div><div id="day">1</div></div><div class="stat"><div class="small">Population</div><div id="pop">4 / 36</div></div><div class="stat"><div class="small">Free</div><div id="free">3</div></div><div class="stat"><div class="small">Territories</div><div id="territoriesTop">0</div></div><div class="stat"><div class="small">Happiness</div><div id="happinessTop">100%</div></div><div class="stat"><div class="small">Next Villager</div><div id="nextVillagerTop">0%</div><div class="bar"><div class="fill" id="growBarTop" style="width:0;background:linear-gradient(90deg,#88c18f,#b8e0b6)"></div></div></div><div class="stat"><div class="small">Local Time</div><div id="clock">--:--:--</div></div></div></section>
 </div>
 <section class="card"><div class="res" id="resources"></div></section>
-<div class="layout"><aside class="side"><section class="card logCard"><h2 style="margin:0 0 8px">Chronicle</h2><div id="log"></div><div class="tools"><button class="btn" id="saveBtn">Save</button><button class="btn" id="exportBtn">Export</button><button class="btn" id="importBtn">Import</button><button class="btn" id="resetBtn">Reset</button></div></section></aside><main class="main"><section class="scene card"><div class="sceneHeader"><div class="sceneVillageRow"><div class="sceneVillageMeta"><div class="sceneVillageLabel">Village Name</div><div class="sceneVillageName" id="villageName">Coinvale</div></div><button class="btn ghost" id="renameVillageBtn">Rename</button></div><div><h2 id="sceneTitle" style="margin:0">The First Hall</h2><p id="sceneDesc" class="small" style="max-width:60ch">A timber hall stands at the center while the first cottages gather around it.</p></div></div><div class="buildings" id="scene"></div></section><section class="card"><div class="tabs"><button class="tab" data-tab="build">Buildings</button><button class="tab" data-tab="work">Workers</button><button class="tab" data-tab="exp">Expeditions</button><button class="tab" data-tab="tech">Tech</button></div></section><section class="card panel active" id="panel-build"><div class="grid3" id="buildGrid"></div></section><section class="card panel" id="panel-work"><div class="tools" id="workGrid"></div></section><section class="card panel" id="panel-exp"><div class="grid2" id="expGrid"></div></section><section class="card panel" id="panel-tech"><div id="techGrid"></div></section></main></div></div>
+<div class="layout"><aside class="side"><section class="card logCard"><h2 style="margin:0 0 8px">Chronicle</h2><div id="log"></div><div class="tools"><button class="btn" id="saveBtn">Save</button><button class="btn" id="exportBtn">Export</button><button class="btn" id="importBtn">Import</button><button class="btn" id="resetBtn">Reset</button></div></section></aside><main class="main"><section class="scene card"><div class="sceneHeader"><div class="sceneVillageRow"><div class="sceneVillageMeta"><div class="sceneVillageLabel">Village Name</div><div class="sceneVillageName" id="villageName">Coinvale</div></div><button class="btn ghost" id="renameVillageBtn">Rename</button></div><div><h2 id="sceneTitle" style="margin:0">The First Hall</h2><p id="sceneDesc" class="small" style="max-width:60ch">A timber hall stands at the center while the first cottages gather around it.</p></div></div><div class="buildings" id="scene"></div></section><section class="card"><div class="tabs"><button class="tab" data-tab="build"><span class="tabIcon" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M1 5.5 6 2l5 3.5V10H1z" fill="#f1d8a3"/><path d="M4.5 10V7.2h3V10" fill="#845737"/></svg></span><span class="tabLabel">Buildings</span></button><button class="tab" data-tab="work"><span class="tabIcon" aria-hidden="true"><svg viewBox="0 0 12 12"><circle cx="6" cy="3.3" r="2.1" fill="#e8d6b8"/><path d="M1.7 10c.6-2.3 2.1-3.8 4.3-3.8s3.7 1.5 4.3 3.8" fill="#7e9d71"/></svg></span><span class="tabLabel">Workers</span></button><button class="tab" data-tab="exp"><span class="tabIcon" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2 9.8 5 2.4l2.2 1L10 2.2 8.1 9.8z" fill="#c7b8a0"/><circle cx="2" cy="9.8" r=".9" fill="#9e8a6a"/></svg></span><span class="tabLabel">Expeditions</span></button><button class="tab" data-tab="tech"><span class="tabIcon" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2 2.4h6.2v7.2H2z" fill="#9db4cf"/><path d="M3.1 3.4h3.8M3.1 5.1h3.8M3.1 6.8h2.8" stroke="#edf5ff" stroke-width=".8" stroke-linecap="round"/><path d="m8.3 4.6 1.8 1.8M8.3 6.4l1.8-1.8" stroke="#f0d9a6" stroke-width=".8" stroke-linecap="round"/></svg></span><span class="tabLabel">Tech</span></button></div></section><section class="card panel active" id="panel-build"><div class="grid3" id="buildGrid"></div></section><section class="card panel" id="panel-work"><div class="tools" id="workGrid"></div></section><section class="card panel" id="panel-exp"><div class="grid2" id="expGrid"></div></section><section class="card panel" id="panel-tech"><div id="techGrid"></div></section></main></div></div>
 <div class="modal" id="modal"><div class="box"><h3 id="modalTitle" style="margin:0 0 8px">Village Event</h3><div id="modalText" class="small"></div><div class="choices" id="modalChoices"></div></div></div><div class="modal" id="nameModal"><div class="box"><h3 id="nameModalTitle" style="margin:0 0 8px">Name Your Village</h3><div id="nameModalText" class="small">Choose a name for the settlement before the first season begins.</div><input id="nameInput" class="nameInput" type="text" maxlength="32" placeholder="Coinvale" /><div id="nameModalHelp" class="small nameHelp">This name is saved with your village.</div><div class="nameActions"><button class="btn ghost" id="nameCancelBtn">Keep Current</button><button class="btn primary" id="nameConfirmBtn">Confirm Name</button></div></div></div><div class="modal" id="patchModal"><div class="box patchBox"><h3 id="patchModalTitle" style="margin:0 0 8px">Patch Notes</h3><div id="patchMeta" class="small"></div><div id="patchBody" class="patchBody small"></div><div class="nameActions"><button class="btn primary" id="patchCloseBtn">Close</button></div></div></div><div class="tt" id="tooltip"></div>
 <script>
 (()=>{
 const KEY='cg_save_v4',SAVE_VERSION=8,YEAR=1800,SEASON=450,OFFLINE=14400;
-const PATCH_NOTES_URL='patch-notes.md',PATCH_NOTES_FALLBACK_VERSION='0.0.11',PATCH_NOTES_FALLBACK=`## Patch 0.0.11 - 2026-03-25 18:23
-
-Status:
-- implemented
-
+const PATCH_NOTES_URL='patch-notes.md',PATCH_NOTES_FALLBACK_VERSION='0.0.15',PATCH_NOTES_FALLBACK=`## Patch 0.0.5 - 2026-03-25 18:03
 Summary:
-- patch badge and in-game Patch Notes popup were added to the header
+- expanded runtime UI layout and switched to chronological patch format
 
-Changed:
-- current patch is shown next to the game title
-- Patch Notes button opens a dedicated in-game modal
-- patch metadata is loaded from patch-notes.md when available
+## Patch 0.0.5 - 2026-03-25 18:03
+Summary:
+- rebuilt tech tree links around real prerequisite connections
 
-Notes:
-- full history is available in patch-notes.md when served from a local web server`;
+## Patch 0.0.6 - 2026-03-25 18:07
+Summary:
+- stabilized tech tree sizing and responsive behavior
+
+## Patch 0.0.7 - 2026-03-25 18:09
+Summary:
+- improved branch spacing and cleaned connector visual weight
+
+## Patch 0.0.8 - 2026-03-25 18:12
+Summary:
+- moved shell to wide centered mode and tuned side-by-side branches
+
+## Patch 0.0.9 - 2026-03-25 18:14
+Summary:
+- improved branch counter readability and tuned shell width to 90vw
+
+## Patch 0.0.10 - 2026-03-25 18:17
+Summary:
+- changed tech connectors to straight segmented paths
+
+## Patch 0.0.11 - 2026-03-25 18:23
+Summary:
+- added patch badge and in-game Patch Notes modal
+
+## Patch 0.0.12 - 2026-03-25 18:30
+Summary:
+- switched main tabs to compact horizontal layout with icons
+
+## Patch 0.0.13 - 2026-03-25 18:33
+Summary:
+- removed white marker dot from tech nodes and Patch Notes now shows last 10 patches by default
+
+## Patch 0.0.14 - 2026-03-25 18:36
+Summary:
+- removed text status under tech nodes for a cleaner color-only state indicator
+
+## Patch 0.0.15 - 2026-03-25 18:38
+Summary:
+- patch modal now reads the last 10 entries as an exact contiguous slice from patch-notes.md for true 1:1 display`;
 const MAX_TOWN_HALL_LEVEL=30,MAX_BUILDING_LEVEL=50,maxLevelFor=k=>k==='townHall'?MAX_TOWN_HALL_LEVEL:MAX_BUILDING_LEVEL,upgradeCapFor=k=>k==='townHall'?MAX_TOWN_HALL_LEVEL:buildingHallCap(k);
 const R={food:{n:'Food',c:'#89c46d',b:250},wood:{n:'Wood',c:'#c58d5e',b:250},stone:{n:'Stone',c:'#b7c0cb',b:250},gold:{n:'Gold',c:'#e0c56a',b:90},knowledge:{n:'Knowledge',c:'#84abd8',b:120},ore:{n:'Ore',c:'#7f7a75',b:180},metal:{n:'Metal',c:'#9da7b3',b:120},wine:{n:'Wine',c:'#a34b63',b:90}};
 const RESOURCE_ORDER=['food','wood','stone','gold','ore','metal','wine','knowledge'];
@@ -402,19 +442,20 @@ function breakRows(g,u,n){return RESOURCE_ORDER.map(k=>{const unlocked=resourceU
 function detailRows(g,u){return''}
 function resourceVisible(k){return true}
 const tooltipState={x:0,y:0,text:'',visible:false}
-const patchState={version:PATCH_NOTES_FALLBACK_VERSION,stamp:'fallback',source:'Built-in',content:PATCH_NOTES_FALLBACK};
+const patchState={version:PATCH_NOTES_FALLBACK_VERSION,stamp:'fallback',source:'Built-in',content:PATCH_NOTES_FALLBACK,total:1,recentCount:1,recentContent:PATCH_NOTES_FALLBACK};
 function parsePatchNotes(md){
 const text=String(md||'').replace(/\r\n/g,'\n').trim();
 const matches=[...text.matchAll(/^##\s+Patch\s+([^\s]+)\s*-\s*(.+)$/gm)];
-if(!matches.length)return{version:PATCH_NOTES_FALLBACK_VERSION,stamp:'fallback',content:text||PATCH_NOTES_FALLBACK};
-const latest=matches[matches.length-1];
-return{version:latest[1],stamp:latest[2].trim(),content:text||PATCH_NOTES_FALLBACK}
+if(!matches.length)return{version:PATCH_NOTES_FALLBACK_VERSION,stamp:'fallback',content:text||PATCH_NOTES_FALLBACK,total:1,recentCount:1,recentContent:text||PATCH_NOTES_FALLBACK};
+const last=matches[matches.length-1],recentCount=Math.min(10,matches.length),recentStart=matches[matches.length-recentCount].index||0,recentContent=text.slice(recentStart).trim();
+return{version:last[1],stamp:last[2].trim(),content:text||PATCH_NOTES_FALLBACK,total:matches.length,recentCount,recentContent}
 }
+Object.assign(patchState,parsePatchNotes(PATCH_NOTES_FALLBACK));
 function syncPatchUi(){
 els.patchBadge.textContent=`Patch ${patchState.version}`;
 els.patchModalTitle.textContent=`Patch Notes - ${patchState.version}`;
-els.patchMeta.textContent=`Current patch ${patchState.version} | ${patchState.stamp} | Source: ${patchState.source}`;
-els.patchBody.textContent=patchState.content
+els.patchMeta.textContent=`Current patch ${patchState.version} | Showing last ${patchState.recentCount}${patchState.total>patchState.recentCount?` of ${patchState.total}`:''} | Source: ${patchState.source}`;
+els.patchBody.textContent=patchState.recentContent||patchState.content
 }
 async function loadPatchNotes(){
 syncPatchUi();
@@ -425,7 +466,10 @@ const parsed=parsePatchNotes(await res.text());
 patchState.version=parsed.version;
 patchState.stamp=parsed.stamp;
 patchState.source='patch-notes.md';
-patchState.content=parsed.content
+patchState.content=parsed.content;
+patchState.total=parsed.total;
+patchState.recentCount=parsed.recentCount;
+patchState.recentContent=parsed.recentContent
 }catch{
 patchState.source='Built-in fallback';
 patchState.stamp='fallback snapshot'
@@ -440,7 +484,7 @@ function techVisible(k,d){return true}
 function techUnlocks(k){return Object.entries(T).filter(([,d])=>d.req.includes(k)).map(([,d])=>d.n)}
 function techDepth(k,m={}){if(m[k]!=null)return m[k];const d=T[k];m[k]=!d.req.length?0:1+Math.max(...d.req.map(r=>techDepth(r,m)));return m[k]}
 function techIcon(k,d){const icons={fieldRotation:'🌾',betterAgriculture:'🌿',seedSelection:'🌱',irrigation:'💧',villageRations:'🍲',communalKitchens:'🍞',herbalRemedies:'🪴',cropRotation:'🌻',reinforcedAxes:'🪓',craftsmanship:'🛠',sawPits:'🪵',timberSeasoning:'📦',stonecutting:'🪨',quarrySupports:'⛏',masonry:'🏛',storehousePlanning:'🏚',measuredMasonry:'📐',improvedWarehousing:'📦',pavedYards:'🛤',recordKeeping:'📜',scriptoriums:'📚',planningOffice:'🧾',viticulture:'🍇',villageCustoms:'🎐',festivals:'🎉',vintagePress:'🍷',tavernCulture:'🍻',militaryDrills:'🛡',watchfires:'🔥',fieldMedicine:'🩹',logistics:'🚚',fortifiedPatrols:'⚔',fortifiedStoreyards:'🏰',goldMining:'🪙',coinMinting:'💰',tradeCaravans:'🛒',taxLedgers:'📒',deepShafts:'🕳',oreExtraction:'⛰',smithing:'⚒',marketCharters:'🤝'};return icons[k]||({growth:'🌿',craft:'🪚',stone:'🧱',civic:'📘',military:'🛡',trade:'💱'}[d.branch]||'✦')}
-function techNode(k,d,placement={col:1,row:1}){const cost=researchCost(k),ok=d.req.every(r=>st.tech[r]),missingReq=d.req.filter(r=>!st.tech[r]),thReq=townHallTechReq(k),thOk=lowestLevel('townHall')>=thReq,missingRes=missingCost(cost),ready=ok&&thOk&&!missingRes&&!st.tech[k],status=st.tech[k]?'Researched':ready?'Available':!ok?'Locked':!thOk?`TH ${thReq} needed`:'Need resources',unlocks=techUnlocks(k),glyph=techIcon(k,d),tipText=`${d.n}\n${d.d}\n\nStatus: ${status}\nCost: ${label(cost)}\n${d.req.length?`Requires: ${d.req.map(r=>T[r].n).join(', ')}\n`:''}${thReq?`Town Hall: Lv${thReq}\n`:''}${unlocks.length?`Leads to: ${unlocks.join(', ')}\n`:''}${missingReq.length?`Missing research: ${missingReq.map(r=>T[r].n).join(', ')}\n`:''}${ok&&!thOk?`Missing Town Hall: Lv${thReq}\n`:''}${ok&&thOk&&missingRes?`Missing resources: ${missingRes}`:''}`.trim();return `<div class='techNode' style='grid-column:${placement.col};grid-row:${placement.row};'${tip(tipText)}><button class='techOrb ${st.tech[k]?'done':ready?'ready':'locked'}' data-tech='${k}' ${(st.tech[k]||!ok||!thOk||!enough(cost))?'disabled':''} aria-label='${d.n}'><span class='techGlyph' aria-hidden='true'>${glyph}</span></button><div class='techLabel'>${d.n}</div><div class='techStatus'>${status}</div></div>`}
+function techNode(k,d,placement={col:1,row:1}){const cost=researchCost(k),ok=d.req.every(r=>st.tech[r]),missingReq=d.req.filter(r=>!st.tech[r]),thReq=townHallTechReq(k),thOk=lowestLevel('townHall')>=thReq,missingRes=missingCost(cost),ready=ok&&thOk&&!missingRes&&!st.tech[k],status=st.tech[k]?'Researched':ready?'Available':!ok?'Locked':!thOk?`TH ${thReq} needed`:'Need resources',unlocks=techUnlocks(k),glyph=techIcon(k,d),tipText=`${d.n}\n${d.d}\n\nStatus: ${status}\nCost: ${label(cost)}\n${d.req.length?`Requires: ${d.req.map(r=>T[r].n).join(', ')}\n`:''}${thReq?`Town Hall: Lv${thReq}\n`:''}${unlocks.length?`Leads to: ${unlocks.join(', ')}\n`:''}${missingReq.length?`Missing research: ${missingReq.map(r=>T[r].n).join(', ')}\n`:''}${ok&&!thOk?`Missing Town Hall: Lv${thReq}\n`:''}${ok&&thOk&&missingRes?`Missing resources: ${missingRes}`:''}`.trim();return `<div class='techNode' style='grid-column:${placement.col};grid-row:${placement.row};'${tip(tipText)}><button class='techOrb ${st.tech[k]?'done':ready?'ready':'locked'}' data-tech='${k}' ${(st.tech[k]||!ok||!thOk||!enough(cost))?'disabled':''} aria-label='${d.n}'><span class='techGlyph' aria-hidden='true'>${glyph}</span></button><div class='techLabel'>${d.n}</div></div>`}
 function buildBranchLayout(branchId){
 const visible=Object.entries(T).filter(([k,d])=>d.branch===branchId&&techVisible(k,d));
 if(!visible.length)return{nodes:[],links:[],lanes:1,rows:1};
