@@ -464,3 +464,24 @@ Fixed:
 
 Docs:
 - `patch-notes.md`
+
+---
+
+## Patch 0.0.16 - 2026-03-25 18:42
+
+Status:
+- implemented
+
+Summary:
+- refined tech tree icons to better match medieval visual language
+
+Changed:
+- replaced modern-looking tech node symbols with medieval-themed alternatives across branches
+- `Field Logistics` icon changed from a modern truck to a horse-based symbol
+- trade/civic fallback and several branch icons were retuned toward parchment, coin, forge, and caravan motifs
+
+Fixed:
+- removed immersion-breaking modern iconography in the tech tree
+
+Docs:
+- `patch-notes.md`

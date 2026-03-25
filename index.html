@@ -165,7 +165,7 @@ z-index:2
 <script>
 (()=>{
 const KEY='cg_save_v4',SAVE_VERSION=8,YEAR=1800,SEASON=450,OFFLINE=14400;
-const PATCH_NOTES_URL='patch-notes.md',PATCH_NOTES_FALLBACK_VERSION='0.0.15',PATCH_NOTES_FALLBACK=`## Patch 0.0.5 - 2026-03-25 18:03
+const PATCH_NOTES_URL='patch-notes.md',PATCH_NOTES_FALLBACK_VERSION='0.0.16',PATCH_NOTES_FALLBACK=`## Patch 0.0.5 - 2026-03-25 18:03
 Summary:
 - expanded runtime UI layout and switched to chronological patch format
 
@@ -211,7 +211,11 @@ Summary:
 
 ## Patch 0.0.15 - 2026-03-25 18:38
 Summary:
-- patch modal now reads the last 10 entries as an exact contiguous slice from patch-notes.md for true 1:1 display`;
+- patch modal now reads the last 10 entries as an exact contiguous slice from patch-notes.md for true 1:1 display
+
+## Patch 0.0.16 - 2026-03-25 18:42
+Summary:
+- re-themed tech node icons toward medieval style and removed modern-looking symbols`;
 const MAX_TOWN_HALL_LEVEL=30,MAX_BUILDING_LEVEL=50,maxLevelFor=k=>k==='townHall'?MAX_TOWN_HALL_LEVEL:MAX_BUILDING_LEVEL,upgradeCapFor=k=>k==='townHall'?MAX_TOWN_HALL_LEVEL:buildingHallCap(k);
 const R={food:{n:'Food',c:'#89c46d',b:250},wood:{n:'Wood',c:'#c58d5e',b:250},stone:{n:'Stone',c:'#b7c0cb',b:250},gold:{n:'Gold',c:'#e0c56a',b:90},knowledge:{n:'Knowledge',c:'#84abd8',b:120},ore:{n:'Ore',c:'#7f7a75',b:180},metal:{n:'Metal',c:'#9da7b3',b:120},wine:{n:'Wine',c:'#a34b63',b:90}};
 const RESOURCE_ORDER=['food','wood','stone','gold','ore','metal','wine','knowledge'];
@@ -483,7 +487,20 @@ function resourceCards(g,u,n){return RESOURCE_ORDER.map(k=>{const unlocked=resou
 function techVisible(k,d){return true}
 function techUnlocks(k){return Object.entries(T).filter(([,d])=>d.req.includes(k)).map(([,d])=>d.n)}
 function techDepth(k,m={}){if(m[k]!=null)return m[k];const d=T[k];m[k]=!d.req.length?0:1+Math.max(...d.req.map(r=>techDepth(r,m)));return m[k]}
-function techIcon(k,d){const icons={fieldRotation:'🌾',betterAgriculture:'🌿',seedSelection:'🌱',irrigation:'💧',villageRations:'🍲',communalKitchens:'🍞',herbalRemedies:'🪴',cropRotation:'🌻',reinforcedAxes:'🪓',craftsmanship:'🛠',sawPits:'🪵',timberSeasoning:'📦',stonecutting:'🪨',quarrySupports:'⛏',masonry:'🏛',storehousePlanning:'🏚',measuredMasonry:'📐',improvedWarehousing:'📦',pavedYards:'🛤',recordKeeping:'📜',scriptoriums:'📚',planningOffice:'🧾',viticulture:'🍇',villageCustoms:'🎐',festivals:'🎉',vintagePress:'🍷',tavernCulture:'🍻',militaryDrills:'🛡',watchfires:'🔥',fieldMedicine:'🩹',logistics:'🚚',fortifiedPatrols:'⚔',fortifiedStoreyards:'🏰',goldMining:'🪙',coinMinting:'💰',tradeCaravans:'🛒',taxLedgers:'📒',deepShafts:'🕳',oreExtraction:'⛰',smithing:'⚒',marketCharters:'🤝'};return icons[k]||({growth:'🌿',craft:'🪚',stone:'🧱',civic:'📘',military:'🛡',trade:'💱'}[d.branch]||'✦')}
+function techIcon(k,d){
+const icons={
+fieldRotation:'🌾',betterAgriculture:'🌿',seedSelection:'🌱',irrigation:'💧',
+villageRations:'🍲',communalKitchens:'🥖',herbalRemedies:'🪴',cropRotation:'🌻',
+reinforcedAxes:'🪓',craftsmanship:'⚒',sawPits:'🪚',timberSeasoning:'🪵',
+stonecutting:'⛏',quarrySupports:'🧱',masonry:'🏛',storehousePlanning:'🏚',
+measuredMasonry:'📏',improvedWarehousing:'📦',pavedYards:'🪨',
+recordKeeping:'📜',scriptoriums:'📚',planningOffice:'🕮',
+viticulture:'🍇',villageCustoms:'🏵',festivals:'🎭',vintagePress:'🍷',tavernCulture:'🍺',
+militaryDrills:'🛡',watchfires:'🔥',fieldMedicine:'🩹',logistics:'🐎',fortifiedPatrols:'⚔',fortifiedStoreyards:'🏰',
+goldMining:'🪙',coinMinting:'🪙',tradeCaravans:'🐪',taxLedgers:'📜',deepShafts:'🕳',oreExtraction:'⛰',smithing:'⚒',marketCharters:'📜'
+};
+return icons[k]||({growth:'🌿',craft:'⚒',stone:'🧱',civic:'📜',military:'🛡',trade:'🪙'}[d.branch]||'✦')
+}
 function techNode(k,d,placement={col:1,row:1}){const cost=researchCost(k),ok=d.req.every(r=>st.tech[r]),missingReq=d.req.filter(r=>!st.tech[r]),thReq=townHallTechReq(k),thOk=lowestLevel('townHall')>=thReq,missingRes=missingCost(cost),ready=ok&&thOk&&!missingRes&&!st.tech[k],status=st.tech[k]?'Researched':ready?'Available':!ok?'Locked':!thOk?`TH ${thReq} needed`:'Need resources',unlocks=techUnlocks(k),glyph=techIcon(k,d),tipText=`${d.n}\n${d.d}\n\nStatus: ${status}\nCost: ${label(cost)}\n${d.req.length?`Requires: ${d.req.map(r=>T[r].n).join(', ')}\n`:''}${thReq?`Town Hall: Lv${thReq}\n`:''}${unlocks.length?`Leads to: ${unlocks.join(', ')}\n`:''}${missingReq.length?`Missing research: ${missingReq.map(r=>T[r].n).join(', ')}\n`:''}${ok&&!thOk?`Missing Town Hall: Lv${thReq}\n`:''}${ok&&thOk&&missingRes?`Missing resources: ${missingRes}`:''}`.trim();return `<div class='techNode' style='grid-column:${placement.col};grid-row:${placement.row};'${tip(tipText)}><button class='techOrb ${st.tech[k]?'done':ready?'ready':'locked'}' data-tech='${k}' ${(st.tech[k]||!ok||!thOk||!enough(cost))?'disabled':''} aria-label='${d.n}'><span class='techGlyph' aria-hidden='true'>${glyph}</span></button><div class='techLabel'>${d.n}</div></div>`}
 function buildBranchLayout(branchId){
 const visible=Object.entries(T).filter(([k,d])=>d.branch===branchId&&techVisible(k,d));
