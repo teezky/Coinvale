@@ -99,9 +99,9 @@ const cost=(o,m)=>Object.fromEntries(Object.entries(o).map(([k,v])=>[k,Math.max(
 const buildMultiplier=k=>1;
 const buildingUpgradeClass=k=>['farm','lumberMill','quarry'].includes(k)?'core':['workshop','warehouse','barracks','scribeHall','goldMine'].includes(k)?'support':['vineyard','winery','oreMine','smelter','tavern'].includes(k)?'advanced':'support';
 const buildingUpgradeWeight=k=>({core:1,support:1.18,advanced:1.32}[buildingUpgradeClass(k)]||1.1);
-const buildingHallCap=k=>{const th=lowestLevel('townHall');if(['farm','lumberMill','quarry'].includes(k))return Math.min(MAX_BUILDING_LEVEL,Math.floor(th*1.2)+2);if(['workshop','warehouse','barracks','scribeHall','goldMine'].includes(k))return Math.min(MAX_BUILDING_LEVEL,th+2);if(['vineyard','winery','oreMine','smelter','tavern'].includes(k))return Math.min(MAX_BUILDING_LEVEL,Math.floor(th*.9)+1);return Math.min(MAX_BUILDING_LEVEL,th+2)};
+const buildingHallCap=k=>{const th=lowestLevel('townHall'),late=Math.max(0,th-10);if(['farm','lumberMill','quarry'].includes(k))return Math.min(MAX_BUILDING_LEVEL,Math.floor(th*1.2)+2+Math.floor(late*.6));if(['workshop','warehouse','barracks','scribeHall','goldMine'].includes(k))return Math.min(MAX_BUILDING_LEVEL,th+2+Math.floor(late*.9));if(['vineyard','winery','oreMine','smelter','tavern'].includes(k))return Math.min(MAX_BUILDING_LEVEL,Math.floor(th*.9)+1+Math.floor(late*1.1));return Math.min(MAX_BUILDING_LEVEL,th+2+Math.floor(late*.9))};
 const buildingUpgradeScale=(k,l)=>buildingUpgradeWeight(k)*(1+.9*Math.pow(Math.max(1,l),1.34));
-const townHallUpgradeScale=l=>1+1.45*Math.pow(Math.max(1,l),1.48);
+const townHallUpgradeScale=l=>1+1.22*Math.pow(Math.max(1,l),1.42);
 const upgradeMultiplier=k=>k==='townHall'?townHallUpgradeScale(Math.max(1,lowestLevel(k)+1)):buildingUpgradeScale(k,Math.max(1,lowestLevel(k)+1));
 const tOn=k=>!!st.tech[k];
 const techProdMult={fieldRotation:1.02,betterAgriculture:1.03,seedSelection:1.02,irrigation:1.02,cropRotation:1.02,reinforcedAxes:1.03,sawPits:1.02,timberSeasoning:1.01,stonecutting:1.03,quarrySupports:1.02,coinMinting:1.04,deepShafts:1.03,recordKeeping:1.06,scriptoriums:1.08};
@@ -127,8 +127,8 @@ const tier=()=>{const sc=Object.keys(B).reduce((a,k)=>a+countOf(k)+levelsOf(k).r
 const fmt=n=>Number(n).toFixed(Math.abs(n)>=10?1:2).replace(/\.00$/,''),dur=s=>{if(!isFinite(s)||s<0)return'unknown';const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=Math.floor(s%60),a=[];if(h)a.push(`${h}h`);if(m)a.push(`${m}m`);if(!h&&!m)a.push(`${x}s`);return a.join(' ')};
 const enough=c=>Object.entries(c).every(([k,v])=>(st.resources[k]?.current||0)>=v),pay=c=>{if(!enough(c))return false;for(const[k,v]of Object.entries(c))st.resources[k].current-=v;return true},gain=b=>{for(const[k,v]of Object.entries(b))if(st.resources[k])st.resources[k].current=Math.max(0,Math.min(eCap(k),st.resources[k].current+v))};
 const terr=()=>({food:1+(st.territories.banditCamp?0.06:0),wood:1+(st.territories.watchtower?0.08:0)+(st.territories.banditCamp?0.08:0),stone:1+(st.territories.watchtower?0.06:0),gold:1+((st.territories.banditCamp&&st.tech.goldMining)?0.1:0)+(st.territories.oldMineClaim?0.12:0),knowledge:1+(st.territories.ruinedShrine?0.12:0)});
-const warehouseBonus=l=>Math.floor(240+115*Math.pow(Math.max(1,l),1.22));
-const eCap=k=>{if(k==='knowledge')return Math.floor(R.knowledge.b+lowestLevel('townHall')*14+(countOf('scribeHall')?(54+lowestLevel('scribeHall')*18):0));if(k==='gold')return Math.floor(R.gold.b+(countOf('goldMine')?(26+lowestLevel('goldMine')*9):0)+lowestLevel('townHall')*2);let b=R[k].b;const wh=countOf('warehouse')?warehouseBonus(lowestLevel('warehouse')):0;b+=wh+Math.round(lowestLevel('townHall')*22);return Math.floor(b*storageMult())};
+const warehouseBonus=l=>Math.floor(260+135*Math.pow(Math.max(1,l),1.24));
+const eCap=k=>{if(k==='knowledge')return Math.floor(R.knowledge.b+lowestLevel('townHall')*14+(countOf('scribeHall')?(54+lowestLevel('scribeHall')*18):0));if(k==='gold')return Math.floor(R.gold.b+(countOf('goldMine')?(26+lowestLevel('goldMine')*9):0)+lowestLevel('townHall')*2);let b=R[k].b;const wh=countOf('warehouse')?warehouseBonus(lowestLevel('warehouse')):0;b+=wh+Math.round(lowestLevel('townHall')*26);return Math.floor(b*storageMult())};
 const happinessActive=()=>st.tech.viticulture||countOf('vineyard')>0||countOf('winery')>0||countOf('tavern')>0;
 const townHallTechReq=k=>T[k]?.th||0;
 const townHallBuildReq=k=>({scribeHall:4,warehouse:2,barracks:4,goldMine:5,vineyard:10,winery:12,oreMine:10,smelter:14,tavern:15}[k]||0);

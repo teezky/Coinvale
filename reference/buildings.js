@@ -98,7 +98,7 @@ window.CoinvaleReference.buildings = {
     upkeepBase: 0.04,
     unique: true,
     maxLevel: 50,
-    notes: ["Global storage boost", "Uses the stronger warehouseBonus curve", "Available earlier to prevent storage deadlocks"],
+    notes: ["Global storage boost", "Uses the stronger warehouseBonus curve", "Available earlier to prevent storage deadlocks", "Now scales harder so Town Hall upgrades do not outrun storage again"],
   },
   goldMine: {
     name: "Gold Mine",

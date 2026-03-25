@@ -108,6 +108,8 @@ Viimane suund:
 - resource-output tech node'id on nuud vaiksemad ja rohkem mikroboonuste suunas
 - `Gold` upkeep ja gold-gating tuleb nuud hiljem peale ning vaiksemalt
 - `Warehouse` annab nuud suurema storage-boonuse, et hall-upgrade'id ei satuks lao deadlocki
+- storage / `Town Hall` suhe on uuesti timmitud: hall-cost curve on pehmem, baas-cap tugevam ja warehouse kasvab joudsamalt
+- `Town Hall` pehmed building-cap'id lubavad nuud hiljem `max 50` sihi poole reaalselt jouda, mitte ei jaa `TH30` juures liiga madalaks
 
 Kui alustad uut vestlust, void kasutada seda prompti:
 

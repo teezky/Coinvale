@@ -175,3 +175,5 @@ Viimane balance-pass:
 - building wood upkeep kasvab nuud leveliga tuntavamalt
 - building gold upkeep ja gold-cost gating nihutati hilisemaks ning tehti pehmemaks
 - `Warehouse` storage-koverat tosteti, et `Town Hall` upgrade'id ei jaaks lao mahust ette
+- `Town Hall` upgrade-scale ja resource cap viidi uuesti kokku, et varane `TH1 -> TH2` ning hilisemad hall-levelid ei jaaks storage taha kinni
+- `Town Hall`-poohised pehmed building-cap'id said hilise mangu jareleaitamise, et `TH30` juures oleks `building max 50` siht reaalselt saavutatav

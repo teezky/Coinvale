@@ -36,6 +36,7 @@ Avamiseks:
 
 Pohifailid:
 - `index.html` - mangu runtime ja pohiline loogika
+- `formulas.md` - peamised balansivalemid ja progressionireeglid
 - `handoff.md` - luhike hetkeseis ja jargmine teema
 - `implemented.md` - mis on pariselt mangus olemas
 - `roadmap.md` - jargmised teemad ja balansifookus
@@ -49,6 +50,7 @@ Susteemidokid:
 
 Struktureeritud referents:
 - `reference/buildings.js`
+- `reference/formulas.js`
 - `reference/workers.js`
 - `reference/techTree.js`
 
