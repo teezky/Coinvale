@@ -3,7 +3,9 @@
 This file collects the main `Coinvale` runtime formulas and balance rules.
 
 Important:
-- the exact source of truth is always [index.html](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/index.html)
+- the runtime source of truth is the reference layer (`reference/formulas.js`,
+  `reference/buildings.js`, `reference/workers.js`, `reference/techTree.js`)
+  consumed by the production/upkeep engine in `js/engine.js`
 - this file is a human-readable summary, not a build source
 
 ## Level Caps
@@ -177,8 +179,8 @@ knowledgeCap =
 ```js
 goldCap =
   baseGoldCap
-  + (GoldMineBuilt ? (26 + GoldMineLevel * 9) : 0)
-  + TownHallLevel * 2
+  + (GoldMineBuilt ? (40 + GoldMineLevel * 18) : 0)
+  + TownHallLevel * 6
 ```
 
 ## Research Cost
@@ -206,9 +208,19 @@ else if branch in [trade, military, civic] and depth >= 2 and node != goldMining
   gold = 14 + depth * 10
 ```
 
+## Repeatable Mastery Nodes
+
+```js
+masteryCost(level) = 40 + 10 * level       // knowledge only
+masteryMaxLevel    = 100
+masteryEffect      = effectValue ^ level   // e.g. 1.01^level production
+```
+
 ## Tech Output Multipliers
 
-Current smaller output-node bonuses:
+Since Patch `0.0.29` these live as machine-readable `effects` arrays directly
+on the nodes in `reference/techTree.js`; the values below are the same data in
+summary form:
 
 ```js
 fieldRotation    = 1.02
@@ -351,13 +363,13 @@ Vineyard/Ore Pit              => from Lv10
 Smelter/Tavern                => from Lv4
 ```
 
-Gold upkeep formula:
+Gold upkeep formula (halved in the 0.0.34 gold rebalance):
 
 ```js
-Town Hall        = 0.015 * level
-Smelter/Tavern   = 0.045 * level
-Support buildings= 0.025 * level
-Core/field chain = 0.012 * level
+Town Hall        = 0.008 * level
+Smelter/Tavern   = 0.022 * level
+Support buildings= 0.012 * level
+Core/field chain = 0.006 * level
 ```
 
 Gold upgrade cost starts at:

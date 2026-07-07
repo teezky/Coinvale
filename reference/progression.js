@@ -1,0 +1,157 @@
+window.CoinvaleReference = window.CoinvaleReference || {};
+
+window.CoinvaleReference.progression = {
+  limits: {
+    townHallMaxLevel: 30,
+    buildingMaxLevel: 50,
+  },
+  buildingGroups: {
+    core: ["farm", "lumberMill", "quarry"],
+    support: ["workshop", "warehouse", "barracks", "scribeHall", "goldMine"],
+    advanced: ["vineyard", "winery", "oreMine", "smelter", "tavern"],
+  },
+  townHallBuildReqs: {
+    scribeHall: 4,
+    warehouse: 2,
+    barracks: 4,
+    goldMine: 5,
+    vineyard: 10,
+    winery: 12,
+    oreMine: 10,
+    smelter: 14,
+    tavern: 15,
+  },
+  techBuildUnlocks: {
+    craftsmanship: ["workshop"],
+    storehousePlanning: ["warehouse"],
+    goldMining: ["scribeHall", "goldMine"],
+    viticulture: ["vineyard"],
+    vintagePress: ["winery"],
+    tavernCulture: ["tavern"],
+    oreExtraction: ["oreMine"],
+    smithing: ["smelter"],
+  },
+  techTownHallReqs: {
+    goldMining: 4,
+    viticulture: 10,
+    oreExtraction: 10,
+    smithing: 12,
+  },
+  townHallReqTiers: [
+    {
+      maxLevel: 3,
+      requirements: [
+        { key: "farm", type: "next" },
+        { key: "lumberMill", type: "nextMinus", amount: 1, min: 1 },
+        { key: "quarry", type: "nextMinus", amount: 1, min: 1 },
+      ],
+    },
+    {
+      maxLevel: 6,
+      requirements: [
+        { key: "farm", type: "nextMinus", amount: 1 },
+        { key: "lumberMill", type: "nextMinus", amount: 2 },
+        { key: "quarry", type: "nextMinus", amount: 2 },
+        { key: "workshop", type: "nextMinus", amount: 4, min: 1 },
+      ],
+    },
+    {
+      maxLevel: 10,
+      requirements: [
+        { key: "farm", type: "nextMinus", amount: 2 },
+        { key: "lumberMill", type: "nextMinus", amount: 3 },
+        { key: "quarry", type: "nextMinus", amount: 3 },
+        { key: "warehouse", type: "nextMinus", amount: 5, min: 1 },
+        { key: "barracks", type: "nextMinus", amount: 6, min: 1 },
+        { key: "scribeHall", type: "nextMinus", amount: 6, min: 1 },
+      ],
+    },
+    {
+      maxLevel: 15,
+      requirements: [
+        { key: "farm", type: "nextMinus", amount: 4 },
+        { key: "lumberMill", type: "nextMinus", amount: 5 },
+        { key: "quarry", type: "nextMinus", amount: 5 },
+        { key: "warehouse", type: "nextMinus", amount: 8, min: 3 },
+        { key: "goldMine", type: "nextMinus", amount: 9, min: 1 },
+        { key: "vineyard", type: "nextMinus", amount: 10, min: 1 },
+        { key: "oreMine", type: "nextMinus", amount: 10, min: 1 },
+      ],
+    },
+    {
+      maxLevel: null,
+      requirements: [
+        { key: "farm", type: "nextMinus", amount: 3, max: 18 },
+        { key: "lumberMill", type: "nextMinus", amount: 4, max: 17 },
+        { key: "quarry", type: "nextMinus", amount: 4, max: 17 },
+        { key: "warehouse", type: "nextMinus", amount: 6, max: 14 },
+        { key: "barracks", type: "nextMinus", amount: 8, max: 12 },
+        { key: "goldMine", type: "nextMinus", amount: 10, max: 10 },
+        { key: "vineyard", type: "nextMinus", amount: 10, max: 10 },
+        { key: "oreMine", type: "nextMinus", amount: 10, max: 10 },
+        { key: "smelter", type: "nextMinus", amount: 12, min: 1 },
+        { key: "tavern", type: "nextMinus", amount: 12, min: 1 },
+      ],
+    },
+  ],
+  softCaps: {
+    core: { thMultiplier: 1.2, base: 2, lateStart: 10, lateMultiplier: 0.6 },
+    support: { thMultiplier: 1, base: 2, lateStart: 10, lateMultiplier: 0.9 },
+    advanced: { thMultiplier: 0.9, base: 1, lateStart: 10, lateMultiplier: 1.1 },
+  },
+  buildingUpgradeWeights: {
+    core: 1,
+    support: 1.18,
+    advanced: 1.32,
+  },
+  goldGates: {
+    upkeepStartsAt: {
+      townHall: 10,
+      smelter: 4,
+      tavern: 4,
+      workshop: 7,
+      warehouse: 7,
+      barracks: 7,
+      scribeHall: 7,
+      goldMine: 7,
+      winery: 7,
+      farm: 10,
+      lumberMill: 10,
+      quarry: 10,
+      vineyard: 10,
+      oreMine: 10,
+    },
+    upkeepPerLevel: {
+      townHall: 0.008,
+      smelter: 0.022,
+      tavern: 0.022,
+      workshop: 0.012,
+      warehouse: 0.012,
+      barracks: 0.012,
+      scribeHall: 0.012,
+      goldMine: 0.012,
+      winery: 0.012,
+      default: 0.006,
+    },
+    upgradeCostRules: {
+      townHall: { startLevel: 10, base: 8, perLevel: 5, useLevelOffset: false },
+      smelter: { startLevel: 4, base: 6, perLevel: 4, useLevelOffset: false },
+      tavern: { startLevel: 4, base: 6, perLevel: 4, useLevelOffset: false },
+      workshop: { startLevel: 7, base: 4, perLevel: 3, useLevelOffset: false },
+      warehouse: { startLevel: 7, base: 4, perLevel: 3, useLevelOffset: false },
+      barracks: { startLevel: 7, base: 4, perLevel: 3, useLevelOffset: false },
+      scribeHall: { startLevel: 7, base: 4, perLevel: 3, useLevelOffset: false },
+      goldMine: { startLevel: 7, base: 4, perLevel: 3, useLevelOffset: false },
+      winery: { startLevel: 7, base: 4, perLevel: 3, useLevelOffset: false },
+      farm: { startLevel: 10, base: 3, perLevel: 2, useLevelOffset: true },
+      lumberMill: { startLevel: 10, base: 3, perLevel: 2, useLevelOffset: true },
+      quarry: { startLevel: 10, base: 3, perLevel: 2, useLevelOffset: true },
+      vineyard: { startLevel: 10, base: 3, perLevel: 2, useLevelOffset: true },
+      oreMine: { startLevel: 10, base: 3, perLevel: 2, useLevelOffset: true },
+    },
+  },
+};
+
+if (typeof module !== "undefined") {
+  module.exports = { progression: window.CoinvaleReference.progression };
+}

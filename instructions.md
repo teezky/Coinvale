@@ -18,6 +18,7 @@ Markdown file maintenance:
   - time
   - status
 - `patch-notes.md` should also carry removed, dropped, or replaced solutions under a `Removed` category.
+- whenever `patch-notes.md` changes, regenerate the runtime mirror `reference/patchNotes.js` in the same pass (it is the file:// fallback for the in-game Patch Notes).
 - `implemented.md` should describe what is actually working in the game.
 - `roadmap.md` should describe upcoming topics, balance concerns, and next steps.
 - `buildings.md`, `workers.md`, and `tech-tree.md` should remain human-readable system documents.

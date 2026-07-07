@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coinvale UI Mockup Showcase</title>
+<style>
+:root{
+  --bg-image:url("assets/images/backgrounds/village-valley-main.png");
+  --text:#f7efdf;
+  --muted:#d7cdbd;
+  --gold:#d9bc7a;
+  --shadow:0 24px 60px rgba(0,0,0,.34);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:Georgia,"Times New Roman",serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left,rgba(255,255,255,.18),transparent 22%),
+    linear-gradient(180deg,rgba(16,12,8,.42),rgba(16,12,8,.7)),
+    var(--bg-image) center/cover fixed no-repeat;
+}
+.page{
+  width:min(1500px,94vw);
+  margin:0 auto;
+  padding:28px 0 36px;
+}
+.intro{
+  padding:20px 22px;
+  margin-bottom:20px;
+  border:1px solid rgba(247,231,199,.18);
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(28,20,14,.65),rgba(22,16,12,.48));
+  backdrop-filter:blur(10px);
+  box-shadow:var(--shadow);
+}
+.eyebrow{
+  font-size:.78rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#f0d9a0;
+}
+h1,h2,h3,p{margin:0}
+.intro h1{
+  margin-top:8px;
+  font-size:clamp(2rem,3vw,3.2rem);
+  line-height:.95;
+}
+.intro p{
+  max-width:68ch;
+  margin-top:10px;
+  color:var(--muted);
+  line-height:1.45;
+}
+.variantGrid{
+  display:grid;
+  gap:22px;
+}
+.variant{
+  position:relative;
+  min-height:840px;
+  border-radius:30px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,245,220,.16);
+  background:
+    linear-gradient(180deg,rgba(8,8,8,.06),rgba(8,8,8,.22)),
+    var(--bg-image) center/cover no-repeat;
+}
+.variant::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.variantGlass::before{
+  background:
+    linear-gradient(180deg,rgba(17,14,10,.34),rgba(17,14,10,.58)),
+    radial-gradient(circle at 18% 16%,rgba(255,240,214,.12),transparent 28%);
+}
+.variantKingdom::before{
+  background:
+    linear-gradient(180deg,rgba(18,13,9,.52),rgba(18,13,9,.76)),
+    linear-gradient(90deg,rgba(12,8,6,.26),transparent 30%,transparent 70%,rgba(12,8,6,.26));
+}
+.variantParchment::before{
+  background:
+    linear-gradient(180deg,rgba(53,43,30,.18),rgba(25,18,12,.48)),
+    radial-gradient(circle at top center,rgba(255,249,235,.18),transparent 26%);
+}
+.variantInner{
+  position:relative;
+  z-index:1;
+  padding:24px;
+  min-height:840px;
+  display:grid;
+  grid-template-rows:auto auto 1fr;
+  gap:16px;
+}
+.topbar{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,1.8fr);
+  gap:14px;
+}
+.panel{
+  border-radius:22px;
+  padding:16px 18px;
+  border:1px solid rgba(255,239,205,.15);
+}
+.glass .panel{
+  background:linear-gradient(180deg,rgba(35,26,19,.58),rgba(21,16,12,.44));
+  backdrop-filter:blur(14px) saturate(1.08);
+}
+.kingdom .panel{
+  background:linear-gradient(180deg,rgba(52,35,23,.88),rgba(31,21,15,.84));
+  box-shadow:inset 0 1px 0 rgba(255,237,200,.08);
+}
+.parchment .panel{
+  background:linear-gradient(180deg,rgba(233,221,194,.72),rgba(186,164,131,.56));
+  color:#2e2116;
+  border-color:rgba(96,71,42,.3);
+  backdrop-filter:blur(8px);
+}
+.titleRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.gameTitle{
+  font-size:1.4rem;
+  font-weight:700;
+  letter-spacing:.02em;
+}
+.subtitle{
+  margin-top:6px;
+  font-size:.92rem;
+  color:inherit;
+  opacity:.8;
+}
+.pillRow,.resourceRow,.buttonRow,.taskRow,.techRow,.cardGrid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.pill{
+  padding:7px 11px;
+  border-radius:999px;
+  font-size:.82rem;
+  border:1px solid rgba(255,240,206,.15);
+  background:rgba(255,255,255,.06);
+}
+.parchment .pill{
+  background:rgba(70,49,29,.08);
+  border-color:rgba(83,58,31,.18);
+}
+.resourceRow{
+  display:grid;
+  grid-template-columns:repeat(8,minmax(0,1fr));
+}
+.resourceCard{
+  padding:12px 13px;
+  border-radius:18px;
+  border:1px solid rgba(255,240,208,.13);
+  background:rgba(0,0,0,.18);
+}
+.parchment .resourceCard{
+  background:rgba(255,248,236,.42);
+  border-color:rgba(92,67,38,.18);
+}
+.resourceName{
+  font-size:.8rem;
+  opacity:.82;
+}
+.resourceValue{
+  margin-top:5px;
+  font-size:1rem;
+  font-weight:700;
+}
+.layout{
+  display:grid;
+  grid-template-columns:290px minmax(0,1fr);
+  gap:16px;
+}
+.sidebar,.main{
+  display:grid;
+  gap:16px;
+}
+.logList{
+  display:grid;
+  gap:10px;
+}
+.logItem{
+  padding:11px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  line-height:1.35;
+  font-size:.9rem;
+}
+.parchment .logItem{
+  background:rgba(81,59,34,.07);
+  border-color:rgba(84,60,32,.12);
+}
+.scenePanel{
+  min-height:300px;
+  display:grid;
+  align-items:end;
+  padding:18px;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.3)),
+    radial-gradient(circle at top center,rgba(255,243,207,.1),transparent 36%);
+}
+.sceneOverlay{
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:end;
+  gap:14px;
+}
+.cluster{
+  display:flex;
+  gap:12px;
+  align-items:end;
+}
+.cluster.left{justify-content:flex-start}
+.cluster.center{justify-content:center}
+.cluster.right{justify-content:flex-end}
+.building{
+  min-width:74px;
+  padding:10px 10px 8px;
+  border-radius:18px;
+  text-align:center;
+  background:rgba(30,22,16,.44);
+  border:1px solid rgba(255,244,214,.12);
+  backdrop-filter:blur(8px);
+}
+.parchment .building{
+  background:rgba(255,246,229,.36);
+  border-color:rgba(92,67,38,.16);
+}
+.buildingLarge{
+  min-width:132px;
+  padding:14px 14px 10px;
+}
+.buildingIcon{
+  font-size:2rem;
+  line-height:1;
+}
+.buildingLabel{
+  margin-top:6px;
+  font-size:.82rem;
+}
+.tabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.tab{
+  padding:11px 16px;
+  border-radius:14px;
+  border:1px solid rgba(255,235,197,.12);
+  background:rgba(255,255,255,.06);
+  font-size:.88rem;
+}
+.tab.active{
+  background:linear-gradient(180deg,rgba(223,192,127,.34),rgba(129,95,50,.3));
+  border-color:rgba(232,202,140,.36);
+}
+.parchment .tab{
+  background:rgba(97,72,42,.08);
+  border-color:rgba(97,72,42,.14);
+}
+.parchment .tab.active{
+  background:linear-gradient(180deg,rgba(214,185,120,.38),rgba(145,110,61,.16));
+}
+.cardGrid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.infoCard{
+  padding:16px;
+  border-radius:20px;
+  border:1px solid rgba(255,240,210,.12);
+  background:rgba(17,12,9,.32);
+  min-height:190px;
+}
+.parchment .infoCard{
+  background:rgba(255,247,233,.36);
+  border-color:rgba(96,71,42,.16);
+}
+.infoCard h3{
+  font-size:1rem;
+  margin-bottom:8px;
+}
+.infoCard p{
+  color:inherit;
+  opacity:.84;
+  line-height:1.4;
+  font-size:.92rem;
+}
+.button{
+  padding:11px 14px;
+  border-radius:14px;
+  border:1px solid rgba(240,213,157,.22);
+  background:linear-gradient(180deg,rgba(217,186,120,.26),rgba(119,83,41,.28));
+  font-size:.86rem;
+}
+.ghost{
+  background:rgba(255,255,255,.06);
+}
+.techPanel{
+  display:grid;
+  gap:14px;
+}
+.techRow{
+  gap:14px;
+}
+.techNode{
+  width:92px;
+  display:grid;
+  justify-items:center;
+  gap:7px;
+}
+.orb{
+  width:54px;
+  height:54px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  font-size:1.3rem;
+  border:2px solid rgba(240,211,151,.3);
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.18),rgba(42,31,23,.9));
+  box-shadow:0 10px 25px rgba(0,0,0,.24);
+}
+.orb.done{border-color:#a6d18e}
+.orb.ready{border-color:#e5c479}
+.orb.locked{border-color:#8f6b63;opacity:.7}
+.variantLabel{
+  position:absolute;
+  top:18px;
+  right:18px;
+  z-index:2;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(20,14,10,.55);
+  border:1px solid rgba(255,240,211,.14);
+  backdrop-filter:blur(8px);
+  font-size:.82rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.note{
+  margin-top:18px;
+  padding:14px 16px;
+  border-radius:16px;
+  background:rgba(17,12,9,.42);
+  border:1px solid rgba(255,239,205,.14);
+  color:#e7dac4;
+  font-size:.9rem;
+}
+@media (max-width: 1180px){
+  .resourceRow,.cardGrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .layout,.topbar,.sceneOverlay{grid-template-columns:1fr}
+  .cluster,.cluster.left,.cluster.center,.cluster.right{justify-content:center}
+}
+@media (max-width: 760px){
+  .page{width:96vw}
+  .variantInner{padding:16px}
+  .resourceRow,.cardGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+  <div class="page">
+    <section class="intro">
+      <div class="eyebrow">Standalone Mockup</div>
+      <h1>Coinvale visual directions on your new background</h1>
+      <p>
+        This file is separate from the game. It uses your added background image and shows three possible UI moods for the same screen:
+        lighter glass panels, a darker kingdom-management look, and a warmer parchment variant.
+      </p>
+    </section>
+
+    <div class="variantGrid">
+      <section class="variant variantGlass glass">
+        <div class="variantLabel">Glass Fantasy</div>
+        <div class="variantInner">
+          <div class="topbar">
+            <div class="panel">
+              <div class="titleRow">
+                <div>
+                  <div class="gameTitle">Coinvale</div>
+                  <div class="subtitle">Soft glass panels with the valley scene still visible underneath</div>
+                </div>
+                <div class="pill">Patch 0.0.16</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="pillRow">
+                <div class="pill">Day 84</div>
+                <div class="pill">Population 27 / 48</div>
+                <div class="pill">Happiness 92%</div>
+                <div class="pill">Town Hall Lvl 8</div>
+                <div class="pill">Warehouse 78%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel resourceRow">
+            <div class="resourceCard"><div class="resourceName">Food</div><div class="resourceValue">1,460</div></div>
+            <div class="resourceCard"><div class="resourceName">Wood</div><div class="resourceValue">2,180</div></div>
+            <div class="resourceCard"><div class="resourceName">Stone</div><div class="resourceValue">1,120</div></div>
+            <div class="resourceCard"><div class="resourceName">Gold</div><div class="resourceValue">245</div></div>
+            <div class="resourceCard"><div class="resourceName">Knowledge</div><div class="resourceValue">310</div></div>
+            <div class="resourceCard"><div class="resourceName">Ore</div><div class="resourceValue">605</div></div>
+            <div class="resourceCard"><div class="resourceName">Metal</div><div class="resourceValue">176</div></div>
+            <div class="resourceCard"><div class="resourceName">Wine</div><div class="resourceValue">88</div></div>
+          </div>
+
+          <div class="layout">
+            <aside class="sidebar">
+              <div class="panel">
+                <h3>Chronicle</h3>
+                <div class="logList" style="margin-top:12px">
+                  <div class="logItem">Warehouse expansion completed. Expedition rewards now scale cleanly with storage.</div>
+                  <div class="logItem">New villagers arrived after the spring harvest. Food remains stable.</div>
+                  <div class="logItem">Stone is becoming a real bottleneck for Town Hall progress.</div>
+                </div>
+                <div class="buttonRow" style="margin-top:12px">
+                  <div class="button">Save</div>
+                  <div class="button ghost">Export</div>
+                </div>
+              </div>
+              <div class="panel techPanel">
+                <h3>Tech Snapshot</h3>
+                <div class="techRow">
+                  <div class="techNode"><div class="orb done">🌾</div><div>Field Rotation</div></div>
+                  <div class="techNode"><div class="orb ready">🪓</div><div>Craftsmanship</div></div>
+                  <div class="techNode"><div class="orb locked">🏹</div><div>Watchfires</div></div>
+                </div>
+              </div>
+            </aside>
+
+            <main class="main">
+              <div class="panel scenePanel">
+                <div class="sceneOverlay">
+                  <div class="cluster left">
+                    <div class="building"><div class="buildingIcon">🏚</div><div class="buildingLabel">Cottages</div></div>
+                    <div class="building"><div class="buildingIcon">🌲</div><div class="buildingLabel">Lumber Mill</div></div>
+                  </div>
+                  <div class="cluster center">
+                    <div class="building buildingLarge"><div class="buildingIcon">🏰</div><div class="buildingLabel">Town Hall</div></div>
+                  </div>
+                  <div class="cluster right">
+                    <div class="building"><div class="buildingIcon">🪨</div><div class="buildingLabel">Quarry</div></div>
+                    <div class="building"><div class="buildingIcon">🚚</div><div class="buildingLabel">Warehouse</div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="tabs">
+                  <div class="tab active">Buildings</div>
+                  <div class="tab">Workers</div>
+                  <div class="tab">Expeditions</div>
+                  <div class="tab">Tech Tree</div>
+                </div>
+                <div class="cardGrid" style="margin-top:14px">
+                  <div class="infoCard"><h3>Town Hall Upgrade</h3><p>Costs lean heavier toward stone and food, with the button clearly separated as the next major milestone.</p></div>
+                  <div class="infoCard"><h3>Worker Management</h3><p>Clean sliders and upkeep notes sit on darkened glass so the background still reads without hurting clarity.</p></div>
+                  <div class="infoCard"><h3>Expedition Panel</h3><p>Reward preview, storage impact, and longer-duration travel fit nicely into compact translucent cards.</p></div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </section>
+
+      <section class="variant variantKingdom kingdom">
+        <div class="variantLabel">Dark Kingdom</div>
+        <div class="variantInner">
+          <div class="topbar">
+            <div class="panel">
+              <div class="titleRow">
+                <div>
+                  <div class="gameTitle">Coinvale</div>
+                  <div class="subtitle">Stronger contrast, heavier borders, and a more classic management-game mood</div>
+                </div>
+                <div class="pill">Royal Ledger</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="pillRow">
+                <div class="pill">Season: Early Summer</div>
+                <div class="pill">Defense Ready</div>
+                <div class="pill">Expedition in 3h 20m</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel resourceRow">
+            <div class="resourceCard"><div class="resourceName">Food</div><div class="resourceValue">3,880</div></div>
+            <div class="resourceCard"><div class="resourceName">Wood</div><div class="resourceValue">4,140</div></div>
+            <div class="resourceCard"><div class="resourceName">Stone</div><div class="resourceValue">2,960</div></div>
+            <div class="resourceCard"><div class="resourceName">Gold</div><div class="resourceValue">512</div></div>
+            <div class="resourceCard"><div class="resourceName">Knowledge</div><div class="resourceValue">692</div></div>
+            <div class="resourceCard"><div class="resourceName">Ore</div><div class="resourceValue">1,044</div></div>
+            <div class="resourceCard"><div class="resourceName">Metal</div><div class="resourceValue">408</div></div>
+            <div class="resourceCard"><div class="resourceName">Wine</div><div class="resourceValue">134</div></div>
+          </div>
+
+          <div class="layout">
+            <aside class="sidebar">
+              <div class="panel">
+                <h3>Kingdom Notices</h3>
+                <div class="logList" style="margin-top:12px">
+                  <div class="logItem">Town Hall scaling feels weightier here because the darker shell makes milestone cards look more important.</div>
+                  <div class="logItem">This version is strongest if the game leans more strategy and less cozy village-sim.</div>
+                </div>
+                <div class="buttonRow" style="margin-top:12px">
+                  <div class="button">Review Defenses</div>
+                  <div class="button ghost">Open Ledger</div>
+                </div>
+              </div>
+              <div class="panel techPanel">
+                <h3>Research Queue</h3>
+                <div class="techRow">
+                  <div class="techNode"><div class="orb done">⛏</div><div>Stonecutting</div></div>
+                  <div class="techNode"><div class="orb ready">🏛</div><div>Storehouse</div></div>
+                  <div class="techNode"><div class="orb locked">🍇</div><div>Viticulture</div></div>
+                </div>
+              </div>
+            </aside>
+
+            <main class="main">
+              <div class="panel scenePanel">
+                <div class="sceneOverlay">
+                  <div class="cluster left">
+                    <div class="building"><div class="buildingIcon">⚒</div><div class="buildingLabel">Workshop</div></div>
+                    <div class="building"><div class="buildingIcon">🏹</div><div class="buildingLabel">Barracks</div></div>
+                  </div>
+                  <div class="cluster center">
+                    <div class="building buildingLarge"><div class="buildingIcon">🏰</div><div class="buildingLabel">Town Hall</div></div>
+                  </div>
+                  <div class="cluster right">
+                    <div class="building"><div class="buildingIcon">⛏</div><div class="buildingLabel">Ore Pit</div></div>
+                    <div class="building"><div class="buildingIcon">🍷</div><div class="buildingLabel">Tavern</div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="tabs">
+                  <div class="tab active">Kingdom Buildings</div>
+                  <div class="tab">Labor</div>
+                  <div class="tab">Raids & Expeditions</div>
+                  <div class="tab">Research</div>
+                </div>
+                <div class="cardGrid" style="margin-top:14px">
+                  <div class="infoCard"><h3>Authority Card</h3><p>Major upgrades feel more ceremonial with denser panel fills and richer bronze highlights.</p></div>
+                  <div class="infoCard"><h3>Military Weight</h3><p>The stronger shell suits systems like guards, soldiers, raids, and more serious expedition choices.</p></div>
+                  <div class="infoCard"><h3>Contrast</h3><p>This is the safest direction for readability if we expect lots of stats, timers, and small labels on screen.</p></div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </section>
+
+      <section class="variant variantParchment parchment">
+        <div class="variantLabel">Warm Parchment</div>
+        <div class="variantInner">
+          <div class="topbar">
+            <div class="panel">
+              <div class="titleRow">
+                <div>
+                  <div class="gameTitle">Coinvale</div>
+                  <div class="subtitle">Brighter parchment cards for a softer and more village-builder feeling</div>
+                </div>
+                <div class="pill">Peaceful Valley</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="pillRow">
+                <div class="pill">Village Growth +12%</div>
+                <div class="pill">Harvest Ready</div>
+                <div class="pill">Festival in 1 Day</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel resourceRow">
+            <div class="resourceCard"><div class="resourceName">Food</div><div class="resourceValue">780</div></div>
+            <div class="resourceCard"><div class="resourceName">Wood</div><div class="resourceValue">1,120</div></div>
+            <div class="resourceCard"><div class="resourceName">Stone</div><div class="resourceValue">560</div></div>
+            <div class="resourceCard"><div class="resourceName">Gold</div><div class="resourceValue">92</div></div>
+            <div class="resourceCard"><div class="resourceName">Knowledge</div><div class="resourceValue">104</div></div>
+            <div class="resourceCard"><div class="resourceName">Ore</div><div class="resourceValue">188</div></div>
+            <div class="resourceCard"><div class="resourceName">Metal</div><div class="resourceValue">54</div></div>
+            <div class="resourceCard"><div class="resourceName">Wine</div><div class="resourceValue">26</div></div>
+          </div>
+
+          <div class="layout">
+            <aside class="sidebar">
+              <div class="panel">
+                <h3>Village Notes</h3>
+                <div class="logList" style="margin-top:12px">
+                  <div class="logItem">This approach feels friendlier and more handcrafted, especially if you want a cozy progression vibe.</div>
+                  <div class="logItem">Because the background is detailed, even this lighter version still needs blur and stronger card edges.</div>
+                </div>
+                <div class="buttonRow" style="margin-top:12px">
+                  <div class="button">Collect Taxes</div>
+                  <div class="button ghost">Open Market</div>
+                </div>
+              </div>
+              <div class="panel techPanel">
+                <h3>Village Research</h3>
+                <div class="techRow">
+                  <div class="techNode"><div class="orb done">🌿</div><div>Herbal Lore</div></div>
+                  <div class="techNode"><div class="orb ready">🏠</div><div>Store Yards</div></div>
+                  <div class="techNode"><div class="orb locked">🍞</div><div>Communal Kitchen</div></div>
+                </div>
+              </div>
+            </aside>
+
+            <main class="main">
+              <div class="panel scenePanel">
+                <div class="sceneOverlay">
+                  <div class="cluster left">
+                    <div class="building"><div class="buildingIcon">🌾</div><div class="buildingLabel">Farm</div></div>
+                    <div class="building"><div class="buildingIcon">🏡</div><div class="buildingLabel">Cottage</div></div>
+                  </div>
+                  <div class="cluster center">
+                    <div class="building buildingLarge"><div class="buildingIcon">🏰</div><div class="buildingLabel">Town Hall</div></div>
+                  </div>
+                  <div class="cluster right">
+                    <div class="building"><div class="buildingIcon">🍇</div><div class="buildingLabel">Vineyard</div></div>
+                    <div class="building"><div class="buildingIcon">🧺</div><div class="buildingLabel">Warehouse</div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="tabs">
+                  <div class="tab active">Village</div>
+                  <div class="tab">Workers</div>
+                  <div class="tab">Trade</div>
+                  <div class="tab">Research</div>
+                </div>
+                <div class="cardGrid" style="margin-top:14px">
+                  <div class="infoCard"><h3>Friendlier Tone</h3><p>This one fits best if Coinvale should feel welcoming first and strategic second.</p></div>
+                  <div class="infoCard"><h3>Readable Enough</h3><p>It still works on the landscape, but small labels should stay darker and slightly heavier than in the live game.</p></div>
+                  <div class="infoCard"><h3>Good For Early Game</h3><p>The warm surfaces pair nicely with cottages, farms, and the more pastoral side of the setting.</p></div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="note">
+      Open <strong>mockup-showcase.html</strong> in the browser to compare directions. If one of these feels right, I can next turn that chosen style into a tighter single-screen mockup or adapt the real game UI toward it.
+    </div>
+  </div>
+</body>
+</html>

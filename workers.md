@@ -85,3 +85,4 @@ Population and military:
 
 Note:
 - exact unlocks, outputs, upkeep, and slot types live in `reference/workers.js`
+- since Patch `0.0.29`, the runtime economy math reads these output and upkeep values directly, so tuning a worker means editing only `reference/workers.js`

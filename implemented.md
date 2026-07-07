@@ -1,7 +1,8 @@
 # Coinvale Implemented
 
 Project:
-- Single-file browser game in `index.html`
+- Browser game with a modular runtime: `index.html` (entry point) + `styles.css` + `js/*.js` + `reference/*.js`
+- No build system; the game opens directly from `index.html`
 - Game name: `Coinvale`
 
 Currently in the game:
@@ -55,9 +56,11 @@ Economy and progression:
   - `TH1 -> TH2` no longer deadlocks on storage
   - later `Town Hall` levels no longer outrun storage
   - `TH30` now supports `Lv50` buildings through the soft-cap model
+- progression and gating definitions now live in `reference/progression.js` instead of being spread only across hardcoded runtime branches
 
 Buildings:
 - `Town Hall` is always present and is the center of settlement progression
+- building runtime definitions now load from `reference/buildings.js`
 - all buildings are unique:
   - only `1` of each type may exist
   - `Town Hall` max level = `30`
@@ -67,6 +70,7 @@ Buildings:
   - assigned worker count
   - tech and workshop bonuses
 - worker assignment uses sliders
+- base save building state now derives from the building reference source, so future building additions are safer
 - on building cards:
   - before construction there is `Build Cost`
   - after construction only `Upgrade Cost` remains
@@ -90,6 +94,7 @@ Current buildings:
 - `Tavern`
 
 Workers:
+- worker runtime definitions now load from `reference/workers.js`
 - starter roles:
   - `Forager`
   - `Wood Gatherer`
@@ -108,8 +113,12 @@ Workers:
 - defense and military:
   - `Guard`
   - `Soldier`
+- base save job state now derives from the worker reference source, so future worker additions are safer
 
 UI and UX:
+- the live runtime now uses a fixed painted background behind the UI shell
+- the main shell uses warmer translucent `glass fantasy` panels instead of the older flatter theme
+- the runtime top bars, resource row, chronicle panel, scene shell, and main cards have been visually moved toward the approved mockup style
 - resource cards show `Net` and time to fill or empty
 - tooltips show detailed income / upkeep breakdowns
 - missing resources in build, upgrade, and research costs are highlighted in red
@@ -157,10 +166,33 @@ Expeditions and defense:
 - a failed expedition can trigger a `counter-raid`
 - `Guard` helps stop raids or reduce raid damage
 - random events can now give or remove `Gold`
+- expedition definitions now live in `reference/expeditions.js` instead of being hardcoded only inside `index.html`
+
+Progression and gating:
+- `Town Hall` build requirements now resolve from shared progression reference data
+- `Town Hall` tech requirements now resolve from shared progression reference data
+- building upgrade groups and `Town Hall` soft-cap formulas now resolve from shared progression reference data
+- late gold upkeep gates and building gold-upgrade thresholds now resolve from shared progression reference data
+- tech node definitions and tech branch metadata now live in `reference/techTree.js`
+- `index.html` now reconstructs the runtime tech map from the tech-tree reference layer instead of hardcoding the full `T` object inline
+- core runtime formula curves now live in `reference/formulas.js`
+- `index.html` now resolves `Town Hall` caps, storage scaling, worker slot growth, and research cost formulas from the shared formula reference layer instead of hardcoding those coefficients inline
 
 Trader:
 - trader now offers broader barter instead of only a tiny fixed set of trades
 - once the `Knowledge` economy is running, trader can sometimes offer direct `Knowledge` deals
+- trader offer definitions now live in `reference/traderOffers.js` instead of being hardcoded only inside `index.html`
+- trader offers now include explicit metadata such as merchant type and fairness
+- trader modal titles now surface the merchant archetype and deal quality
+- trader logs can include short context about why a deal was fair or costly
+
+Random events:
+- random events no longer open choice popups during normal play
+- random events now resolve automatically into the `Chronicle`
+- positive random resource events scale from storage capacity
+- negative random resource events scale from current stored amounts
+- the random event pool now covers food, wood, stone, gold, knowledge, ore, metal, wine, happiness, and villager growth
+- random event definitions now live in `reference/randomEvents.js` instead of being hardcoded only inside `index.html`
 
 Town Hall:
 - max level target = `30`
@@ -177,3 +209,50 @@ Latest balance pass:
 - building wood upkeep grows more clearly with level
 - building gold upkeep and gold-cost gating were shifted later and softened
 - `Warehouse` storage was increased so `Town Hall` upgrades no longer outrun the storage ceiling
+
+Runtime architecture (Patch 0.0.28):
+- `index.html` is a thin entry point: markup, stylesheet link, ordered script tags
+- `js/data.js` builds the runtime definition maps from the reference layer
+- `js/engine.js` owns game state, save/migration, economy math, the tick, expeditions, random events, and the trader
+- `js/sprites.js` owns the inline SVG art, including the new dedicated cottage sprite
+- `js/ui.js` owns rendering, tooltips, sliders, modals, and the tech tree layout
+- `js/main.js` owns bootstrap, button wiring, and the fixed-timestep main loop
+- the code uses readable, descriptive naming throughout (`gameState`, `BUILDINGS`, `WORKERS`, `TECH_NODES`, `EXPEDITIONS`)
+- dead legacy code was removed: seasons, legacy choice-popup events, unused helpers and sprites
+- save key, save format, and balance math are unchanged from the pre-refactor build
+
+Production engine (Patch 0.0.29):
+- all economy math runs through a generic contribution engine in `js/engine.js`
+- building base outputs come from `reference/buildings.js` (`output` fields)
+- worker outputs and upkeep come from `reference/workers.js`
+- tech bonuses come from `effects` arrays on nodes in `reference/techTree.js`
+- upkeep formulas (population food tiers, building wood upkeep) come from `reference/formulas.js`
+- resource tooltips, building cards, and upgrade previews read the same engine helpers as the tick math
+- balance parity with the previous hardcoded engine was verified with a 60-state fuzz harness
+
+Rendering architecture (Patch 0.0.30):
+- only the active tab's panel renders each tick; hidden panels are skipped entirely
+- structural blocks pass through `setHtmlIfChanged`, so unchanged markup causes no DOM write
+- the resource row keeps persistent tiles whose values update in place every tick
+- all interaction events (buttons, tech nodes, sliders, tooltips, modal choices) are delegated and bound once at boot
+- measured ~4.8x faster render pass versus the previous full-rebuild model
+
+Building state model (Patch 0.0.31):
+- each building is stored as `{ built, level }` (save version 9; older saves migrate automatically, including pre-v7 `house`/count shapes and v7-v8 `levels` arrays)
+- engine helpers: `isBuilt`, `buildingLevel`, `builtLevel`
+- verified against the previous build with the 60-state economy parity harness
+
+Stylesheet (Patch 0.0.32):
+- `styles.css` is a single consolidated layer produced by resolving the cascade of the three historical style layers
+- rendering verified pixel-identical (computed-style diff over every element across 4 tabs and 5 viewports, plus screenshot comparison)
+- remaining `!important` flags are load-bearing and documented for removal during the next visual redesign
+
+Gold economy rebalance (Patch 0.0.34):
+- building gold upkeep halved; gold cap grows with Town Hall (x6/level) and Gold Mine (40 + 18/level)
+- Tavern/Smelter base-cost gold reduced to 2 so late upgrades stay under the gold cap
+- removes the former TH15 hard wall documented in `balance-report.md`
+
+Mastery nodes (Patch 0.0.35):
+- six repeatable branch-ending tech nodes with per-level stacking effects and growing knowledge cost
+- levels persist in the `techLevels` save field; UI shows a level badge and cumulative bonus
+- gives Knowledge a permanent purpose after the one-time tree is exhausted

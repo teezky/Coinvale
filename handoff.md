@@ -1,7 +1,8 @@
 # Coinvale Handoff
 
 Project:
-- Single-file browser game in `index.html`
+- Browser game with a modular runtime: `index.html` is a thin entry point that loads `styles.css`, `reference/*.js`, and `js/*.js`
+- No build system: the game still opens directly from `index.html`
 - Game name: `Coinvale`
 
 Working agreements:
@@ -35,6 +36,10 @@ Current state:
 - The scene panel supports village naming, and the name stays in the save.
 - The village name is centered above the settlement scene.
 - A new or reset game now asks for the village name through an in-game modal as the first step.
+- The live runtime shell in `index.html` now uses the newer `glass fantasy` direction:
+  - fixed background image behind the UI
+  - warmer translucent panels
+  - runtime layout visually aligned more closely with the approved mockup direction
 - `Town Hall` is the core progression spine:
   - max level target = `30`
   - population/growth uses a `Level^1.5` style curve
@@ -75,39 +80,95 @@ Current state:
   - fixed tooltip persistence across renders
   - made the resource row slightly roomier
 - Random events can now also give or remove `Gold`.
+- Random events no longer interrupt gameplay with modal choices.
+- Random event outcomes now auto-resolve into the `Chronicle`.
+- Positive random event rewards scale from storage capacity.
+- Negative random event losses scale from current stored amounts.
+- Random event definitions now live in `reference/randomEvents.js`.
 - Trader now offers broader barter and can sometimes trade `Knowledge`.
+- Trader offer definitions now live in `reference/traderOffers.js`.
+- Trader offers now have explicit merchant-type and fairness metadata.
+- `index.html` still owns the trader runtime flow, but no longer needs to hardcode the offer table itself.
+- Expedition definitions now live in `reference/expeditions.js`.
+- `index.html` still owns expedition runtime resolution, but no longer needs to hardcode the expedition definition table itself.
+- Building definitions now live in `reference/buildings.js` as an active runtime source.
+- `index.html` now reconstructs the runtime building map from the reference layer instead of hardcoding the full `D` object inline.
+- Worker definitions now live in `reference/workers.js` as an active runtime source.
+- `index.html` now reconstructs the runtime worker map from the reference layer instead of hardcoding the full `J` object inline.
+- Progression and gating definitions now live in `reference/progression.js`.
+- `index.html` still owns runtime calculations, but no longer needs to hardcode most `Town Hall` gate tables, building progression groups, or gold gate values directly in-place.
+- Tech tree definitions now live in `reference/techTree.js` as an active runtime source.
+- `index.html` now reconstructs the runtime tech node map and branch metadata from the reference layer instead of hardcoding the full `T` object and `TECH_BRANCHES` array inline.
+- Core runtime formula curves now live in `reference/formulas.js` as an active runtime source.
+- `index.html` now resolves `Town Hall` cap math, storage scaling, worker capacity curves, and research cost formulas from the reference layer instead of keeping those coefficient clusters inline.
 - `Town Hall` cost, storage scaling, and building soft caps were rebalanced together:
   - the hall cost curve is softer
   - base storage is stronger
   - `Warehouse` scales harder
   - `TH30` can now realistically support `Lv50` buildings
+- The runtime was rewritten into readable, documented modules (Patch `0.0.28`):
+  - `js/data.js` builds runtime definition maps from the reference layer
+  - `js/engine.js` owns state, saves, economy math, tick, expeditions, events, trader
+  - `js/sprites.js` owns the SVG art
+  - `js/ui.js` owns rendering, tooltips, sliders, modals, and the tech tree layout
+  - `js/main.js` owns bootstrap, button wiring, and the main loop
+  - `styles.css` is a consolidated single-layer stylesheet since Patch `0.0.32`
+  - single-letter names were replaced (`D` -> `BUILDINGS`, `J` -> `WORKERS`, `T` -> `TECH_NODES`, `X` -> `EXPEDITIONS`, `st` -> `gameState`)
+  - dead legacy code was removed (seasons, legacy choice events, unused helpers and sprites)
+  - cottages now use their own sprite instead of the Town Hall fallback
+  - save key, save format, and balance math were intentionally left unchanged
+- The economy now runs on a generic production/upkeep engine (Patch `0.0.29`):
+  - every income/upkeep line is a contribution derived from `reference/*.js`
+  - building base outputs live in `reference/buildings.js`, worker outputs/upkeep in `reference/workers.js`
+  - tech bonuses are `effects` arrays on the nodes in `reference/techTree.js`
+  - tooltips, cards, and upgrade previews read the same engine helpers as the real math
+  - parity with the previous engine was verified with a 60-state fuzz harness
+- The rendering layer is now lazy and delegated (Patch `0.0.30`):
+  - only the active tab's panel renders each tick; `setHtmlIfChanged` skips unchanged DOM writes
+  - the resource row updates persistent tiles in place instead of rebuilding markup
+  - all buttons, sliders, tooltips, and modal choices use one-time delegated listeners (`setupUiDelegation`)
+  - measured ~4.8x faster render pass; steady state performs zero DOM writes
+- Building state uses the plain unique-building shape (Patch `0.0.31`):
+  - each building is `{ built, level }` in the save (save version 9, automatic migration)
+  - helpers: `isBuilt`, `buildingLevel` (1 when unbuilt, for neutral math), `builtLevel` (0 when unbuilt, for requirements)
 
 Main files:
-- [index.html](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/index.html)
-- [instructions.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/instructions.md)
-- [implemented.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/implemented.md)
-- [roadmap.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/roadmap.md)
-- [removed.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/removed.md)
-- [buildings.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/buildings.md)
-- [workers.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/workers.md)
-- [tech-tree.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/tech-tree.md)
-- [formulas.md](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/formulas.md)
-- [reference/buildings.js](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/reference/buildings.js)
-- [reference/formulas.js](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/reference/formulas.js)
-- [reference/workers.js](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/reference/workers.js)
-- [reference/techTree.js](/abs/path/c:/Users/tanel/OneDrive/Documents/The%20Game/reference/techTree.js)
+- `index.html` - thin entry point (markup + script tags)
+- `styles.css` - stylesheet (three historical layers, consolidation pending)
+- `js/data.js`, `js/engine.js`, `js/sprites.js`, `js/ui.js`, `js/main.js` - runtime modules
+- `instructions.md`, `implemented.md`, `roadmap.md`, `patch-notes.md` - process and state docs
+- `buildings.md`, `workers.md`, `tech-tree.md`, `formulas.md` - system docs
+- `reference/*.js` - structured reference data (active runtime sources)
 
 Next focus:
+- plot town view direction chosen (see `mockup-plots-v2.html` + `terrain-art-prompt.md`);
+  awaiting composition approval, then runtime implementation
+- balance pass findings are applied: gold fix bundle (`0.0.34`) and repeatable Mastery
+  nodes (`0.0.35`); both validated with fresh 24h bot simulations
+- next design discussion: worker capacity vs population growth (76% of late population idles)
+- smaller open items: early-game pacing, Stone early sink, `Fortified Storeyards` effect,
+  missing-cost highlight
+- content candidates: browser-side balance pass, `Fortified Storeyards` effect decision,
+  new tech nodes / buildings / expeditions (now data-only work in `reference/*.js`),
+  restoring the red missing-cost highlight (small UI decision)
 - run another browser-side balance pass
 - verify the slower economy feels better after the latest storage / hall rebalance
 - verify `Knowledge` cap and research cost scaling still meet cleanly
 - decide when to replace or layer over the current sprites with separate building art
-- evaluate whether and when runtime should start consuming more data from `reference/*.js`
+- start routing runtime and mockup image usage through `reference/assets.js`
+
+Repository structure note:
+- image assets now live under `assets/`
+- source/original art belongs in `assets/source/`
+- game-ready image copies belong in `assets/images/`
+- current main background copy:
+  - `assets/images/backgrounds/village-valley-main.png`
 
 Suggested prompt for a fresh conversation:
 
 ```text
-The project is the single-file browser game "Coinvale" in index.html.
+The project is the browser game "Coinvale". index.html is a thin entry point;
+the runtime lives in js/*.js and the data layer in reference/*.js.
 
 Please read handoff.md first and continue from there.
 
@@ -117,5 +178,11 @@ Important agreement:
 - If you change anything, keep the related markdown and reference files in sync.
 ```
 
+Open balance question:
+- `Fortified Storeyards` is researchable but has no implemented effect;
+  decide whether to implement the promised raid-loss reduction or rework the node
+
 Note:
-- In this environment there was no live browser runtime available, so changes were checked through logic and file review rather than full in-browser playtesting.
+- Patches `0.0.28`-`0.0.32` were verified with real in-browser testing
+  (Playwright/Chromium), including a 60-state economy parity fuzz harness and
+  interaction tests for slider drags, tab cycling, and delegated clicks.

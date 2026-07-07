@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coinvale V4 Current Layout Mockup</title>
+<style>
+:root{
+  --bg:url("assets/images/backgrounds/village-valley-main.png");
+  --text:#f7efdf;
+  --muted:#d2c6b5;
+  --gold:#e1c27d;
+  --line:rgba(245,228,192,.14);
+  --line-strong:rgba(231,198,129,.24);
+  --panel-top:rgba(40,30,22,.56);
+  --panel-bottom:rgba(22,17,13,.42);
+  --panel-strong-top:rgba(48,35,25,.76);
+  --panel-strong-bottom:rgba(23,17,13,.60);
+  --shadow:0 16px 40px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:Georgia,"Times New Roman",serif;
+  color:var(--text);
+  background:#120e0b;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle at top center,rgba(255,247,232,.12),transparent 24%),
+    linear-gradient(180deg,rgba(16,12,8,.26),rgba(16,12,8,.64)),
+    var(--bg) center/cover no-repeat;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 14% 20%,rgba(255,241,213,.06),transparent 24%),
+    linear-gradient(180deg,rgba(18,13,10,.08),rgba(18,13,10,.24));
+}
+.page{
+  width:min(1520px,95vw);
+  margin:0 auto;
+  padding:10px 0 30px;
+}
+.shell{
+  display:grid;
+  gap:8px;
+}
+.panel{
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel-top),var(--panel-bottom));
+  backdrop-filter:blur(14px) saturate(1.04);
+  box-shadow:var(--shadow), inset 0 1px 0 rgba(255,248,230,.03);
+}
+.panelStrong{
+  border-color:var(--line-strong);
+  background:linear-gradient(180deg,var(--panel-strong-top),var(--panel-strong-bottom));
+}
+.topRow{
+  display:grid;
+  grid-template-columns:1.25fr 2.15fr;
+  gap:8px;
+}
+.brandPanel,.statBar,.resourceBar,.tabsPanel,.contentPanel,.scenePanel,.chroniclePanel{
+  padding:8px 10px;
+}
+.brandRow,.brandActions,.topStats,.resourceGrid,.tabs,.actionGrid,.costTags,.sceneMeta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.brandRow{
+  align-items:center;
+  justify-content:space-between;
+}
+.brandTitle{
+  font-size:1.35rem;
+  font-weight:700;
+}
+.brandSub{
+  margin-top:2px;
+  color:var(--muted);
+  font-size:.78rem;
+}
+.pill,.miniBtn,.tag,.tab{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,240,210,.13);
+  background:rgba(255,255,255,.05);
+  font-size:.73rem;
+  line-height:1;
+}
+.patch{
+  background:linear-gradient(180deg,rgba(228,196,126,.18),rgba(121,87,46,.18));
+  color:#fff0cb;
+}
+.topStats{
+  flex-wrap:nowrap;
+}
+.statCard{
+  flex:1 1 0;
+  min-width:0;
+  padding:9px 10px;
+  border-radius:12px;
+  border:1px solid rgba(255,240,210,.1);
+  background:rgba(255,255,255,.04);
+}
+.statLabel{
+  color:var(--muted);
+  font-size:.72rem;
+}
+.statValue{
+  margin-top:3px;
+  font-size:.98rem;
+  font-weight:700;
+}
+.statSub{
+  margin-top:4px;
+  height:5px;
+  border-radius:999px;
+  background:rgba(0,0,0,.32);
+  overflow:hidden;
+}
+.statFill{
+  height:100%;
+  width:20%;
+  background:linear-gradient(90deg,#f0d295,#b68343);
+}
+.resourceGrid{
+  display:grid;
+  grid-template-columns:repeat(8,minmax(0,1fr));
+}
+.resourceCard{
+  min-width:0;
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid rgba(255,240,210,.1);
+  background:rgba(255,255,255,.04);
+}
+.resourceHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.resourceName{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:.86rem;
+  font-weight:700;
+}
+.resourceIcon{
+  width:18px;
+  height:18px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  font-size:.72rem;
+}
+.resourceAmount{
+  font-size:.88rem;
+  font-weight:700;
+}
+.resourceMeta{
+  margin-top:2px;
+  color:var(--muted);
+  font-size:.72rem;
+  line-height:1.2;
+}
+.bar{
+  margin-top:6px;
+  height:4px;
+  border-radius:999px;
+  background:rgba(0,0,0,.34);
+  overflow:hidden;
+}
+.fill{
+  height:100%;
+  border-radius:999px;
+}
+.mainLayout{
+  display:grid;
+  grid-template-columns:225px minmax(0,1fr);
+  gap:8px;
+}
+.chroniclePanel{
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  min-height:700px;
+}
+.sectionTitle{
+  font-size:1.1rem;
+  font-weight:700;
+}
+.chronicleList{
+  display:grid;
+  gap:6px;
+  align-content:start;
+}
+.logItem{
+  padding:9px 10px;
+  border-radius:12px;
+  border:1px solid rgba(255,245,217,.07);
+  background:rgba(255,255,255,.04);
+  font-size:.8rem;
+  line-height:1.35;
+}
+.actionGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+.miniBtn{
+  text-align:center;
+  font-weight:700;
+}
+.rightColumn{
+  display:grid;
+  gap:8px;
+}
+.scenePanel{
+  min-height:300px;
+  display:grid;
+  justify-items:center;
+  align-content:start;
+  text-align:center;
+}
+.villageLabel{
+  color:#ead7aa;
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+.villageName{
+  font-size:1.35rem;
+  font-weight:700;
+  margin-top:2px;
+}
+.renameBtn{
+  margin-top:4px;
+}
+.sceneTitle{
+  margin-top:10px;
+  font-size:1.1rem;
+  font-weight:700;
+}
+.sceneCopy{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:.82rem;
+  max-width:60ch;
+}
+.sceneStage{
+  margin-top:34px;
+  width:100%;
+  min-height:150px;
+  display:grid;
+  align-content:end;
+  justify-items:center;
+}
+.sceneBuildings{
+  display:grid;
+  grid-template-rows:auto auto;
+  gap:20px;
+  justify-items:center;
+}
+.cottageRow{
+  display:flex;
+  gap:22px;
+}
+.buildingTiny,.buildingHero{
+  display:grid;
+  justify-items:center;
+  gap:5px;
+}
+.buildingIcon{
+  padding:8px 10px;
+  border-radius:14px;
+  border:1px solid rgba(255,244,216,.14);
+  background:linear-gradient(180deg,rgba(41,30,21,.52),rgba(22,16,12,.40));
+  backdrop-filter:blur(7px);
+}
+.buildingTiny .buildingIcon{
+  font-size:1.7rem;
+}
+.buildingHero .buildingIcon{
+  font-size:2.6rem;
+  padding:10px 14px;
+  border-color:rgba(227,194,121,.24);
+}
+.buildingLabel{
+  font-size:.74rem;
+}
+.tabs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.tab{
+  text-align:center;
+  font-weight:700;
+}
+.tab.active{
+  border-color:rgba(226,194,120,.26);
+  background:linear-gradient(180deg,rgba(223,192,127,.24),rgba(129,95,50,.22));
+}
+.contentPanel{
+  min-height:345px;
+}
+.cardsGrid{
+  display:grid;
+  grid-template-columns:420px 420px 1fr;
+  gap:8px;
+}
+.card{
+  padding:14px;
+  border-radius:14px;
+  border:1px solid rgba(255,245,217,.08);
+  background:rgba(255,255,255,.04);
+  min-height:330px;
+}
+.cardHead{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:10px;
+  align-items:start;
+}
+.cardIcon{
+  font-size:2rem;
+  line-height:1;
+  padding-top:2px;
+}
+.cardTitle{
+  font-size:1.02rem;
+  font-weight:700;
+}
+.cardDesc{
+  color:var(--muted);
+  font-size:.8rem;
+  line-height:1.25;
+}
+.badge{
+  padding:5px 9px;
+  border-radius:999px;
+  border:1px solid rgba(255,240,210,.13);
+  background:rgba(255,255,255,.05);
+  font-size:.72rem;
+  font-weight:700;
+}
+.metaBlock{
+  margin-top:10px;
+  padding:10px 11px;
+  border-radius:12px;
+  border:1px solid rgba(255,245,217,.07);
+  background:rgba(255,255,255,.04);
+}
+.metaTitle{
+  color:#f0d7a0;
+  font-size:.7rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.metaText{
+  margin-top:3px;
+  font-size:.82rem;
+  line-height:1.3;
+}
+.costTags{
+  margin-top:6px;
+}
+.tag{
+  padding:5px 8px;
+  font-size:.72rem;
+}
+.cardButtons{
+  margin-top:12px;
+  display:grid;
+  gap:6px;
+}
+.wideBtn{
+  padding:8px 10px;
+  text-align:center;
+  border-radius:11px;
+  border:1px solid rgba(255,240,210,.1);
+  background:rgba(255,255,255,.04);
+  color:var(--muted);
+  font-size:.78rem;
+  font-weight:700;
+}
+.wideBtn.primary{
+  color:var(--text);
+  border-color:rgba(226,194,120,.18);
+}
+.emptyCard{
+  background:rgba(255,255,255,.02);
+}
+@media (max-width: 1320px){
+  .resourceGrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .cardsGrid{grid-template-columns:1fr 1fr}
+  .emptyCard{display:none}
+}
+@media (max-width: 980px){
+  .topRow,.mainLayout,.cardsGrid,.tabs{grid-template-columns:1fr}
+  .topStats{flex-wrap:wrap}
+  .chroniclePanel{min-height:auto}
+}
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <section class="topRow">
+        <div class="panel panelStrong brandPanel">
+          <div class="brandRow">
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                <div class="brandTitle">Coinvale</div>
+                <div class="pill patch">Patch 0.0.16</div>
+              </div>
+              <div class="brandSub">Single-file medieval village idle prototype</div>
+            </div>
+            <div class="brandActions">
+              <div class="miniBtn">Patch Notes</div>
+              <div class="miniBtn">Autosave: On</div>
+              <div class="miniBtn">Last save: 10:46:08 PM</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panelStrong statBar">
+          <div class="topStats">
+            <div class="statCard"><div class="statLabel">Day</div><div class="statValue">196</div></div>
+            <div class="statCard"><div class="statLabel">Population</div><div class="statValue">4 / 36</div></div>
+            <div class="statCard"><div class="statLabel">Free</div><div class="statValue">1</div></div>
+            <div class="statCard"><div class="statLabel">Territories</div><div class="statValue">0</div></div>
+            <div class="statCard"><div class="statLabel">Happiness</div><div class="statValue">Wine First</div></div>
+            <div class="statCard">
+              <div class="statLabel">Next Villager</div>
+              <div class="statValue">20%</div>
+              <div class="statSub"><div class="statFill"></div></div>
+            </div>
+            <div class="statCard"><div class="statLabel">Local Time</div><div class="statValue">10:47:11 PM</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel resourceBar">
+        <div class="resourceGrid">
+          <div class="resourceCard">
+            <div class="resourceHead"><div class="resourceName"><span class="resourceIcon">🍞</span>Food</div><div class="resourceAmount">65 / 276</div></div>
+            <div class="resourceMeta">Full in 10m<br>Net 0.35/s</div>
+            <div class="bar"><div class="fill" style="width:24%;background:linear-gradient(90deg,#98cb7f,#6da55a)"></div></div>
+          </div>
+          <div class="resourceCard">
+            <div class="resourceHead"><div class="resourceName"><span class="resourceIcon">🪵</span>Wood</div><div class="resourceAmount">0 / 276</div></div>
+            <div class="resourceMeta">Empty<br>Net -0.36/s</div>
+            <div class="bar"><div class="fill" style="width:2%;background:linear-gradient(90deg,#d6a16c,#a56d3e)"></div></div>
+          </div>
+          <div class="resourceCard">
+            <div class="resourceHead"><div class="resourceName"><span class="resourceIcon">🪨</span>Stone</div><div class="resourceAmount">20 / 276</div></div>
+            <div class="resourceMeta">Stable<br>Net 0/s</div>
+            <div class="bar"><div class="fill" style="width:8%;background:linear-gradient(90deg,#c9ced6,#8f98a5)"></div></div>
+          </div>
+          <div class="resourceCard">
+            <div class="resourceHead"><div class="resourceName"><span class="resourceIcon">🪙</span>Gold</div><div class="resourceAmount">0 / 92</div></div>
+            <div class="resourceMeta">Unlock with Gold Mining<br>Net 0/s</div>
+            <div class="bar"><div class="fill" style="width:0%;background:linear-gradient(90deg,#efd58d,#b88833)"></div></div>
+          </div>
+          <div class="resourceCard">
+            <div class="resourceHead"><div class="resourceName"><span class="resourceIcon">⛏</span>Ore</div><div class="resourceAmount">0 / 206</div></div>
+            <div class="resourceMeta">Unlock with Ore Extraction<br>Net 0/s</div>
+            <div class="bar"><div class="fill" style="width:0%;background:linear-gradient(90deg,#918b87,#5e5955)"></div></div>
+          </div>
+          <div class="resourceCard">
+            <div class="resourceHead"><div class="resourceName"><span class="resourceIcon">⚒</span>Metal</div><div class="resourceAmount">0 / 146</div></div>
+            <div class="resourceMeta">Unlock with Smithing<br>Net 0/s</div>
+            <div class="bar"><div class="fill" style="width:0%;background:linear-gradient(90deg,#bec7d0,#818d99)"></div></div>
+          </div>
+          <div class="resourceCard">
+            <div class="resourceHead"><div class="resourceName"><span class="resourceIcon">🍇</span>Wine</div><div class="resourceAmount">0 / 116</div></div>
+            <div class="resourceMeta">Unlock with Viticulture<br>Net 0/s</div>
+            <div class="bar"><div class="fill" style="width:0%;background:linear-gradient(90deg,#c26d8c,#7f3754)"></div></div>
+          </div>
+          <div class="resourceCard">
+            <div class="resourceHead"><div class="resourceName"><span class="resourceIcon">📘</span>Knowledge</div><div class="resourceAmount">134 / 134</div></div>
+            <div class="resourceMeta">Storage full<br>Net 0.04/s</div>
+            <div class="bar"><div class="fill" style="width:100%;background:linear-gradient(90deg,#9ebedd,#668cb8)"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mainLayout">
+        <aside class="panel chroniclePanel">
+          <div class="sectionTitle">Chronicle</div>
+          <div class="chronicleList">
+            <div class="logItem">Day 196 Offline progress applied for 54s. Random events were skipped while away.</div>
+            <div class="logItem">Day 196 A new Villager has joined your settlement.</div>
+            <div class="logItem">Day 194 A useful pile of Wood was brought into storage.</div>
+            <div class="logItem">Day 194 Offline progress applied for 19s. Random events were skipped while away.</div>
+            <div class="logItem">Day 192 You cannot afford this trader offer. Missing: 19 Wood.</div>
+            <div class="logItem">Day 192 A new Villager has joined your settlement.</div>
+            <div class="logItem">Day 192 A modest surplus of Food has been stored.</div>
+            <div class="logItem">Day 192 Offline progress applied for 3h 10m. Random events were skipped while away.</div>
+            <div class="logItem">Day 185 Starvation has claimed one member of your settlement.</div>
+          </div>
+          <div class="actionGrid">
+            <div class="miniBtn">Save</div>
+            <div class="miniBtn">Export</div>
+            <div class="miniBtn">Import</div>
+            <div class="miniBtn">Reset</div>
+          </div>
+        </aside>
+
+        <div class="rightColumn">
+          <section class="panel panelStrong scenePanel">
+            <div class="sceneMeta">
+              <div>
+                <div class="villageLabel">Village Name</div>
+                <div class="villageName">Paavoland</div>
+                <div class="miniBtn renameBtn">Rename</div>
+              </div>
+            </div>
+            <div class="sceneTitle">The First Hall</div>
+            <div class="sceneCopy">A timber hall anchors the village while a few cottages cluster around it.</div>
+            <div class="sceneStage">
+              <div class="sceneBuildings">
+                <div class="cottageRow">
+                  <div class="buildingTiny">
+                    <div class="buildingIcon">🏠</div>
+                    <div class="buildingLabel">Cottage</div>
+                  </div>
+                  <div class="buildingTiny">
+                    <div class="buildingIcon">🏠</div>
+                    <div class="buildingLabel">Cottage</div>
+                  </div>
+                </div>
+                <div class="buildingHero">
+                  <div class="buildingIcon">🏰</div>
+                  <div class="buildingLabel">Town Hall</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel tabsPanel">
+            <div class="tabs">
+              <div class="tab active">Buildings</div>
+              <div class="tab">Workers</div>
+              <div class="tab">Expeditions</div>
+              <div class="tab">Tech</div>
+            </div>
+          </section>
+
+          <section class="panel contentPanel">
+            <div class="cardsGrid">
+              <div class="card">
+                <div class="cardHead">
+                  <div class="cardIcon">🏰</div>
+                  <div>
+                    <div class="cardTitle">Town Hall</div>
+                    <div class="cardDesc">The heart of your settlement and its population limit.</div>
+                  </div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaTitle">Level</div>
+                  <div class="metaText">Level 1 / 30</div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaTitle">Current Effect</div>
+                  <div class="metaText">Population cap 36<br>Battlefield scale 13</div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaTitle">Upkeep</div>
+                  <div class="metaText">0.36 Wood/s</div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaTitle">Next Step</div>
+                  <div class="metaText">Next population cap 36 -> 46</div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaTitle">Upgrade Cost</div>
+                  <div class="costTags">
+                    <div class="tag">272 Wood</div>
+                    <div class="tag">179 Stone</div>
+                    <div class="tag">85 Food</div>
+                  </div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaText">Requires Farm Lv2, Lumber Mill Lv1, Quarry Lv1.</div>
+                </div>
+                <div class="cardButtons">
+                  <div class="wideBtn primary">Upgrade Hall</div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="cardHead">
+                  <div class="cardIcon">🌾</div>
+                  <div>
+                    <div class="cardTitle">Farm</div>
+                    <div class="cardDesc">Your main food estate.</div>
+                  </div>
+                  <div class="badge">Available</div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaText">Not yet built<br>0/0 workers</div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaTitle">Current Effect</div>
+                  <div class="metaText">Base output 0.42 Food/s<br>Farmer capacity 4</div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaTitle">Next Step</div>
+                  <div class="metaText">Build Farm to add it to the town.</div>
+                </div>
+                <div class="metaBlock">
+                  <div class="metaTitle">Build Cost</div>
+                  <div class="costTags">
+                    <div class="tag">20 Wood</div>
+                    <div class="tag">10 Stone</div>
+                    <div class="tag">8 Food</div>
+                  </div>
+                </div>
+                <div class="cardButtons">
+                  <div class="wideBtn primary">Build</div>
+                  <div class="wideBtn">Upgrade</div>
+                </div>
+              </div>
+
+              <div class="card emptyCard"></div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

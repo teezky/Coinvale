@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coinvale - Plot Town View Mockup v1</title>
+<style>
+:root{
+  --textWarm:#f7efdf; --mutedWarm:#d2c6b5;
+  --lineWarm:rgba(245,228,192,.18); --lineWarmStrong:rgba(231,198,129,.34);
+  --panelTop:rgba(36,27,20,.78); --panelBottom:rgba(20,15,11,.68);
+  --gold:#e2c481; --good:#c5e1b0; --bad:#f0b8a4;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,"Times New Roman",serif;color:var(--textWarm);background:#120e0b;
+  min-height:100vh;padding:14px}
+body::before{content:'';position:fixed;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(16,12,8,.55),rgba(16,12,8,.8)),
+  url("assets/images/backgrounds/village-valley-main.png") center/cover no-repeat}
+.wrap{max-width:1500px;margin:0 auto;display:grid;gap:10px}
+
+/* --- slim top strip (mock) --- */
+.topStrip{display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  background:linear-gradient(180deg,var(--panelTop),var(--panelBottom));
+  border:1px solid var(--lineWarm);border-radius:14px;padding:8px 12px}
+.brand{font-weight:700;font-size:1.1rem;margin-right:6px}
+.chip{display:inline-flex;gap:6px;align-items:center;background:rgba(255,255,255,.07);
+  border:1px solid var(--lineWarm);border-radius:999px;padding:4px 10px;font-size:12.5px}
+.chip b{font-weight:700}
+.chip .net{font-size:11px;color:var(--good)}
+.chip .net.neg{color:var(--bad)}
+.spacer{flex:1}
+.hint{color:var(--mutedWarm);font-size:12px}
+
+/* --- the town map --- */
+.mapCard{position:relative;border-radius:18px;border:1px solid var(--lineWarmStrong);
+  overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.45)}
+.map{position:relative;aspect-ratio: 16 / 8.6;
+  background:url("assets/images/backgrounds/village-valley-main.png") center/cover no-repeat}
+.map::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 42%,transparent 55%,rgba(10,7,5,.55) 100%)}
+.villageName{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:5;
+  text-align:center;padding:6px 22px;border-radius:999px;
+  background:linear-gradient(180deg,var(--panelTop),var(--panelBottom));
+  border:1px solid var(--lineWarmStrong)}
+.villageName b{font-size:1.15rem;letter-spacing:.02em}
+.villageName span{display:block;font-size:.66rem;letter-spacing:.14em;color:#ead7aa;text-transform:uppercase}
+
+/* --- plots --- */
+.plot{position:absolute;transform:translate(-50%,-92%);display:grid;justify-items:center;
+  cursor:pointer;z-index:2;transition:filter .15s ease, z-index 0s}
+.plot:hover{filter:brightness(1.12) drop-shadow(0 0 14px rgba(242,210,138,.45));z-index:6}
+.plot img{display:block;filter:drop-shadow(0 10px 14px rgba(0,0,0,.45))}
+.plot .lv{position:absolute;top:-4px;right:-6px;background:rgba(0,0,0,.62);
+  border:1px solid rgba(232,202,140,.5);color:#ffeab6;border-radius:999px;
+  padding:3px 8px;font-size:11px;line-height:1;z-index:3}
+.plot .nameTag{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+  white-space:nowrap;background:rgba(0,0,0,.6);border:1px solid var(--lineWarm);
+  color:#f2e5d2;font-size:11px;padding:2px 9px;border-radius:999px;
+  opacity:0;transition:opacity .15s ease;pointer-events:none}
+.plot:hover .nameTag{opacity:1}
+
+/* empty + locked plot markers */
+.marker{width:96px;height:52px;border-radius:50%;
+  border:2px dashed rgba(242,221,175,.55);background:rgba(20,14,9,.28);
+  display:grid;place-items:center;transition:background .15s ease,border-color .15s ease}
+.plot:hover .marker{background:rgba(242,210,138,.14);border-color:#f2d28a}
+.marker .glyph{font-size:20px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.plot.locked{cursor:default}
+.plot.locked .marker{border-style:solid;border-color:rgba(150,125,100,.4);background:rgba(15,11,8,.4)}
+.plot.locked:hover{filter:none}
+.plot.locked .gate{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+  white-space:nowrap;color:#c9b9a4;font-size:10.5px;background:rgba(0,0,0,.55);
+  padding:2px 8px;border-radius:999px;border:1px solid rgba(150,125,100,.3)}
+
+/* --- popover --- */
+.pop{position:absolute;z-index:20;width:280px;display:none;
+  background:linear-gradient(180deg,#4b3728,#2b2119);
+  border:1px solid rgba(226,194,120,.34);border-radius:14px;padding:12px;
+  box-shadow:0 16px 34px rgba(0,0,0,.5);font-size:13px}
+.pop.open{display:block}
+.pop h3{margin:0 0 2px;font-size:15px;color:#fff1cf}
+.pop .sub{color:var(--mutedWarm);font-size:12px;margin:0 0 8px}
+.pop .row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.pop .cost{background:rgba(255,255,255,.08);border:1px solid rgba(255,240,210,.16);
+  border-radius:999px;padding:2px 8px;font-size:11.5px}
+.pop .cost.miss{color:#ffd2c2;border-color:#c46f64;background:rgba(93,36,29,.4)}
+.pop .eff{color:var(--mutedWarm);font-size:12px;line-height:1.4}
+.pop .btn{width:100%;margin-top:8px;padding:8px;border-radius:10px;cursor:pointer;
+  font:inherit;font-weight:700;font-size:13px;color:#fff8ea;
+  background:linear-gradient(180deg,#d8b06e,#8b673f);border:1px solid #e2c481}
+.pop .btn.ghost{background:rgba(255,255,255,.08);border:1px solid var(--lineWarm);color:var(--textWarm)}
+.pop .close{position:absolute;top:6px;right:10px;background:none;border:none;color:var(--mutedWarm);
+  font-size:16px;cursor:pointer;font-family:inherit}
+
+.note{background:linear-gradient(180deg,var(--panelTop),var(--panelBottom));
+  border:1px solid var(--lineWarm);border-radius:14px;padding:10px 14px;
+  color:var(--mutedWarm);font-size:13px;line-height:1.5}
+.note b{color:var(--textWarm)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topStrip">
+    <span class="brand">Coinvale</span>
+    <span class="chip">🌾 <b>420</b>/1963 <span class="net neg">−7.9/s</span></span>
+    <span class="chip">🪵 <b>180</b>/1963 <span class="net neg">−2.0/s</span></span>
+    <span class="chip">🪨 <b>300</b>/1963 <span class="net">+1.9/s</span></span>
+    <span class="chip">🪙 <b>55</b>/286 <span class="net">+0.6/s</span></span>
+    <span class="chip">📜 <b>140</b>/394 <span class="net">+0.8/s</span></span>
+    <span class="chip">👥 <b>42</b>/165 · 17 vaba</span>
+    <span class="spacer"></span>
+    <span class="hint">Mockup: kliki krundile — tühi krunt ehitab, valmis hoone näitab upgrade'i</span>
+  </div>
+
+  <div class="mapCard">
+    <div class="map" id="map">
+      <div class="villageName"><span>Village</span><b>Coinvale</b></div>
+      <div class="pop" id="pop"><button class="close" onclick="closePop()">×</button><div id="popBody"></div></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Plot-vaate mockup (v1)</b> — iga hoone elab oma määratud krundil nagu Ikariamis.
+    Tühjad krundid on katkendjoonega markerid; lukus krundid näitavad Town Halli väravat;
+    valmis hooned kasutavad päris <i>assets/images/buildings</i> pilte, taseme-märgiga.
+    Winery/Ore Pit/Smelter/Tavern on märgitud "art pending" (webp-pildid on veel tegemata,
+    source-PNG-d on olemas). Vasak Chronicle-veerg ja tab'id jääksid selle vaate alla/kõrvale.
+  </div>
+</div>
+
+<script>
+// plot layout: designated home per building, % coordinates on the map
+const PLOTS = [
+  { key:'townHall',  name:'Town Hall',  x:50, y:56, w:220, img:'townhall-lv01.webp',  built:true,  level:8,
+    eff:'Population cap 165 · Battlefield scale 20', up:{wood:1832, stone:1202, food:572} },
+  { key:'farm',      name:'Farm',       x:71, y:44, w:150, img:'farm-lv01.webp',      built:true,  level:6,
+    eff:'Base 0.57 Food/s · Farmer capacity 11', up:{wood:264, stone:132, food:105} },
+  { key:'lumberMill',name:'Lumber Mill',x:20, y:46, w:150, img:'lumbermill-lv01.webp',built:true,  level:6,
+    eff:'Base 0.30 Wood/s · Woodcutter capacity 8', up:{wood:369, stone:184, food:132} },
+  { key:'quarry',    name:'Quarry',     x:84, y:62, w:150, img:'quarry-lv01.webp',    built:true,  level:6,
+    eff:'Base 0.25 Stone/s · Quarry Miner capacity 8', up:{wood:369, stone:184, food:132} },
+  { key:'warehouse', name:'Warehouse',  x:36, y:68, w:145, img:'warehouse-lv01.webp', built:true,  level:6,
+    eff:'Global storage bonus 1963', up:{wood:436, stone:217, food:156} },
+  { key:'workshop',  name:'Workshop',   x:24, y:80, w:140, img:'workshop-lv01.webp',  built:false, gate:null,
+    desc:'Organizes tools and craft. Village efficiency bonus.', cost:{wood:32, stone:18, food:14} },
+  { key:'scribeHall',name:'Scribe Hall',x:38, y:42, w:135, img:'scribehall-lv01.webp',built:true,  level:6,
+    eff:'Base 0.08 Knowledge/s · Scholar capacity 4', up:{wood:311, stone:200, food:111} },
+  { key:'barracks',  name:'Barracks',   x:63, y:74, w:145, img:'barracks-lv01.webp',  built:true,  level:6,
+    eff:'Guards & Soldiers · defense support', up:{wood:400, stone:267, food:178} },
+  { key:'goldMine',  name:'Gold Mine',  x:90, y:44, w:140, img:'goldmine-lv01.webp',  built:true,  level:6,
+    eff:'Base 0.18 Gold/s · Gold Miner capacity 4', up:{wood:578, stone:422, food:267, gold:25} },
+  { key:'vineyard',  name:'Vineyard',   x:11, y:62, w:145, img:'vineyard-lv01.webp',  built:false, gate:'Town Hall Lv10',
+    desc:'Terraced vines for later luxuries.', cost:{wood:42, stone:22, food:24} },
+  { key:'winery',    name:'Winery',     x:14, y:88, w:0, img:null, built:false, gate:'Town Hall Lv12 · art pending',
+    desc:'Presses, stores and improves local wine.', cost:{wood:56, stone:30, food:22} },
+  { key:'oreMine',   name:'Ore Pit',    x:93, y:80, w:0, img:null, built:false, gate:'Town Hall Lv10 · art pending',
+    desc:'A deep excavation for raw ore.', cost:{wood:58, stone:42, food:28} },
+  { key:'smelter',   name:'Smelter',    x:76, y:88, w:0, img:null, built:false, gate:'Town Hall Lv14 · art pending',
+    desc:'Refines ore into usable metal.', cost:{wood:64, stone:46, food:26, gold:2} },
+  { key:'tavern',    name:'Tavern',     x:52, y:90, w:0, img:null, built:false, gate:'Town Hall Lv15 · art pending',
+    desc:'Keeps spirits high with warm rooms and wine.', cost:{wood:60, stone:34, food:26, gold:2} },
+];
+const RES_LABEL = { wood:'Wood', stone:'Stone', food:'Food', gold:'Gold' };
+const HAVE = { wood:180, stone:300, food:420, gold:55 };
+
+const map = document.getElementById('map');
+const pop = document.getElementById('pop');
+const popBody = document.getElementById('popBody');
+
+function costChips(cost){
+  return Object.entries(cost).map(([r,v]) =>
+    `<span class="cost ${HAVE[r] < v ? 'miss' : ''}">${v} ${RES_LABEL[r]}</span>`).join('');
+}
+
+function renderPlots(){
+  map.querySelectorAll('.plot').forEach(el => el.remove());
+  for (const p of PLOTS){
+    const el = document.createElement('div');
+    el.className = 'plot' + (!p.built && p.gate && p.gate.includes('Town Hall') && !p.gate.includes('pending') ? '' : '');
+    el.style.left = p.x + '%';
+    el.style.top = p.y + '%';
+    if (p.built){
+      el.innerHTML = `<img src="assets/images/buildings/${p.img}" width="${p.w}" alt="${p.name}">
+        <span class="lv">Lv${p.level}</span><span class="nameTag">${p.name}</span>`;
+    } else if (p.img){
+      el.innerHTML = `<div class="marker"><span class="glyph">🔨</span></div>
+        <span class="nameTag">${p.name}${p.gate ? ' · ' + p.gate : ' · vaba krunt'}</span>`;
+    } else {
+      el.classList.add('locked');
+      el.innerHTML = `<div class="marker"><span class="glyph">🔒</span></div>
+        <span class="gate">${p.name} · ${p.gate}</span>`;
+    }
+    el.addEventListener('click', e => { e.stopPropagation(); openPop(p, el); });
+    map.appendChild(el);
+  }
+}
+
+function openPop(p, el){
+  if (!p.built && !p.img){ return; } // art-pending plots inert in mockup
+  if (p.built){
+    popBody.innerHTML = `<h3>${p.name} <small style="color:#ead7aa">Lv${p.level}</small></h3>
+      <p class="sub">${p.eff}</p>
+      <div class="eff">Upgrade cost:</div>
+      <div class="row">${costChips(p.up)}</div>
+      <button class="btn" onclick="mockUpgrade('${p.key}')">Upgrade → Lv${p.level+1}</button>
+      <button class="btn ghost" onclick="closePop()">Sulge</button>`;
+  } else {
+    popBody.innerHTML = `<h3>Ehita: ${p.name}</h3>
+      <p class="sub">${p.desc}</p>
+      ${p.gate ? `<div class="eff">Nõue: ${p.gate}</div>` : ''}
+      <div class="eff">Build cost:</div>
+      <div class="row">${costChips(p.cost)}</div>
+      <button class="btn" onclick="mockBuild('${p.key}')">Ehita siia</button>
+      <button class="btn ghost" onclick="closePop()">Sulge</button>`;
+  }
+  // position near plot, clamped inside map
+  const mapRect = map.getBoundingClientRect();
+  const elRect = el.getBoundingClientRect();
+  let left = elRect.left - mapRect.left + elRect.width/2 + 20;
+  let top = elRect.top - mapRect.top - 40;
+  if (left + 290 > mapRect.width) left = elRect.left - mapRect.left - 300;
+  if (top < 8) top = 8;
+  if (top + 240 > mapRect.height) top = mapRect.height - 240;
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+  pop.classList.add('open');
+}
+
+function mockBuild(key){
+  const p = PLOTS.find(x => x.key === key);
+  p.built = true; p.level = 1;
+  p.eff = 'Vastvalminud — efektid aktiveeruvad'; p.up = p.cost;
+  closePop(); renderPlots();
+}
+function mockUpgrade(key){
+  const p = PLOTS.find(x => x.key === key);
+  p.level++;
+  closePop(); renderPlots();
+}
+function closePop(){ pop.classList.remove('open'); }
+map.addEventListener('click', closePop);
+
+renderPlots();
+</script>
+</body>
+</html>

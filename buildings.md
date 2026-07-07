@@ -85,4 +85,5 @@ Categories:
 - town hall gate: `TH 15`
 
 Note:
-- exact unlocks, costs, slots, upkeep, and notes live in `reference/buildings.js`
+- exact unlocks, costs, slots, upkeep, base outputs, and notes live in `reference/buildings.js`
+- since Patch `0.0.29`, building base production (`output`) is defined there and consumed directly by the runtime engine

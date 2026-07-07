@@ -1,6 +1,6 @@
 # Coinvale
 
-`Coinvale` is a single-file browser game prototype whose main runtime lives in `index.html`.
+`Coinvale` is a browser game prototype. `index.html` is a thin entry point that loads the stylesheet, the structured reference data (`reference/*.js`), and the runtime modules (`js/*.js`). No build system is needed - the game opens directly from `index.html`.
 
 The project combines:
 - an idle / resource-management loop
@@ -36,9 +36,16 @@ To run it:
 ## File structure
 
 Main files:
-- `index.html` - runtime and main game logic
+- `index.html` - entry point (markup and script tags)
+- `styles.css` - consolidated single-layer stylesheet (cascade-ordered, parity-verified)
+- `js/data.js` - runtime definition maps built from the reference layer
+- `js/engine.js` - game state, saves, economy math, tick, expeditions, events, trader
+- `js/sprites.js` - building, worker, and resource SVG art
+- `js/ui.js` - rendering, tooltips, sliders, modals, tech tree layout
+- `js/main.js` - bootstrap, button wiring, main loop
 - `formulas.md` - main balance formulas and progression rules
 - `patch-notes.md` - chronological patch history with numbered dated entries
+- `reference/patchNotes.js` - generated runtime mirror of the patch history (file:// fallback)
 - `handoff.md` - short current-state handoff file
 - `implemented.md` - what is actually implemented in the game
 - `roadmap.md` - upcoming topics and balance focus
@@ -54,6 +61,12 @@ Structured reference:
 - `reference/formulas.js`
 - `reference/workers.js`
 - `reference/techTree.js`
+- `reference/assets.js`
+
+Assets:
+- `assets/source/` - original art files kept for editing and future exports
+- `assets/images/` - game-ready images used by mockups and future runtime UI
+- `assets/images/backgrounds/village-valley-main.png` - current main background
 
 ## Documentation model
 
@@ -66,6 +79,7 @@ Core rules:
 - when a system changes, both documentation and reference should be updated together
 - substantial updates should also be reflected in `patch-notes.md`
 - each substantial update should be logged there as a new numbered patch entry with date, time, and status
+- image paths should be routed through `reference/assets.js` rather than hardcoded ad hoc in runtime or mockup files
 
 ## Workflow
 
@@ -92,6 +106,8 @@ If you want to upload this project to GitHub:
 
 Keep these in the repo:
 - `index.html`
+- `styles.css`
+- the `js/` folder
 - all `*.md` documentation files
 - the `reference/` folder
 - `.gitignore`
