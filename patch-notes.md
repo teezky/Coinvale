@@ -1612,3 +1612,24 @@ Fixed:
 
 Docs:
 - reference/patchNotes.js
+
+
+---
+
+## Patch 0.0.52 - 2026-07-08 09:46
+
+Status:
+- implemented
+
+Summary:
+- fixed live-site asset caching so the patch badge updates reliably after deploys
+
+Changed:
+- runtime, reference, and stylesheet asset URLs now include a `v=0.0.52` cache-busting query
+- the live patch-notes fetch now requests `patch-notes.md?v=0.0.52`
+
+Fixed:
+- browsers that had cached older script files could keep showing an old patch badge such as `0.0.47`
+
+Docs:
+- reference/patchNotes.js

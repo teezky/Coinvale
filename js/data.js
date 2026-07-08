@@ -15,7 +15,7 @@ const SAVE_KEY = 'cg_save_v4';
 const SAVE_VERSION = 10;
 const OFFLINE_CAP_SECONDS = 14400;
 
-const PATCH_NOTES_URL = 'patch-notes.md';
+const PATCH_NOTES_URL = 'patch-notes.md?v=0.0.52';
 // Fallback when fetch() is unavailable (file://): the generated mirror in
 // reference/patchNotes.js. The tiny string below only appears if that file
 // failed to load too.
