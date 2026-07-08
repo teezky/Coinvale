@@ -179,11 +179,11 @@ window.CoinvaleReference.techTree = {
   },
   masonry: {
     name: "Masonry",
-    description: "Building Wood upkeep -10%.",
+    description: "Building Wood costs -5%.",
     cost: { food: 64, wood: 34, stone: 48 },
     branch: "stone",
-    effects: [{ type: "building_wood_upkeep_mult", value: 0.9 }],
-    unlocks: ["Lower wood upkeep on buildings"],
+    effects: [{ type: "build_cost_mult", resource: "wood", value: 0.95 }],
+    unlocks: ["Lower wood costs on buildings"],
     requires: ["quarrySupports"],
   },
   improvedWarehousing: {
@@ -332,7 +332,7 @@ window.CoinvaleReference.techTree = {
   },
   goldMining: {
     name: "Gold Mining",
-    description: "Unlocks Gold and Gold Mines.",
+    description: "Unlocks the Gold Mine - mined gold on top of village taxes.",
     cost: { food: 84, wood: 82, stone: 68 },
     branch: "trade",
     unlocks: ["Gold Mine", "Gold economy"],

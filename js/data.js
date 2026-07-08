@@ -12,7 +12,7 @@
 // --- Core constants ---------------------------------------------------------
 
 const SAVE_KEY = 'cg_save_v4';
-const SAVE_VERSION = 9;
+const SAVE_VERSION = 10;
 const OFFLINE_CAP_SECONDS = 14400;
 
 const PATCH_NOTES_URL = 'patch-notes.md';
@@ -50,6 +50,8 @@ const BUILDING_UPGRADE_FORMULAS = (FORMULAS_REF.buildingUpgrade && FORMULAS_REF.
 const WORKER_CAPACITY_FORMULAS = (FORMULAS_REF.workerCapacity && FORMULAS_REF.workerCapacity.runtime) || {};
 const STORAGE_FORMULAS = (FORMULAS_REF.storage && FORMULAS_REF.storage.runtime) || {};
 const RESEARCH_FORMULAS = (FORMULAS_REF.research && FORMULAS_REF.research.runtime) || {};
+const TAXATION_FORMULAS = (FORMULAS_REF.taxation && FORMULAS_REF.taxation.runtime) || {};
+const IDLE_FORMULAS = (FORMULAS_REF.idle && FORMULAS_REF.idle.runtime) || {};
 
 // Objective chain (reference/objectives.js) - ordered; shown one at a time
 const OBJECTIVES = Array.isArray(REFERENCE.objectives) ? REFERENCE.objectives : [];

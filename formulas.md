@@ -319,15 +319,16 @@ smithing = x1.08
 
 ## Upkeep
 
-Population food rate:
+Population food upkeep is active again, but shortages are non-lethal. Empty
+stores pause growth instead of killing villagers or removing workers.
 
 ```js
-<= 6 pop   => 0.19
-<= 12 pop  => 0.25
-> 12 pop   => 0.31
+<= 6 pop   => 0.19 Food/s
+<= 12 pop  => 0.25 Food/s
+> 12 pop   => 0.31 Food/s
 ```
 
-Military:
+Explicit role inputs:
 
 ```js
 guard    = 0.20 Food/s
@@ -337,49 +338,45 @@ smelter  = 0.18 Ore/s
 innkeeper= 0.08 Wine/s
 ```
 
-Building wood upkeep:
+Building wood upkeep is inactive by default. All current buildings have
+`upkeepBase = 0`, so buildings do not passively drain Wood while the player is
+away.
 
 ```js
 woodUpkeep(building, level) =
-  building.up * (6 + (level - 1) * 0.75) * masonryModifier
+  building.up * (6 + (level - 1) * 0.75) * masonryModifier   // current up = 0
 ```
 
 where:
 
 ```js
-masonryModifier = masonry ? 0.9 : 1
+masonryModifier = 1
 ```
 
-## Gold Gating
+## Taxes & Idle Safety
 
-Gold building upkeep starts later:
+The money economy starts when the Town Hall reaches Lv3. From then on:
 
 ```js
-Town Hall                     => from Lv10
-Workshop/Warehouse/Barracks/
-Scribe Hall/Gold Mine/Winery  => from Lv7
-Farm/Lumber Mill/Quarry/
-Vineyard/Ore Pit              => from Lv10
-Smelter/Tavern                => from Lv4
+taxes = freeVillagers * 0.01 Gold/s
+assignedWorkerGoldCost = 0
 ```
 
-Gold upkeep formula (halved in the 0.0.34 gold rebalance):
+Assigned workers are an opportunity cost: they produce goods instead of paying
+taxes. There is no standard worker wage and no wage-strike spiral.
+
+Offline progress:
 
 ```js
-Town Hall        = 0.008 * level
-Smelter/Tavern   = 0.022 * level
-Support buildings= 0.012 * level
-Core/field chain = 0.006 * level
+offlineGrowth = activeGrowth * 0.25
+offlineReserve = max(1, resourceCap * 0.05)
 ```
 
-Gold upgrade cost starts at:
+While away, negative rates preserve a small reserve instead of draining a
+stockpile fully to zero. Random events are still skipped while offline.
 
-```js
-Town Hall        => Lv10+
-Smelter/Tavern   => Lv4+
-Support buildings=> Lv7+
-Core buildings   => Lv10+
-```
+The old per-level gold "administration" upkeep, the 0.0.48 wage-strike layer,
+and starvation death/role-loss pressure are retired.
 
 ## Expedition Modifiers
 

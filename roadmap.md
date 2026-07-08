@@ -16,12 +16,17 @@ Current next topic:
 - DONE (0.0.35): repeatable Mastery nodes added as the Knowledge long-tail sink
 - DONE (0.0.45): objective chain added (20 goals, reference/objectives.js, Objective card
   above the Chronicle) - the game now always shows "what next"
-- next design discussion: worker capacity vs population growth (76% of late population idles)
+- DONE (0.0.48): gold economy rework introduced taxes from free villagers
+  (the wage/strike layer was superseded by 0.0.49)
+- DONE (0.0.49): passive punishment removed - starvation deaths, standard
+  worker wages, and passive building Wood upkeep are gone; Food upkeep remains
+  as a non-lethal growth pressure; offline growth is slower and stockpiles keep
+  a small reserve
 - smaller open items: early-game pacing (TH2 at ~38 min), Stone early sink,
   `Fortified Storeyards` effect, missing-cost highlight
 
 Near-term priorities:
-1. `Food` scaling after the removal of `Granary` / `Chicken Coop`
+1. pace-test the no-punishment idle model, especially early growth and Food as a growth gate
 2. browser-side validation of the `Scribe Hall -> Gold Mining` gating
 3. review whether the fixed tech-tree cost model still needs branch-by-branch tuning
 4. `Town Hall` and building upgrade-cost tuning

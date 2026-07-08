@@ -131,6 +131,11 @@ Current state:
 - Building state uses the plain unique-building shape (Patch `0.0.31`):
   - each building is `{ built, level }` in the save (save version 9, automatic migration)
   - helpers: `isBuilt`, `buildingLevel` (1 when unbuilt, for neutral math), `builtLevel` (0 when unbuilt, for requirements)
+- Passive punishment was removed (Patch `0.0.49`):
+  - population consumes Food again, but empty Food pauses growth instead of killing villagers or removing workers
+  - regular production workers have no standard wage; assigned workers are a tax opportunity cost
+  - buildings no longer passively drain Wood
+  - offline growth is slower and negative offline rates preserve a small reserve
 
 Main files:
 - `index.html` - thin entry point (markup + script tags)
@@ -143,9 +148,8 @@ Main files:
 Next focus:
 - plot town view direction chosen (see `mockup-plots-v2.html` + `terrain-art-prompt.md`);
   awaiting composition approval, then runtime implementation
-- balance pass findings are applied: gold fix bundle (`0.0.34`) and repeatable Mastery
-  nodes (`0.0.35`); both validated with fresh 24h bot simulations
-- next design discussion: worker capacity vs population growth (76% of late population idles)
+- balance pass findings are applied through the no-punishment idle model (`0.0.49`);
+  next step is browser-side pace validation
 - smaller open items: early-game pacing, Stone early sink, `Fortified Storeyards` effect,
   missing-cost highlight
 - content candidates: browser-side balance pass, `Fortified Storeyards` effect decision,

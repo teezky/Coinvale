@@ -96,8 +96,8 @@ Effects model:
 - since Patch `0.0.29`, numeric node bonuses are machine-readable `effects` arrays in `reference/techTree.js`
 - the runtime production/upkeep engine aggregates them; no node bonus is hardcoded in `js/engine.js`
 - current effect types: `production_mult`, `worker_output_mult`, `worker_upkeep_mult`,
-  `population_food_upkeep_mult`, `building_wood_upkeep_mult`, `build_cost_mult`,
-  `storage_mult`, `production_per_town_hall_level`
+  `population_food_upkeep_mult`, `build_cost_mult`, `storage_mult`,
+  `production_per_town_hall_level`
 - expedition, trader, happiness, growth, and guard-power bonuses still resolve through dedicated helpers
 - known gap: `Fortified Storeyards` currently has no implemented effect (see `roadmap.md`)
 

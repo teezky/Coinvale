@@ -44,7 +44,6 @@ function freshState() {
     population: 4,
     growth: 0,
     happinessEventOffset: 0,
-    starve: 0,
     jobs: defaultJobs(),
     tech: Object.fromEntries(Object.keys(TECH_NODES).map(key => [key, false])),
     techLevels: {},
@@ -128,6 +127,11 @@ function migrateSave(save) {
     // v9: building state moved from { levels: [...] } arrays to { built, level }
     normalizeBuildings(save.buildings || (save.buildings = {}));
     save.saveVersion = 9;
+  }
+  if (save.saveVersion < 10) {
+    // v10: starvation pressure was retired; drop the old accumulator from saves.
+    delete save.starve;
+    save.saveVersion = 10;
   }
   save.growth = Number.isFinite(save.growth) ? save.growth : 0;
   save.population = Number.isFinite(save.population) ? save.population : freshState().population;
@@ -487,7 +491,7 @@ const happinessActive = () =>
   gameState.tech.viticulture || isBuilt('vineyard') || isBuilt('winery') || isBuilt('tavern');
 
 function resourceUnlocked(key) {
-  if (key === 'gold') return gameState.tech.goldMining || isBuilt('goldMine') || gameState.resources.gold.current > 0;
+  if (key === 'gold') return moneyEconomyActive() || gameState.resources.gold.current > 0;
   if (key === 'ore') return gameState.tech.oreExtraction || isBuilt('oreMine') || gameState.resources.ore.current > 0;
   if (key === 'metal') return gameState.tech.smithing || isBuilt('smelter') || gameState.resources.metal.current > 0;
   if (key === 'wine') {
@@ -498,7 +502,7 @@ function resourceUnlocked(key) {
 }
 
 function resourceUnlockText(key) {
-  if (key === 'gold') return 'Unlock with Gold Mining';
+  if (key === 'gold') return 'Taxes begin at Town Hall Lv3';
   if (key === 'ore') return 'Unlock with Ore Extraction';
   if (key === 'metal') return 'Unlock with Smithing';
   if (key === 'wine') return 'Unlock with Viticulture';
@@ -611,6 +615,15 @@ const buildingWoodUpkeepAt = (buildingKey, level) =>
   ((buildingWoodUpkeepCurve.base ?? 6) + (level - 1) * (buildingWoodUpkeepCurve.perLevel ?? 0.75)) *
   buildingWoodUpkeepMult();
 
+// --- Taxes and idle safety -------------------------------------------------------------
+// Free villagers pay taxes once the settlement is formal enough. Assigned workers
+// are an opportunity cost: they produce goods instead of paying taxes.
+
+const goldTaxRate = () => TAXATION_FORMULAS.goldPerFreeVillager ?? 0.01;
+const moneyEconomyActive = () => builtLevel('townHall') >= (TAXATION_FORMULAS.startsAtTownHall ?? 3);
+const offlineGrowthMult = () => IDLE_FORMULAS.offlineGrowthMult ?? 0.25;
+const offlineReserveRatio = () => IDLE_FORMULAS.offlineReserveRatio ?? 0.05;
+
 // All positive income lines, before workshop/tech/territory resource multipliers.
 function productionContributions() {
   const contributions = [];
@@ -643,6 +656,9 @@ function productionContributions() {
       add(resource, `${passive.name}s`, gameState.population * rate);
     }
   }
+
+  // Taxes: every unassigned villager pays gold once the money economy is active.
+  if (moneyEconomyActive()) add('gold', 'Taxes', freeVillagers() * goldTaxRate());
 
   // Town Hall learning
   add('knowledge', 'Town Hall learning',
@@ -691,10 +707,13 @@ function upkeepContributions() {
     if (amount > 0) contributions.push({ resource, label, amount });
   };
 
-  // Population food
+  // Population eats food again, but shortages only pause growth. No deaths,
+  // role loss, or offline punishment spiral.
   add('food', 'Population', gameState.population * populationFoodRate() * populationFoodUpkeepMult());
 
-  // Worker upkeep
+  // Worker upkeep is reserved for explicit specialist/conversion roles.
+  // General labour has no wage drain; assigning workers is already a tax-income
+  // opportunity cost because only free villagers pay taxes.
   for (const key of workerOrder) {
     const def = WORKERS[key];
     const count = gameState.jobs[key];
@@ -748,7 +767,6 @@ function clampAll() {
     const current = Number.isFinite(gameState.resources[key].current) ? gameState.resources[key].current : 0;
     gameState.resources[key].current = Math.max(0, Math.min(gameState.resources[key].cap, current));
   }
-  if (!gameState.tech.goldMining) gameState.resources.gold.current = 0;
   if (!gameState.tech.oreExtraction) gameState.resources.ore.current = 0;
   if (!gameState.tech.smithing) gameState.resources.metal.current = 0;
   if (!gameState.tech.viticulture) gameState.resources.wine.current = 0;
@@ -779,7 +797,7 @@ function clampAll() {
   }
 }
 
-// --- Happiness, growth, starvation ---------------------------------------------------------------------------
+// --- Happiness and growth ---------------------------------------------------------------------------
 
 function happiness() {
   if (!happinessActive()) return 100;
@@ -801,37 +819,22 @@ function happiness() {
   return Math.max(10, Math.min(140, mood));
 }
 
-function growPopulation() {
+function growPopulation(opts = {}) {
   if (gameState.population >= populationCap()) { gameState.growth = 0; return; }
+  if (gameState.resources.food.current <= 0) return;
   const hall = buildingLevel('townHall');
   const mood = happinessActive() ? happiness() / 100 : 1;
   let gain = (0.82 + 0.08 * Math.pow(Math.max(1, hall), 1.28)) * mood * (hasTech('herbalRemedies') ? 1.06 : 1);
   if (gameState.population <= 6) gain *= 1.15;
   else if (gameState.population <= 10) gain *= 1.04;
-  if (gameState.resources.food.current <= 0) gain *= 0.18;
+  if (resourceCap('food') && gameState.resources.food.current / resourceCap('food') < 0.1) gain *= 0.35;
+  if (opts.offline) gain *= offlineGrowthMult();
   if (happinessActive() && isBuilt('tavern') && gameState.resources.wine.current > 0) gain *= 1.06;
   gameState.growth = Math.min(100, gameState.growth + gain);
   if (gameState.growth >= 100) {
     gameState.population++;
     gameState.growth = Math.max(0, gameState.growth - 100);
     log('good', 'A new Villager has joined your settlement.');
-  }
-}
-
-function starvationTick() {
-  if (gameState.resources.food.current > 0) { gameState.starve = 0; return; }
-  gameState.starve++;
-  if (gameState.starve % 40) return;
-  for (const key of workerOrder) {
-    if (gameState.jobs[key] > 0) {
-      gameState.jobs[key]--;
-      log('bad', `${WORKERS[key].name} left their role due to starvation pressure.`);
-      return;
-    }
-  }
-  if (gameState.population > 1) {
-    gameState.population--;
-    log('bad', 'Starvation has claimed one member of your settlement.');
   }
 }
 
@@ -1203,20 +1206,22 @@ function checkObjectives() {
 
 function tick(opts = {}) {
   const sim = !!opts.sim;
+  const offline = !!opts.offline;
   renderDirty = true;
   gameState.elapsed++;
   if (gameState.elapsed % 60 === 0) gameState.day++;
 
   const rates = netRates();
   for (const key of Object.keys(gameState.resources)) {
-    if (key === 'gold' && !gameState.tech.goldMining && gameState.resources.gold.current <= 0 && !isBuilt('goldMine')) continue;
     const delta = Number.isFinite(rates[key]) ? rates[key] : 0;
     const current = Number.isFinite(gameState.resources[key].current) ? gameState.resources[key].current : 0;
-    gameState.resources[key].current = Math.max(0, Math.min(resourceCap(key), current + delta));
+    const reserve = offline && delta < 0 && current > 0
+      ? Math.min(current, Math.max(1, resourceCap(key) * offlineReserveRatio()))
+      : 0;
+    gameState.resources[key].current = Math.max(reserve, Math.min(resourceCap(key), current + delta));
   }
 
-  growPopulation();
-  starvationTick();
+  growPopulation({ offline });
 
   if (gameState.expedition) {
     gameState.expedition.r--;
@@ -1256,8 +1261,8 @@ function applyOfflineProgress() {
   const seconds = Math.min(Math.max(0, Math.floor((now - (gameState.lastViewedAt || now)) / 1000)), OFFLINE_CAP_SECONDS);
   if (seconds < 5) { gameState.lastViewedAt = now; return; }
   clearDeferredEvents();
-  for (let i = 0; i < seconds; i++) tick({ sim: true });
-  log('info', `Offline progress applied for ${formatDuration(seconds)}. Random events were skipped while away.`);
+  for (let i = 0; i < seconds; i++) tick({ sim: true, offline: true });
+  log('info', `Offline progress applied for ${formatDuration(seconds)}. Growth is slower while away and stockpiles keep a small reserve.`);
   gameState.lastViewedAt = now;
 }
 

@@ -206,8 +206,14 @@ Latest balance pass:
 - `Farm`, `Lumber Mill`, `Quarry`, `Gold Mine`, `Knowledge`, and the wine chain all produce more slowly than before
 - `Workshop` gives a smaller village efficiency bonus per level
 - resource-output tech nodes now use smaller bonuses
-- building wood upkeep grows more clearly with level
-- building gold upkeep and gold-cost gating were shifted later and softened
+- starvation deaths, standard worker wages, and passive building Wood upkeep
+  have been removed from active and offline play
+- population Food upkeep is active, but shortages pause growth instead of
+  killing villagers or removing workers
+- free villagers pay taxes from Town Hall Lv3; assigned workers produce goods
+  instead of paying taxes
+- offline growth runs slower and negative offline rates keep a small stockpile
+  reserve instead of draining resources completely
 - `Warehouse` storage was increased so `Town Hall` upgrades no longer outrun the storage ceiling
 
 Runtime architecture (Patch 0.0.28):
@@ -226,7 +232,7 @@ Production engine (Patch 0.0.29):
 - building base outputs come from `reference/buildings.js` (`output` fields)
 - worker outputs and upkeep come from `reference/workers.js`
 - tech bonuses come from `effects` arrays on nodes in `reference/techTree.js`
-- upkeep formulas (population food tiers, building wood upkeep) come from `reference/formulas.js`
+- idle safety, taxation, and remaining explicit upkeep/conversion formulas come from `reference/formulas.js`
 - resource tooltips, building cards, and upgrade previews read the same engine helpers as the tick math
 - balance parity with the previous hardcoded engine was verified with a 60-state fuzz harness
 

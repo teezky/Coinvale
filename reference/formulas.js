@@ -111,7 +111,7 @@ window.CoinvaleReference.formulas = {
   },
   upkeep: {
     populationFoodRate: "0.19 (pop <= 6), 0.25 (pop <= 12), 0.31 (pop > 12)",
-    buildingWoodUpkeep: "upkeepBase * (6 + (level - 1) * 0.75) * masonryModifier",
+    buildingWoodUpkeep: "inactive by default - all current buildings use upkeepBase 0",
     runtime: {
       populationFoodRateTiers: [
         { maxPopulation: 6, rate: 0.19 },
@@ -146,3 +146,16 @@ window.CoinvaleReference.formulas = {
 if (typeof module !== "undefined") {
   module.exports = window.CoinvaleReference.formulas;
 }
+
+// 0.0.48 gold rework: taxes from unassigned population.
+// gold income += freeVillagers * goldPerFreeVillager
+window.CoinvaleReference.formulas.taxation = {
+  description: "Every unassigned villager pays goldPerFreeVillager gold/s in taxes once the Town Hall reaches the start level. Assigned workers are an opportunity cost: they produce goods instead of paying taxes.",
+  runtime: { goldPerFreeVillager: 0.01, startsAtTownHall: 3 }
+};
+
+// 0.0.49 idle safety: offline progress rewards return visits without death spirals.
+window.CoinvaleReference.formulas.idle = {
+  description: "Offline growth runs slower than active growth, and negative offline rates preserve a small reserve instead of draining stockpiles to zero.",
+  runtime: { offlineGrowthMult: 0.25, offlineReserveRatio: 0.05 }
+};

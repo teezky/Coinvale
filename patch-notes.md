@@ -1469,3 +1469,146 @@ Kept (tooltip carries info that exists nowhere else):
 
 Docs:
 - `patch-notes.md`, `reference/patchNotes.js` (regenerated mirror); smoke test 26/26
+
+
+---
+
+## Patch 0.0.48 - 2026-07-08 00:12
+
+Status:
+- implemented
+
+Summary:
+- gold economy rework: taxes from free villagers, wages for workers, fuel-only wood upkeep
+
+Added:
+- taxes: every unassigned villager pays 0.01 Gold/s once the Town Hall reaches Lv3
+  (the money economy "formalises with a proper town"); idle population finally has a
+  designed role (the old F4 finding)
+- wages: every building-job worker draws 0.005 Gold/s (reference/workers.js upkeep);
+  Forager / Wood Gatherer / Stone Collector are family labour (no wage); Scholar keeps
+  its special 0.05 Gold/s; Guards/Soldiers pay the wage on top of their food upkeep
+- wage strike: with an empty treasury and wages exceeding income, wage earners drop to
+  50% output until gold flows again - self-correcting, chronicled, and shown on the
+  gold chip (red frame + tooltip warning)
+- reference/formulas.js `taxation` block (rates + TH gate + strike multiplier)
+
+Changed:
+- building wood upkeep now applies ONLY to fuel buildings (Town Hall hearth, Smelter,
+  Winery, Tavern); all other buildings' upkeepBase is 0 - their cost is the wage bill
+- the old per-level gold "administration" upkeep (goldGates) is retired
+- gold is no longer locked behind Gold Mining research: the chip unlocks at TH Lv3
+  ("Taxes begin at Town Hall Lv3"); Gold Mining now just unlocks the Gold Mine
+- Gold Mining tech description updated
+
+Validated (36h bot simulation, greedy player):
+- TH2 day 20 (baseline 38 - the early opener actually got FASTER thanks to zero
+  early upkeep + objective rewards), TH30 day 345 (~5.75h optimal), full tech tree by ~6h
+- no walls, no death spirals; a short self-healing strike window right after wages
+  activate (greedy over-assignment), gone by day ~65
+- endgame: 373 free villagers earn +21 Gold/s - big villages are now rich villages
+
+Docs:
+- formulas.md (Taxes & Wages section replaces Gold Gating), workers.md, patch-notes.md,
+  reference/patchNotes.js (regenerated mirror); smoke test 26/26
+
+
+---
+
+## Patch 0.0.49 - 2026-07-08 08:56
+
+Status:
+- implemented
+
+Summary:
+- removed passive punishment from idle/offline play
+
+Changed:
+- population no longer consumes Food passively; Food is now a growth gate and
+  progression resource rather than a death timer
+- empty Food pauses population growth instead of killing villagers or forcing
+  workers out of their roles
+- offline growth runs at 25% of active growth speed, so returning later can grow
+  the settlement without matching active-play speed
+- negative offline rates keep a small reserve (`max(1, 5% of cap)`) instead of
+  draining stockpiles all the way to zero while the player is away
+- free villagers still pay taxes from Town Hall Lv3, but assigned workers no
+  longer draw a standard wage; assigning a worker is now an opportunity cost
+  because they stop paying taxes while producing goods
+- Gold is no longer clamped to zero before Gold Mining, so Town Hall Lv3 taxes
+  work as documented
+
+Removed:
+- starvation deaths
+- starvation role-loss pressure
+- the 0.0.48 wage-strike system
+- standard `0.005 Gold/s` wages on regular production workers
+- passive building Wood upkeep across all current buildings
+
+Rebalanced:
+- `Village Rations` now gives Food production +3% instead of reducing removed
+  population upkeep
+- `Herbal Remedies` keeps its +6% growth support and no longer references food
+  upkeep
+- `Masonry` now reduces building Wood costs by 5% instead of reducing removed
+  building upkeep
+
+Docs:
+- formulas.md, workers.md, tech-tree.md, implemented.md, roadmap.md, handoff.md,
+  reference/buildings.js, reference/workers.js, reference/formulas.js,
+  reference/progression.js, reference/techTree.js, reference/patchNotes.js
+
+
+---
+
+## Patch 0.0.50 - 2026-07-08 09:05
+
+Status:
+- implemented
+
+Summary:
+- restored population Food upkeep as non-lethal growth pressure
+
+Changed:
+- population consumes Food again using the old tiered rates:
+  - 0.19 Food/s up to 6 population
+  - 0.25 Food/s up to 12 population
+  - 0.31 Food/s after that
+- Food shortages still do not kill villagers or remove workers; empty Food only
+  pauses population growth
+- offline play keeps the 0.0.49 safety behavior: slower growth and a small
+  reserve instead of total stockpile drain
+- `Village Rations` and `Herbal Remedies` once again reduce population Food
+  upkeep because that mechanic is active again
+
+Kept:
+- no standard worker wages
+- no wage strikes
+- no passive building Wood upkeep
+- no starvation deaths or starvation role loss
+
+Docs:
+- formulas.md, implemented.md, roadmap.md, handoff.md, tech-tree.md,
+  reference/formulas.js, reference/techTree.js, reference/patchNotes.js
+
+
+---
+
+## Patch 0.0.51 - 2026-07-08 09:27
+
+Status:
+- implemented
+
+Summary:
+- restored visible storage caps on resource chips and separated Knowledge from standard resources
+
+Changed:
+- resource chips now show `current/cap` again, e.g. `200/1000`, while keeping ETA and breakdown detail in the tooltip
+- Knowledge now sits at the far right of the resource row when there is horizontal room
+- Knowledge uses a subtle blue-tinted chip treatment to mark it as a special research resource
+
+Fixed:
+- removed the retired `starve` save-state field through save migration v10
+
+Docs:
+- reference/patchNotes.js

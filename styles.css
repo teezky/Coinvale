@@ -389,6 +389,14 @@ body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 .resourceTile.capped .resourceAmount{color:#eec27a}
 .res{gap:7px !important}
 
+/* --- 0.0.51: amount/cap returns to chips; Knowledge is separated at row end --- */
+.resourceTile .resourceAmount{font-variant-numeric:tabular-nums;min-width:5.8ch;text-align:right}
+.resourceTile.knowledgeResource{margin-left:auto;border-color:rgba(132,171,216,.42) !important;background:rgba(96,130,170,.12) !important}
+.resourceTile.knowledgeResource .resourceAmount{color:#d8e8ff}
+@media (max-width:700px){
+  .resourceTile.knowledgeResource{margin-left:0}
+}
+
 /* --- 0.0.45: objective card --- */
 .objectiveCard{margin-bottom:10px}
 .objName{font-weight:700;font-size:.95rem;margin-bottom:2px;color:#fff1cf}

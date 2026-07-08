@@ -276,10 +276,11 @@ let resourceRowSignature = '';
 function resourceTileMarkup(key, unlocked) {
   // Slim chip row (mockup-plots style): icon, amount/cap, net. ETA and the full
   // income/upkeep breakdown live in the tooltip. Locked: dimmed name + padlock.
+  const classes = `resourceTile${key === 'knowledge' ? ' knowledgeResource' : ''}${unlocked ? '' : ' lockedResource'}`;
   if (!unlocked) {
-    return `<div class='resourceTile lockedResource' data-resource='${key}' data-tip=''><span class='resIcon'>${resourceIcon(key)}</span><span class='small resName'>${RESOURCES[key].name}</span><span class='lockGlyph' aria-hidden='true'>&#128274;</span></div>`;
+    return `<div class='${classes}' data-resource='${key}' data-tip=''><span class='resIcon'>${resourceIcon(key)}</span><span class='small resName'>${RESOURCES[key].name}</span><span class='lockGlyph' aria-hidden='true'>&#128274;</span></div>`;
   }
-  return `<div class='resourceTile' data-resource='${key}' data-tip=''><span class='resIcon'>${resourceIcon(key)}</span><b class='resourceAmount'></b><span class='small resourceNet'></span></div>`;
+  return `<div class='${classes}' data-resource='${key}' data-tip=''><span class='resIcon'>${resourceIcon(key)}</span><b class='resourceAmount'></b><span class='small resourceNet'></span></div>`;
 }
 
 function renderResources() {
@@ -306,12 +307,11 @@ function renderResources() {
     const incomeRows = unlocked ? incomeBreakdownRows(incomeContributions, key) : [];
     const upkeepRows = unlocked ? upkeepBreakdownRows(upkeepContributionList, key) : [];
     const info = unlocked
-      ? `${RESOURCES[key].name}: income ${fmt(gains[key])}/s, upkeep ${fmt(costs[key])}/s, net ${fmt(netValue)}/s.\n${statusText}${incomeRows.length ? `\n\nIncome Breakdown:\n${incomeRows.join('\n')}` : ''}${upkeepRows.length ? `\n\nUpkeep Breakdown:\n${upkeepRows.join('\n')}` : ''}`
+      ? `${RESOURCES[key].name}: ${statusText}${incomeRows.length ? `\n\nIncome Breakdown:\n${incomeRows.join('\n')}` : ''}${upkeepRows.length ? `\n\nUpkeep Breakdown:\n${upkeepRows.join('\n')}` : ''}`
       : `${RESOURCES[key].name}: locked.\n${resourceUnlockText(key)}\n\nThis resource stays at zero until its economy is unlocked.`;
     tile.dataset.tip = info;
     if (!unlocked) continue; // locked chip is static; the tooltip carries the unlock hint
-    tile.querySelector('.resourceAmount').textContent = `${Math.floor(gameState.resources[key].current)}`;
-    // exact cap lives in the tooltip; the chip only warns when storage is nearly full
+    tile.querySelector('.resourceAmount').textContent = `${Math.floor(gameState.resources[key].current)}/${Math.floor(cap)}`;
     tile.classList.toggle('capped', cap > 0 && gameState.resources[key].current / cap >= 0.95);
     const netEl = tile.querySelector('.resourceNet');
     netEl.textContent = `${netValue >= 0 ? '+' : ''}${fmt(netValue)}/s`;
@@ -854,7 +854,7 @@ function handleResearchAction(key) {
     fieldRotation: 'Field Rotation researched. Farms now scale better in the early game.',
     craftsmanship: 'Workshop unlocked.',
     storehousePlanning: 'Warehouse unlocked.',
-    goldMining: 'Gold Mining researched. Gold can now enter your economy.',
+    goldMining: 'Gold Mining researched. Gold Mines can now add mined gold to village taxes.',
     viticulture: 'Viticulture researched. Vineyards can now be built.',
     vintagePress: 'Vintage Press researched. Wineries are now available.',
     tavernCulture: 'Tavern Culture researched. Taverns can now improve growth through happiness.',
